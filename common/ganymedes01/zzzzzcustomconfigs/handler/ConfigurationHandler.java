@@ -2,8 +2,10 @@ package ganymedes01.zzzzzcustomconfigs.handler;
 
 import ganymedes01.zzzzzcustomconfigs.lib.Files;
 import ganymedes01.zzzzzcustomconfigs.lib.Reference;
+import ganymedes01.zzzzzcustomconfigs.registers.BlacklistedEntities;
 import ganymedes01.zzzzzcustomconfigs.registers.CraftingRecipes;
 import ganymedes01.zzzzzcustomconfigs.registers.OreDictionaryRegister;
+import ganymedes01.zzzzzcustomconfigs.registers.RemoveRecipes;
 import ganymedes01.zzzzzcustomconfigs.registers.SmeltingRegister;
 
 import java.io.BufferedReader;
@@ -26,6 +28,8 @@ public class ConfigurationHandler {
 	private static final int SHAPED = 2;
 	private static final int SHAPELESS = 3;
 	private static final int ORE_DICT_SMELTING = 4;
+	private static final int BLACKLIST_ENTITY = 5;
+	private static final int REMOVE_RECIPE = 6;
 
 	private final static Logger logger = Logger.getLogger(Reference.MOD_ID.toUpperCase());
 
@@ -40,6 +44,7 @@ public class ConfigurationHandler {
 			registerFile(Files.getSmeltingFile(), SMELTING);
 			registerFile(Files.getShapedRecipesFile(), SHAPED);
 			registerFile(Files.getShapedOreDictRecipesFile(), SHAPELESS);
+			registerFile(Files.getBlacklistEntityFile(), BLACKLIST_ENTITY);
 
 		} catch (IOException e) {
 			FMLLog.log(Level.SEVERE, e, Reference.MOD_NAME + " has had a problem pre-initialising its configuration");
@@ -51,6 +56,7 @@ public class ConfigurationHandler {
 		try {
 
 			registerFile(Files.getOreDictSmeltingFile(), ORE_DICT_SMELTING);
+			registerFile(Files.getRemoveRecipeFile(), REMOVE_RECIPE);
 
 		} catch (IOException e) {
 			FMLLog.log(Level.SEVERE, e, Reference.MOD_NAME + " has had a problem initialising its configuration");
@@ -80,6 +86,12 @@ public class ConfigurationHandler {
 					break;
 				case ORE_DICT_SMELTING:
 					SmeltingRegister.registerOreDictSmeltingFromString(logger, line);
+					break;
+				case BLACKLIST_ENTITY:
+					BlacklistedEntities.blacklistEntityFromLine(logger, line);
+					break;
+				case REMOVE_RECIPE:
+					RemoveRecipes.removeRecipeFromLine(logger, line);
 					break;
 			}
 	}

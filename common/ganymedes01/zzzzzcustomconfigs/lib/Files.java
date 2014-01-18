@@ -14,6 +14,8 @@ public class Files {
 	private static final String ORE_DICTIONARY_SMELTING = "OreDictSmelting";
 	private static final String SHAPED_RECIPE = "ShapedRecipe";
 	private static final String SHAPELESS_RECIPE = "ShapelessRecipe";
+	private static final String ENTITY_BLACKLIST = "EntityBlacklist";
+	private static final String REMOVE_RECIPE = "RemoveRecipe";
 
 	private static final String ORE_DICTIONARY_DEFAULT = "# oreName, itemID, itemMetadata #";
 	private static final String SMELTING_DEFAULT = "# inputID, inputMetadata, outputID, outputAmount, outputMetadata, xp #";
@@ -21,6 +23,8 @@ public class Files {
 	private static final String SHAPED_RECIPE_DEFAULT = "# resultID, resultAmount, resultMetadata, topRow, middleRow, bottomRow, (ingredIdentifier, ingredID, ingredMetada)... #\n" + "# Diamond sword recipe example: 276, 0, 0, x, x, y, x, 264, 0, y, 280, 0 #\n"
 	+ "# If is empty leave it blank. Example: xx, , xx\n" + "# L shaped recipe example (leave an actual blank space where it says (space)): (space)(space)x, (space)(space)x, xxx #";
 	private static final String SHAPELESS_RECIPE_DEFAULT = "# resultID, resultAmount, resultMetadata, (inputId, inputMetadata)... #\n" + "# Example of recipe for bedrock using stone, dirt and grass: 7, 1, 0, 1, 0, 2, 0, 3, 0 #";
+	private static final String ENTITY_BLACKLIST_DEFAULT = "# entityName #\n" + "# One name per line. Example: #\n" + "# Creeper";
+	private static final String REMOVE_RECIPE_DEFAULT = "# outpudID, outputMetadata #\n" + "# All the shaped and shapeless recipes for the items in this file will be removed #";
 
 	public static void setPath(String path) {
 		Files.path = path + File.separator + Reference.MOD_ID + File.separator;
@@ -47,6 +51,14 @@ public class Files {
 
 	public static File getShapedOreDictRecipesFile() throws IOException {
 		return getFile(SHAPELESS_RECIPE, SHAPELESS_RECIPE_DEFAULT);
+	}
+
+	public static File getBlacklistEntityFile() throws IOException {
+		return getFile(ENTITY_BLACKLIST, ENTITY_BLACKLIST_DEFAULT);
+	}
+
+	public static File getRemoveRecipeFile() throws IOException {
+		return getFile(REMOVE_RECIPE, REMOVE_RECIPE_DEFAULT);
 	}
 
 	public static File getFile(String name, String heading) throws IOException {
