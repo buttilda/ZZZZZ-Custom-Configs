@@ -10,8 +10,7 @@ public class HandlerEvents {
 
 	@ForgeSubscribe
 	public void entitySpawnEvent(CheckSpawn event) {
-		String name = (String) EntityList.classToStringMapping.get(event.entityLiving.getClass());
-		if (BlacklistedEntities.entityBlacklist.contains(name))
+		if (BlacklistedEntities.entityBlacklist.contains(EntityList.getEntityString(event.entityLiving).toLowerCase()))
 			event.setResult(Result.DENY);
 	}
 }
