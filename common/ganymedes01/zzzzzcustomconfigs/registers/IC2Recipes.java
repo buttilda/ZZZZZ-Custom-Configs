@@ -19,29 +19,30 @@ public class IC2Recipes {
 
 		String recipeID = data[0];
 
-		if (recipeID.equalsIgnoreCase("macerator"))
-			logger.log(Level.INFO, "\tRegistered Macerator recipe for: " + data[1]);
-		else if (recipeID.equalsIgnoreCase("extractor")) {
+		if (recipeID.equalsIgnoreCase("macerator")) {
+			addMaceratorRecipe(getInputFromArray(data), getOutputs(canParse(data[1]) ? 4 : 3, data)[0]);
+			logger.log(Level.INFO, "\tRegistered Macerator recipe input: " + data[1]);
+		} else if (recipeID.equalsIgnoreCase("extractor")) {
 			addExtractorRecipe(getInputFromArray(data), getOutputs(canParse(data[1]) ? 4 : 3, data)[0]);
-			logger.log(Level.INFO, "\tRegistered Extractor recipe for: " + data[1]);
+			logger.log(Level.INFO, "\tRegistered Extractor recipe input: " + data[1]);
 		} else if (recipeID.equalsIgnoreCase("compressor")) {
 			addCompressorRecipe(getInputFromArray(data), getOutputs(canParse(data[1]) ? 4 : 3, data)[0]);
-			logger.log(Level.INFO, "\tRegistered Compressor recipe for: " + data[1]);
+			logger.log(Level.INFO, "\tRegistered Compressor recipe input: " + data[1]);
 		} else if (recipeID.equalsIgnoreCase("centrifuge")) {
 			addThermalCentrifugeRecipe(getInputFromArray(data), getInt(data[canParse(data[1]) ? 4 : 3]), getOutputs(canParse(data[1]) ? 5 : 4, data));
-			logger.log(Level.INFO, "\tRegistered Thermal Centrifuge recipe for: " + data[1]);
+			logger.log(Level.INFO, "\tRegistered Thermal Centrifuge recipe input: " + data[1]);
 		} else if (recipeID.equalsIgnoreCase("metalformerExtruding")) {
 			addRecipeExtruding(getInputFromArray(data), getOutputs(canParse(data[1]) ? 4 : 3, data)[0]);
-			logger.log(Level.INFO, "\tRegistered Metal Former - Extruding recipe for: " + data[1]);
+			logger.log(Level.INFO, "\tRegistered Metal Former - Extruding recipe input: " + data[1]);
 		} else if (recipeID.equalsIgnoreCase("metalformerCutting")) {
 			addRecipeCutting(getInputFromArray(data), getOutputs(canParse(data[1]) ? 4 : 3, data)[0]);
-			logger.log(Level.INFO, "\tRegistered Metal Former - Cutting recipe for: " + data[1]);
+			logger.log(Level.INFO, "\tRegistered Metal Former - Cutting recipe input: " + data[1]);
 		} else if (recipeID.equalsIgnoreCase("metalformerRolling")) {
 			addRecipeRolling(getInputFromArray(data), getOutputs(canParse(data[1]) ? 4 : 3, data)[0]);
-			logger.log(Level.INFO, "\tRegistered Metal Former - Rolling recipe for: " + data[1]);
+			logger.log(Level.INFO, "\tRegistered Metal Former - Rolling recipe input: " + data[1]);
 		} else if (recipeID.equalsIgnoreCase("oreWashing")) {
 			addOreWashingRecipe(getInputFromArray(data), getOutputs(canParse(data[1]) ? 4 : 3, data));
-			logger.log(Level.INFO, "\tRegistered Ore Washing Plant recipe for: " + data[1]);
+			logger.log(Level.INFO, "\tRegistered Ore Washing Plant recipe input: " + data[1]);
 		}
 	}
 
