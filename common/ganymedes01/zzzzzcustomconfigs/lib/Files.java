@@ -16,15 +16,17 @@ public class Files {
 	private static final String SHAPELESS_RECIPE = "ShapelessRecipe";
 	private static final String ENTITY_BLACKLIST = "EntityBlacklist";
 	private static final String REMOVE_RECIPE = "RemoveRecipe";
+	private static final String IC2_RECIPE = "IC2Recipe";
 
 	private static final String ORE_DICTIONARY_DEFAULT = "# oreName, itemID, itemMetadata #";
 	private static final String SMELTING_DEFAULT = "# inputID, inputMetadata, outputID, outputAmount, outputMetadata, xp #";
 	private static final String ORE_DICTIONARY_SMELTING_DEFAULT = "# oreName, outputID, outputAmount, outputMetadata, xp #\n" + "# Will override recipes from vanilla and mods loaded previously #";
-	private static final String SHAPED_RECIPE_DEFAULT = "# resultID, resultAmount, resultMetadata, topRow, middleRow, bottomRow, (ingredIdentifier, ingredID, ingredMetada)... #\n" + "# Diamond sword recipe example: 276, 0, 0, x, x, y, x, 264, 0, y, 280, 0 #\n"
-	+ "# If is empty leave it blank. Example: xx, , xx\n" + "# L shaped recipe example (leave an actual blank space where it says (space)): (space)(space)x, (space)(space)x, xxx #";
+	private static final String SHAPED_RECIPE_DEFAULT = "# resultID, resultAmount, resultMetadata, topRow, middleRow, bottomRow, (ingredIdentifier, ingredID, ingredMetada)... #\n" + "# Diamond sword recipe example: 276, 0, 0, x, x, y, x, 264, 0, y, 280, 0 #\n" + "# If is empty leave it blank. Example: xx, , xx\n" + "# L shaped recipe example (leave an actual blank space where it says (space)): (space)(space)x, (space)(space)x, xxx #";
 	private static final String SHAPELESS_RECIPE_DEFAULT = "# resultID, resultAmount, resultMetadata, (inputId, inputMetadata)... #\n" + "# Example of recipe for bedrock using stone, dirt and grass: 7, 1, 0, 1, 0, 2, 0, 3, 0 #";
 	private static final String ENTITY_BLACKLIST_DEFAULT = "# entityName #\n" + "# One name per line. Example: #\n" + "# Creeper";
 	private static final String REMOVE_RECIPE_DEFAULT = "# outpudID, outputMetadata #\n" + "# All the shaped and shapeless recipes for the items in this file will be removed #";
+	private static final String IC2_RECIPE_DEFAULT = "# machineID, inputOreDict, inputSize, extra(some don't need it) ,outputID, outputAmount, outputMetadata... #\n" + "# Types: macerator, extractor, compressor, centrifuge, metalformerExtruding, metalformerCutting, metalformerRolling, oreWashing #\n" + "# Examples: #\n" + "# Macerating 1 dust copper yields a diamond sword #\n" + "# macerator, dustCopper, 1, 276, 1, 0 #\n"
+	+ "# Thermal Centrifuge, with min heat of 1000, 1 diamond sword yields a 2 diamonds and a stick #\n" + "# centrifuge, 276,1,0, 264,2,0, 280,1,0 #";
 
 	public static void setPath(String path) {
 		Files.path = path + File.separator + Reference.MOD_ID + File.separator;
@@ -59,6 +61,10 @@ public class Files {
 
 	public static File getRemoveRecipeFile() throws IOException {
 		return getFile(REMOVE_RECIPE, REMOVE_RECIPE_DEFAULT);
+	}
+
+	public static File getIC2RecipeFile() throws IOException {
+		return getFile(IC2_RECIPE, IC2_RECIPE_DEFAULT);
 	}
 
 	public static File getFile(String name, String heading) throws IOException {
