@@ -8,6 +8,7 @@ import ganymedes01.zzzzzcustomconfigs.registers.IC2Recipes;
 import ganymedes01.zzzzzcustomconfigs.registers.OreDictionaryRegister;
 import ganymedes01.zzzzzcustomconfigs.registers.RemoveRecipes;
 import ganymedes01.zzzzzcustomconfigs.registers.SmeltingRegister;
+import ganymedes01.zzzzzcustomconfigs.registers.TC4AspectsRegister;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -32,6 +33,7 @@ public class ConfigurationHandler {
 	private static final int BLACKLIST_ENTITY = 5;
 	private static final int REMOVE_RECIPE = 6;
 	private static final int IC2_RECIPE = 7;
+	private static final int TC4_ASPECTS = 8;
 
 	private final static Logger logger = Logger.getLogger(Reference.MOD_ID.toUpperCase());
 
@@ -60,6 +62,7 @@ public class ConfigurationHandler {
 			registerFile(Files.getOreDictSmeltingFile(), ORE_DICT_SMELTING);
 			registerFile(Files.getRemoveRecipeFile(), REMOVE_RECIPE);
 			registerFile(Files.getIC2RecipeFile(), IC2_RECIPE);
+			registerFile(Files.getTC4AspectsFile(), TC4_ASPECTS);
 
 		} catch (IOException e) {
 			FMLLog.log(Level.SEVERE, e, Reference.MOD_NAME + " has had a problem initialising its configuration");
@@ -98,6 +101,9 @@ public class ConfigurationHandler {
 					break;
 				case IC2_RECIPE:
 					IC2Recipes.registerRecipes(logger, line);
+					break;
+				case TC4_ASPECTS:
+					TC4AspectsRegister.registerAspects(logger, line);
 					break;
 			}
 	}

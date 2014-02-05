@@ -2,8 +2,8 @@
 {
   "modid": "zzzzzcustomconfigs",
   "name": "ZZZZZ Custom Configs",
-  "description": "Allows for setting your own recipes, smelting, or registering items with the ore dictionary via config files! (Use at your own risk, if you don't use it carefully you will crash your game or cause weird recipe bugs. Has the potential to override recipes)",
-  "version": "1.1.0",
+  "description": "Allows for changing several aspects of the game. Create recipes, remove recipes, prevent spawns and several other things",
+  "version": "1.2.0",
   "url": "",
   "updateUrl": "",
   "authorList": [
