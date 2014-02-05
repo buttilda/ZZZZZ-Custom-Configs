@@ -19,6 +19,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import cpw.mods.fml.common.FMLLog;
+import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 
 public class ConfigurationHandler {
@@ -61,8 +62,10 @@ public class ConfigurationHandler {
 
 			registerFile(Files.getOreDictSmeltingFile(), ORE_DICT_SMELTING);
 			registerFile(Files.getRemoveRecipeFile(), REMOVE_RECIPE);
-			registerFile(Files.getIC2RecipeFile(), IC2_RECIPE);
-			registerFile(Files.getTC4AspectsFile(), TC4_ASPECTS);
+			if (Loader.isModLoaded("IC2"))
+				registerFile(Files.getIC2RecipeFile(), IC2_RECIPE);
+			if (Loader.isModLoaded("Thaumcraft"))
+				registerFile(Files.getTC4AspectsFile(), TC4_ASPECTS);
 
 		} catch (IOException e) {
 			FMLLog.log(Level.SEVERE, e, Reference.MOD_NAME + " has had a problem initialising its configuration");
