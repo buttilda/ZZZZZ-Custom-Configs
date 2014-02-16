@@ -17,7 +17,7 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
 
 @Mod(modid = Reference.MOD_ID, name = Reference.MOD_NAME, version = Reference.VERSION_NUMBER, dependencies = Reference.DEPENDENCIES)
-@NetworkMod(channels = { Reference.MOD_NAME }, clientSideRequired = true, serverSideRequired = true)
+@NetworkMod(clientSideRequired = true, serverSideRequired = true)
 public class ZZZZZCustomConfigs {
 
 	@Instance(Reference.MOD_ID)
