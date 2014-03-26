@@ -14,17 +14,20 @@ public class RemoveRecipes {
 	public static void removeRecipeFromLine(Logger logger, String line) {
 		int itemID = Integer.parseInt(line.split(",")[0]);
 		int meta = Integer.parseInt(line.split(",")[1]);
-		int recipeCount = 0;
 
-		ArrayList<IRecipe> list = (ArrayList<IRecipe>) CraftingManager.getInstance().getRecipeList();
-		for (int i = 0; i < list.size(); i++) {
-			ItemStack output = list.get(i).getRecipeOutput();
+		ArrayList<IRecipe> list = new ArrayList<IRecipe>();
+		for (int i = 0; i < CraftingManager.getInstance().getRecipeList().size(); i++) {
+			IRecipe recipe = (IRecipe) CraftingManager.getInstance().getRecipeList().get(i);
+			ItemStack output = recipe.getRecipeOutput();
 			if (output != null)
-				if (output.itemID == itemID && output.getItemDamage() == meta) {
-					CraftingManager.getInstance().getRecipeList().remove(i);
-					recipeCount++;
-				}
+				if (output.itemID == itemID && output.getItemDamage() == meta)
+					list.add(recipe);
 		}
-		logger.log(Level.INFO, "\tRemoved " + recipeCount + " recipe" + (recipeCount > 1 ? "s" : "") + " for " + Item.itemsList[itemID].getUnlocalizedName(new ItemStack(itemID, 1, meta)));
+
+		int recipeCount = list.size();
+		for (IRecipe recipe : list)
+			CraftingManager.getInstance().getRecipeList().remove(recipe);
+
+		logger.log(Level.INFO, "\tRemoved " + recipeCount + " recipe" + (recipeCount > 1 || recipeCount == 0 ? "s" : "") + " for " + Item.itemsList[itemID].getUnlocalizedName(new ItemStack(itemID, 1, meta)));
 	}
 }

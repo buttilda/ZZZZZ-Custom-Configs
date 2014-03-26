@@ -61,7 +61,6 @@ public class ConfigurationHandler {
 		try {
 
 			registerFile(Files.getOreDictSmeltingFile(), ORE_DICT_SMELTING);
-			registerFile(Files.getRemoveRecipeFile(), REMOVE_RECIPE);
 			if (Loader.isModLoaded("IC2"))
 				registerFile(Files.getIC2RecipeFile(), IC2_RECIPE);
 			if (Loader.isModLoaded("Thaumcraft"))
@@ -69,6 +68,17 @@ public class ConfigurationHandler {
 
 		} catch (IOException e) {
 			FMLLog.log(Level.SEVERE, e, Reference.MOD_NAME + " has had a problem initialising its configuration");
+			throw new RuntimeException(e);
+		}
+	}
+
+	public static void serverStarting() {
+		try {
+
+			registerFile(Files.getRemoveRecipeFile(), REMOVE_RECIPE);
+
+		} catch (IOException e) {
+			FMLLog.log(Level.SEVERE, e, Reference.MOD_NAME + " has had a problem removing recipes");
 			throw new RuntimeException(e);
 		}
 	}
