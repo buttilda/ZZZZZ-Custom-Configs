@@ -60,6 +60,7 @@ public class ConfigurationHandler {
 	public static void init() {
 		try {
 
+			registerFile(Files.getRemoveRecipeFile(), REMOVE_RECIPE);
 			registerFile(Files.getOreDictSmeltingFile(), ORE_DICT_SMELTING);
 			if (Loader.isModLoaded("IC2"))
 				registerFile(Files.getIC2RecipeFile(), IC2_RECIPE);
