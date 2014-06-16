@@ -9,39 +9,42 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.oredict.OreDictionary;
 
 public class IC2Recipes {
 
 	public static void registerRecipes(Logger logger, String line) {
-		String[] data = line.split(",");
+		String[] exp = line.split("=");
+		String[] data = exp[1].trim().split(",");
 
-		String recipeID = data[0];
+		String recipeID = exp[0].trim();
 
 		if (recipeID.equalsIgnoreCase("macerator")) {
-			addMaceratorRecipe(getInputFromArray(data), getOutputs(canParse(data[1]) ? 4 : 3, data)[0]);
+			addMaceratorRecipe(getInputFromArray(data), getOutputs(canParse(data[0]) ? 3 : 2, data)[0]);
 			logger.log(Level.INFO, "\tRegistered Macerator recipe input: " + data[1]);
 		} else if (recipeID.equalsIgnoreCase("extractor")) {
-			addExtractorRecipe(getInputFromArray(data), getOutputs(canParse(data[1]) ? 4 : 3, data)[0]);
+			addExtractorRecipe(getInputFromArray(data), getOutputs(canParse(data[0]) ? 3 : 2, data)[0]);
 			logger.log(Level.INFO, "\tRegistered Extractor recipe input: " + data[1]);
 		} else if (recipeID.equalsIgnoreCase("compressor")) {
-			addCompressorRecipe(getInputFromArray(data), getOutputs(canParse(data[1]) ? 4 : 3, data)[0]);
+			addCompressorRecipe(getInputFromArray(data), getOutputs(canParse(data[0]) ? 3 : 2, data)[0]);
 			logger.log(Level.INFO, "\tRegistered Compressor recipe input: " + data[1]);
 		} else if (recipeID.equalsIgnoreCase("centrifuge")) {
-			addThermalCentrifugeRecipe(getInputFromArray(data), getInt(data[canParse(data[1]) ? 4 : 3]), getOutputs(canParse(data[1]) ? 5 : 4, data));
+			addThermalCentrifugeRecipe(getInputFromArray(data), getInt(data[canParse(data[0]) ? 3 : 2]), getOutputs(canParse(data[0]) ? 4 : 3, data));
 			logger.log(Level.INFO, "\tRegistered Thermal Centrifuge recipe input: " + data[1]);
 		} else if (recipeID.equalsIgnoreCase("metalformerExtruding")) {
-			addRecipeExtruding(getInputFromArray(data), getOutputs(canParse(data[1]) ? 4 : 3, data)[0]);
+			addRecipeExtruding(getInputFromArray(data), getOutputs(canParse(data[0]) ? 3 : 2, data)[0]);
 			logger.log(Level.INFO, "\tRegistered Metal Former - Extruding recipe input: " + data[1]);
 		} else if (recipeID.equalsIgnoreCase("metalformerCutting")) {
-			addRecipeCutting(getInputFromArray(data), getOutputs(canParse(data[1]) ? 4 : 3, data)[0]);
+			addRecipeCutting(getInputFromArray(data), getOutputs(canParse(data[0]) ? 3 : 2, data)[0]);
 			logger.log(Level.INFO, "\tRegistered Metal Former - Cutting recipe input: " + data[1]);
 		} else if (recipeID.equalsIgnoreCase("metalformerRolling")) {
-			addRecipeRolling(getInputFromArray(data), getOutputs(canParse(data[1]) ? 4 : 3, data)[0]);
+			addRecipeRolling(getInputFromArray(data), getOutputs(canParse(data[0]) ? 3 : 2, data)[0]);
 			logger.log(Level.INFO, "\tRegistered Metal Former - Rolling recipe input: " + data[1]);
 		} else if (recipeID.equalsIgnoreCase("oreWashing")) {
-			addOreWashingRecipe(getInputFromArray(data), getOutputs(canParse(data[1]) ? 4 : 3, data));
+			addOreWashingRecipe(getInputFromArray(data), getOutputs(canParse(data[0]) ? 3 : 2, data));
 			logger.log(Level.INFO, "\tRegistered Ore Washing Plant recipe input: " + data[1]);
 		}
 	}
@@ -94,14 +97,14 @@ public class IC2Recipes {
 	}
 
 	private static IRecipeInput getInputFromArray(String... data) {
-		if (canParse(data[1]))
-			return new RecipeInputItemStack(getItemStack(data[1], data[2], data[3]));
+		if (canParse(data[0]))
+			return new RecipeInputItemStack(getItemStack(data[0], data[1], data[2]));
 		else
-			return new RecipeInputOreDict(data[1].trim(), getInt(data[2]));
+			return new RecipeInputOreDict(data[0].trim(), getInt(data[1]));
 	}
 
 	private static ItemStack getItemStack(String... data) {
-		return new ItemStack(getInt(data[0]), getInt(data[1]), getInt(data[2]));
+		return new ItemStack((Item)Item.itemRegistry.getObject(data[0].trim()), getInt(data[1]), getInt(data[2]));
 	}
 
 	private static int getInt(String text) {
@@ -109,13 +112,6 @@ public class IC2Recipes {
 	}
 
 	private static boolean canParse(String data) {
-		boolean ret;
-		try {
-			Integer.parseInt(data.trim());
-			ret = true;
-		} catch (NumberFormatException e) {
-			ret = false;
-		}
-		return ret;
+		return OreDictionary.getOres(data).isEmpty();
 	}
 }

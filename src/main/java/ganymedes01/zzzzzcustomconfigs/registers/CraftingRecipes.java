@@ -21,7 +21,7 @@ public class CraftingRecipes {
 			return;
 		}
 
-		Integer outputID;
+		String outputID;
 		Integer outputSize;
 		Integer outputMeta;
 
@@ -31,7 +31,7 @@ public class CraftingRecipes {
 
 		HashMap<Character, ItemStack> map;
 		try {
-			outputID = Integer.parseInt(data[0].trim());
+			outputID = data[0].trim();
 			outputSize = Integer.parseInt(data[1].trim());
 			outputMeta = Integer.parseInt(data[2].trim());
 
@@ -43,7 +43,7 @@ public class CraftingRecipes {
 			int remaining = data.length - 6;
 			int index = 1;
 			for (int i = 0; i < remaining / 3; i++) {
-				map.put(data[5 + index].trim().charAt(0), new ItemStack(Integer.parseInt(data[6 + index].trim()), 1, Integer.parseInt(data[7 + index].trim())));
+				map.put(data[5 + index].trim().charAt(0), new ItemStack((Item) Item.itemRegistry.getObject(data[6 + index].trim()), 1, Integer.parseInt(data[7 + index].trim())));
 				index += 3;
 			}
 
@@ -52,7 +52,8 @@ public class CraftingRecipes {
 			return;
 		}
 
-		if (outputID >= Item.itemsList.length || Item.itemsList[outputID] == null) {
+		Item output = (Item) Item.itemRegistry.getObject(outputID);
+		if (output == null) {
 			logger.log(Level.SEVERE, String.format(Logs.INVALID_ID + line, "shaped recipe"));
 			return;
 		}
@@ -69,8 +70,8 @@ public class CraftingRecipes {
 			list.add(entry.getKey());
 			list.add(entry.getValue());
 		}
-		GameRegistry.addRecipe(new ItemStack(outputID, outputSize, outputMeta), list.toArray(new Object[0]));
-		logger.log(Level.INFO, "\tRegistered shaped recipe for " + Item.itemsList[outputID].getUnlocalizedName(new ItemStack(outputID, 1, outputMeta)));
+		GameRegistry.addRecipe(new ItemStack(output, outputSize, outputMeta), list.toArray(new Object[0]));
+		logger.log(Level.INFO, "\tRegistered shaped recipe for " + output.getUnlocalizedName(new ItemStack(output, 1, outputMeta)));
 	}
 
 	public static void registerShapelessRecipeFromLine(Logger logger, String line) {
@@ -80,13 +81,13 @@ public class CraftingRecipes {
 			return;
 		}
 
-		Integer outputID;
+		String outputID;
 		Integer outputSize;
 		Integer outputMeta;
 
 		ArrayList<Object> inputs;
 		try {
-			outputID = Integer.parseInt(data[0].trim());
+			outputID = data[0].trim();
 			outputSize = Integer.parseInt(data[1].trim());
 			outputMeta = Integer.parseInt(data[2].trim());
 
@@ -94,7 +95,7 @@ public class CraftingRecipes {
 			int remaining = data.length - 3;
 			int index = 1;
 			for (int i = 0; i < remaining / 2; i++) {
-				inputs.add(new ItemStack(Integer.parseInt(data[2 + index].trim()), 1, Integer.parseInt(data[3 + index].trim())));
+				inputs.add(new ItemStack((Item) Item.itemRegistry.getObject(data[2 + index].trim()), 1, Integer.parseInt(data[3 + index].trim())));
 				index += 2;
 			}
 
@@ -103,12 +104,13 @@ public class CraftingRecipes {
 			return;
 		}
 
-		if (outputID >= Item.itemsList.length || Item.itemsList[outputID] == null) {
+		Item output = (Item) Item.itemRegistry.getObject(outputID);
+		if (output == null) {
 			logger.log(Level.SEVERE, String.format(Logs.INVALID_ID + line, "shapeless recipe"));
 			return;
 		}
 
-		GameRegistry.addShapelessRecipe(new ItemStack(outputID, outputSize, outputMeta), inputs.toArray(new Object[0]));
-		logger.log(Level.INFO, "\tRegistered shapeless recipe for " + Item.itemsList[outputID].getUnlocalizedName(new ItemStack(outputID, 1, outputMeta)));
+		GameRegistry.addShapelessRecipe(new ItemStack(output, outputSize, outputMeta), inputs.toArray(new Object[0]));
+		logger.log(Level.INFO, "\tRegistered shapeless recipe for " + output.getUnlocalizedName(new ItemStack(output, 1, outputMeta)));
 	}
 }

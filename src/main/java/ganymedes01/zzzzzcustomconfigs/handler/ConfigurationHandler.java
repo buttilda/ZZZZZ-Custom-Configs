@@ -18,7 +18,6 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 
@@ -38,21 +37,15 @@ public class ConfigurationHandler {
 
 	private final static Logger logger = Logger.getLogger(Reference.MOD_ID.toUpperCase());
 
-	static {
-		logger.setParent(FMLLog.getLogger());
-	}
-
 	public static void preInit(FMLPreInitializationEvent event) {
 		try {
 
 			registerFile(Files.getOreDictionaryFile(), ORE_DICT);
 			registerFile(Files.getSmeltingFile(), SMELTING);
-			registerFile(Files.getShapedRecipesFile(), SHAPED);
-			registerFile(Files.getShapedOreDictRecipesFile(), SHAPELESS);
 			registerFile(Files.getBlacklistEntityFile(), BLACKLIST_ENTITY);
 
 		} catch (IOException e) {
-			FMLLog.log(Level.SEVERE, e, Reference.MOD_NAME + " has had a problem pre-initialising its configuration");
+			logger.log(Level.SEVERE, Reference.MOD_NAME + " has had a problem pre-initialising its configuration");
 			throw new RuntimeException(e);
 		}
 	}
@@ -60,7 +53,6 @@ public class ConfigurationHandler {
 	public static void init() {
 		try {
 
-			registerFile(Files.getRemoveRecipeFile(), REMOVE_RECIPE);
 			registerFile(Files.getOreDictSmeltingFile(), ORE_DICT_SMELTING);
 			if (Loader.isModLoaded("IC2"))
 				registerFile(Files.getIC2RecipeFile(), IC2_RECIPE);
@@ -68,7 +60,7 @@ public class ConfigurationHandler {
 				registerFile(Files.getTC4AspectsFile(), TC4_ASPECTS);
 
 		} catch (IOException e) {
-			FMLLog.log(Level.SEVERE, e, Reference.MOD_NAME + " has had a problem initialising its configuration");
+			logger.log(Level.SEVERE, Reference.MOD_NAME + " has had a problem initialising its configuration");
 			throw new RuntimeException(e);
 		}
 	}
@@ -77,9 +69,11 @@ public class ConfigurationHandler {
 		try {
 
 			registerFile(Files.getRemoveRecipeFile(), REMOVE_RECIPE);
+			registerFile(Files.getShapedRecipesFile(), SHAPED);
+			registerFile(Files.getShapedOreDictRecipesFile(), SHAPELESS);
 
 		} catch (IOException e) {
-			FMLLog.log(Level.SEVERE, e, Reference.MOD_NAME + " has had a problem removing recipes");
+			logger.log(Level.SEVERE, Reference.MOD_NAME + " has had a problem removing recipes");
 			throw new RuntimeException(e);
 		}
 	}

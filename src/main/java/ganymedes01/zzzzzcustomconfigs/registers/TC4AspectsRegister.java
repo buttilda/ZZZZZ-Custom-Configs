@@ -3,6 +3,8 @@ package ganymedes01.zzzzzcustomconfigs.registers;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import thaumcraft.api.ThaumcraftApi;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
@@ -12,11 +14,14 @@ public class TC4AspectsRegister {
 	public static void registerAspects(Logger logger, String line) {
 		String[] data = line.split("=");
 
-		String[] stack = data[0].trim().split(":");
+		String[] idMeta = data[0].trim().split(":");
 		String aspects = data[1].trim();
 
-		ThaumcraftApi.registerObjectTag(getInt(stack[0]), getInt(stack[1]), getAspects(aspects));
-		logger.log(Level.INFO, "Registered aspects for " + stack[0]);
+		Item item = (Item) Item.itemRegistry.getObject(idMeta[0].trim());
+		int meta = getInt(idMeta[1]);
+
+		ThaumcraftApi.registerObjectTag(new ItemStack(item, 1, meta), getAspects(aspects));
+		logger.log(Level.INFO, "Registered aspects for " + idMeta[0]);
 	}
 
 	private static AspectList getAspects(String line) {

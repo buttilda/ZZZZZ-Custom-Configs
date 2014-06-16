@@ -19,24 +19,25 @@ public class OreDictionaryRegister {
 		}
 
 		String oreName = data[0].trim();
-		Integer itemID;
+		String itemID;
 		Integer itemMeta;
 		try {
-			itemID = Integer.parseInt(data[1].trim());
+			itemID = data[1].trim();
 			itemMeta = Integer.parseInt(data[2].trim());
 		} catch (NumberFormatException e) {
 			logger.log(Level.SEVERE, String.format(Logs.FAILED_TO_CAST + line, "ore dictionary item"));
 			return;
 		}
 
-		if (itemID >= Item.itemsList.length || Item.itemsList[itemID] == null) {
+		Item item = (Item) Item.itemRegistry.getObject(itemID);
+		if (item == null) {
 			logger.log(Level.SEVERE, String.format(Logs.INVALID_ID + line, "ore dictionary item"));
 			return;
 		}
 
-		ItemStack stack = new ItemStack(itemID, 1, itemMeta);
+		ItemStack stack = new ItemStack(item, 1, itemMeta);
 		OreDictionary.registerOre(oreName, stack);
 
-		logger.log(Level.INFO, "\tRegistered to Ore Dictionary: " + oreName + " - " + Item.itemsList[itemID].getUnlocalizedName(stack));
+		logger.log(Level.INFO, "\tRegistered to Ore Dictionary: " + oreName + " - " + item.getUnlocalizedName(stack));
 	}
 }

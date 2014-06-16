@@ -11,10 +11,8 @@ import cpw.mods.fml.common.Mod.Instance;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
-import cpw.mods.fml.common.network.NetworkMod;
 
 @Mod(modid = Reference.MOD_ID, name = Reference.MOD_NAME, version = Reference.VERSION_NUMBER, dependencies = Reference.DEPENDENCIES)
-@NetworkMod(clientSideRequired = true, serverSideRequired = true)
 public class ZZZZZCustomConfigs {
 
 	@Instance(Reference.MOD_ID)
@@ -25,7 +23,6 @@ public class ZZZZZCustomConfigs {
 		Files.setPath(event.getModConfigurationDirectory().getAbsolutePath());
 
 		MinecraftForge.EVENT_BUS.register(new HandlerEvents());
-
 		ConfigurationHandler.preInit(event);
 	}
 

@@ -19,20 +19,20 @@ public class SmeltingRegister {
 			return;
 		}
 
-		Integer inputID;
+		String inputID;
 		Integer inputMeta;
 
-		Integer outputID;
+		String outputID;
 		Integer outputSize;
 		Integer outputMeta;
 
 		Float xp;
 
 		try {
-			inputID = Integer.parseInt(data[0].trim());
+			inputID = data[0].trim();
 			inputMeta = Integer.parseInt(data[1].trim());
 
-			outputID = Integer.parseInt(data[2].trim());
+			outputID = data[2].trim();
 			outputSize = Integer.parseInt(data[3].trim());
 			outputMeta = Integer.parseInt(data[4].trim());
 
@@ -42,13 +42,15 @@ public class SmeltingRegister {
 			return;
 		}
 
-		if (inputID >= Item.itemsList.length || Item.itemsList[inputID] == null || outputID >= Item.itemsList.length || Item.itemsList[outputID] == null) {
+		Item input = (Item) Item.itemRegistry.getObject(inputID);
+		Item output = (Item) Item.itemRegistry.getObject(outputID);
+		if (input == null || output == null) {
 			logger.log(Level.SEVERE, String.format(Logs.INVALID_ID + line, "smelting"));
 			return;
 		}
 
-		FurnaceRecipes.smelting().addSmelting(inputID, inputMeta, new ItemStack(outputID, outputSize, outputMeta), xp);
-		logger.log(Level.INFO, "\tRegistered new Smelting: " + Item.itemsList[inputID].getUnlocalizedName(new ItemStack(inputID, 1, inputMeta)) + " to " + Item.itemsList[outputID].getUnlocalizedName(new ItemStack(outputID, outputSize, outputMeta)));
+		FurnaceRecipes.smelting().func_151394_a(new ItemStack(input, 1, inputMeta), new ItemStack(output, outputSize, outputMeta), xp);
+		logger.log(Level.INFO, "\tRegistered new Smelting: " + input.getUnlocalizedName(new ItemStack(input, 1, inputMeta)) + " to " + output.getUnlocalizedName(new ItemStack(output, outputSize, outputMeta)));
 	}
 
 	public static void registerOreDictSmeltingFromString(Logger logger, String line) {
@@ -60,7 +62,7 @@ public class SmeltingRegister {
 
 		String input;
 
-		Integer outputID;
+		String outputID;
 		Integer outputSize;
 		Integer outputMeta;
 
@@ -69,7 +71,7 @@ public class SmeltingRegister {
 		try {
 			input = data[0].trim();
 
-			outputID = Integer.parseInt(data[1].trim());
+			outputID = data[1].trim();
 			outputSize = Integer.parseInt(data[2].trim());
 			outputMeta = Integer.parseInt(data[3].trim());
 
@@ -79,15 +81,16 @@ public class SmeltingRegister {
 			return;
 		}
 
-		if (outputID >= Item.itemsList.length || Item.itemsList[outputID] == null) {
+		Item output = (Item) Item.itemRegistry.getObject(outputID);
+		if (output == null) {
 			logger.log(Level.SEVERE, String.format(Logs.INVALID_ID + line, "ore dict smelting"));
 			return;
 		}
 
 		for (ItemStack ore : OreDictionary.getOres(input))
 			if (ore != null) {
-				FurnaceRecipes.smelting().addSmelting(ore.itemID, ore.getItemDamage(), new ItemStack(outputID, outputSize, outputMeta), xp);
-				logger.log(Level.INFO, "\tRegistered new ore dictionary Smelting: " + Item.itemsList[ore.itemID].getUnlocalizedName(ore) + " to " + Item.itemsList[outputID].getUnlocalizedName(new ItemStack(outputID, outputSize, outputMeta)));
+				FurnaceRecipes.smelting().func_151394_a(ore, new ItemStack(output, outputSize, outputMeta), xp);
+				logger.log(Level.INFO, "\tRegistered new ore dictionary Smelting: " + ore.getItem().getUnlocalizedName(ore) + " to " + output.getUnlocalizedName(new ItemStack(output, outputSize, outputMeta)));
 			}
 	}
 }
