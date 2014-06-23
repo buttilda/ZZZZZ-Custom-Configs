@@ -24,9 +24,10 @@ public class RemoveRecipes {
 			if (recipe == null)
 				continue;
 			ItemStack output = recipe.getRecipeOutput();
-			if (output != null)
-				if (Item.itemRegistry.getNameForObject(output.getItem()).matches(ensureNamespaced(itemID)) && output.getItemDamage() == meta)
+			if (output != null) {
+				if (ensureNamespaced(itemID).equals(Item.itemRegistry.getNameForObject(output.getItem())) && output.getItemDamage() == meta)
 					list.add(recipe);
+			}
 		}
 
 		ArrayList<ItemStack> smeltingList = new ArrayList<ItemStack>();

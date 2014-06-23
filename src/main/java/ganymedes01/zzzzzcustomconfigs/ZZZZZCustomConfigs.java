@@ -5,6 +5,8 @@ import ganymedes01.zzzzzcustomconfigs.handler.HandlerEvents;
 import ganymedes01.zzzzzcustomconfigs.lib.Files;
 import ganymedes01.zzzzzcustomconfigs.lib.Reference;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.config.Configuration;
+import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
@@ -18,12 +20,26 @@ public class ZZZZZCustomConfigs {
 	@Instance(Reference.MOD_ID)
 	public static ZZZZZCustomConfigs instance;
 
+	public static boolean showTooltips = true;
+
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
 		Files.setPath(event.getModConfigurationDirectory().getAbsolutePath());
 
 		MinecraftForge.EVENT_BUS.register(new HandlerEvents());
 		ConfigurationHandler.preInit(event);
+
+		Configuration config = new Configuration(event.getSuggestedConfigurationFile());
+		try {
+			config.load();
+			showTooltips = config.get("Options", "showTooltip", showTooltips).getBoolean(showTooltips);
+
+		} catch (Exception e) {
+			FMLLog.severe(Reference.MOD_NAME + " has had a problem loading its configuration");
+			throw new RuntimeException(e);
+		} finally {
+			config.save();
+		}
 	}
 
 	@EventHandler

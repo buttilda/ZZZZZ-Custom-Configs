@@ -4,6 +4,7 @@ import ganymedes01.zzzzzcustomconfigs.lib.Files;
 import ganymedes01.zzzzzcustomconfigs.lib.Reference;
 import ganymedes01.zzzzzcustomconfigs.registers.BlacklistedEntities;
 import ganymedes01.zzzzzcustomconfigs.registers.CraftingRecipes;
+import ganymedes01.zzzzzcustomconfigs.registers.GTRecipes;
 import ganymedes01.zzzzzcustomconfigs.registers.IC2Recipes;
 import ganymedes01.zzzzzcustomconfigs.registers.OreDictionaryRegister;
 import ganymedes01.zzzzzcustomconfigs.registers.RemoveRecipes;
@@ -25,24 +26,18 @@ public class ConfigurationHandler {
 
 	private static final String LOG = "Registering %s: %d entries found.";
 
-	private static final int ORE_DICT = 0;
-	private static final int SMELTING = 1;
-	private static final int SHAPED = 2;
-	private static final int SHAPELESS = 3;
-	private static final int ORE_DICT_SMELTING = 4;
-	private static final int BLACKLIST_ENTITY = 5;
-	private static final int REMOVE_RECIPE = 6;
-	private static final int IC2_RECIPE = 7;
-	private static final int TC4_ASPECTS = 8;
+	enum Types {
+		ORE_DICT, SMELTING, SHAPED, SHAPELESS, ORE_DICT_SMELTING, BLACKLIST_ENTITY, REMOVE_RECIPE, IC2_RECIPE, TC4_ASPECTS, GT_RECIPE;
+	}
 
 	private final static Logger logger = Logger.getLogger(Reference.MOD_ID.toUpperCase());
 
 	public static void preInit(FMLPreInitializationEvent event) {
 		try {
 
-			registerFile(Files.getOreDictionaryFile(), ORE_DICT);
-			registerFile(Files.getSmeltingFile(), SMELTING);
-			registerFile(Files.getBlacklistEntityFile(), BLACKLIST_ENTITY);
+			registerFile(Files.getOreDictionaryFile(), Types.ORE_DICT);
+			registerFile(Files.getSmeltingFile(), Types.SMELTING);
+			registerFile(Files.getBlacklistEntityFile(), Types.BLACKLIST_ENTITY);
 
 		} catch (IOException e) {
 			logger.log(Level.SEVERE, Reference.MOD_NAME + " has had a problem pre-initialising its configuration");
@@ -53,11 +48,11 @@ public class ConfigurationHandler {
 	public static void init() {
 		try {
 
-			registerFile(Files.getOreDictSmeltingFile(), ORE_DICT_SMELTING);
+			registerFile(Files.getOreDictSmeltingFile(), Types.ORE_DICT_SMELTING);
 			if (Loader.isModLoaded("IC2"))
-				registerFile(Files.getIC2RecipeFile(), IC2_RECIPE);
+				registerFile(Files.getIC2RecipeFile(), Types.IC2_RECIPE);
 			if (Loader.isModLoaded("Thaumcraft"))
-				registerFile(Files.getTC4AspectsFile(), TC4_ASPECTS);
+				registerFile(Files.getTC4AspectsFile(), Types.TC4_ASPECTS);
 
 		} catch (IOException e) {
 			logger.log(Level.SEVERE, Reference.MOD_NAME + " has had a problem initialising its configuration");
@@ -68,9 +63,11 @@ public class ConfigurationHandler {
 	public static void serverStarting() {
 		try {
 
-			registerFile(Files.getRemoveRecipeFile(), REMOVE_RECIPE);
-			registerFile(Files.getShapedRecipesFile(), SHAPED);
-			registerFile(Files.getShapedOreDictRecipesFile(), SHAPELESS);
+			registerFile(Files.getRemoveRecipeFile(), Types.REMOVE_RECIPE);
+			registerFile(Files.getShapedRecipesFile(), Types.SHAPED);
+			registerFile(Files.getShapedOreDictRecipesFile(), Types.SHAPELESS);
+			if (Loader.isModLoaded("gregtech"))
+				registerFile(Files.getGTRecipeFile(), Types.GT_RECIPE);
 
 		} catch (IOException e) {
 			logger.log(Level.SEVERE, Reference.MOD_NAME + " has had a problem removing recipes");
@@ -78,7 +75,7 @@ public class ConfigurationHandler {
 		}
 	}
 
-	private static void registerFile(File configFile, int id) throws IOException {
+	private static void registerFile(File configFile, Types id) throws IOException {
 		String[] data = getArrayFromFile(configFile);
 		if (data == null)
 			return;
@@ -112,6 +109,11 @@ public class ConfigurationHandler {
 					break;
 				case TC4_ASPECTS:
 					TC4AspectsRegister.registerAspects(logger, line);
+					break;
+				case GT_RECIPE:
+					GTRecipes.registerRecipes(logger, line);
+					break;
+				default:
 					break;
 			}
 	}

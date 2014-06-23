@@ -21,6 +21,7 @@ public class Files {
 	private static final String REMOVE_RECIPE = "RemoveRecipe";
 	private static final String IC2_RECIPE = "IC2Recipe";
 	private static final String TC4_ASPECTS = "TC4Aspects";
+	private static final String GT_RECIPE = "GTRecipe";
 
 	private static final String ORE_DICTIONARY_DEFAULT = "# oreName, itemName, itemMetadata #";
 	private static final String SMELTING_DEFAULT = "# inputName, inputMetadata, outputName, outputAmount, outputMetadata, xp #";
@@ -31,23 +32,7 @@ public class Files {
 	private static final String REMOVE_RECIPE_DEFAULT = "# outputName, outputMetadata #\n" + "# All the shaped and shapeless recipes for the items in this file will be removed #";
 	private static final String IC2_RECIPE_DEFAULT = "# machineName, inputOreDict, inputSize, extra(some don't need it) ,outputName, outputAmount, outputMetadata... #\n" + "# Types: macerator, extractor, compressor, centrifuge, metalformerExtruding, metalformerCutting, metalformerRolling, oreWashing #\n" + "# Examples: #\n" + "# Macerating 1 dust copper yields a diamond sword #\n" + "# macerator, dustCopper, 1, diamond_sword, 1, 0 #\n"
 	+ "# Thermal Centrifuge, with min heat of 1000, 1 diamond sword yields a 2 diamonds and a stick #\n" + "# centrifuge, diamond_sword,1,0, 1000, diamond,2,0, stick,1,0 #";
-	private static final String TC4_ASPECTS_DEFAULT;
-
-	static {
-		StringBuffer buffer = new StringBuffer();
-		buffer.append("# ");
-		for (Entry<String, Aspect> entry : Aspect.aspects.entrySet())
-			buffer.append(entry.getKey() + ", ");
-		buffer.deleteCharAt(buffer.length() - 1);
-		buffer.deleteCharAt(buffer.length() - 1);
-
-		buffer.append(" #\n");
-
-		buffer.append("# name:meta = aspect:amount, aspect:amount, aspect:amount... #\n");
-		buffer.append("# Example(diamond sword with 1 lux and 5 ordo):  diamond_sword:0 = lux:1, ordo:5 #");
-
-		TC4_ASPECTS_DEFAULT = buffer.toString();
-	}
+	private static final String GT_RECIPE_DEFAULT = "# #";
 
 	public static void setPath(String path) {
 		Files.path = path + File.separator + Reference.MOD_ID + File.separator;
@@ -89,7 +74,23 @@ public class Files {
 	}
 
 	public static File getTC4AspectsFile() throws IOException {
-		return getFile(TC4_ASPECTS, TC4_ASPECTS_DEFAULT);
+		StringBuffer buffer = new StringBuffer();
+		buffer.append("# ");
+		for (Entry<String, Aspect> entry : Aspect.aspects.entrySet())
+			buffer.append(entry.getKey() + ", ");
+		buffer.deleteCharAt(buffer.length() - 1);
+		buffer.deleteCharAt(buffer.length() - 1);
+
+		buffer.append(" #\n");
+
+		buffer.append("# name:meta = aspect:amount, aspect:amount, aspect:amount... #\n");
+		buffer.append("# Example(diamond sword with 1 lux and 5 ordo):  diamond_sword:0 = lux:1, ordo:5 #");
+
+		return getFile(TC4_ASPECTS, buffer.toString());
+	}
+
+	public static File getGTRecipeFile() throws IOException {
+		return getFile(GT_RECIPE, GT_RECIPE_DEFAULT);
 	}
 
 	public static File getFile(String name, String heading) throws IOException {
