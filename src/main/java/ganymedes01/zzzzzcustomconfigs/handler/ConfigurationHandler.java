@@ -27,7 +27,16 @@ public class ConfigurationHandler {
 	private static final String LOG = "Registering %s: %d entries found.";
 
 	enum Types {
-		ORE_DICT, SMELTING, SHAPED, SHAPELESS, ORE_DICT_SMELTING, BLACKLIST_ENTITY, REMOVE_RECIPE, IC2_RECIPE, TC4_ASPECTS, GT_RECIPE;
+		ORE_DICT,
+		SMELTING,
+		SHAPED,
+		SHAPELESS,
+		ORE_DICT_SMELTING,
+		BLACKLIST_ENTITY,
+		REMOVE_RECIPE,
+		IC2_RECIPE,
+		TC4_ASPECTS,
+		GT_RECIPE;
 	}
 
 	private final static Logger logger = Logger.getLogger(Reference.MOD_ID.toUpperCase());

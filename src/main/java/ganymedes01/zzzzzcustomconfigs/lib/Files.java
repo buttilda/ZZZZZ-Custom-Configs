@@ -1,5 +1,7 @@
 package ganymedes01.zzzzzcustomconfigs.lib;
 
+import ganymedes01.zzzzzcustomconfigs.registers.GTRecipes;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -32,7 +34,22 @@ public class Files {
 	private static final String REMOVE_RECIPE_DEFAULT = "# outputName, outputMetadata #\n" + "# All the shaped and shapeless recipes for the items in this file will be removed #";
 	private static final String IC2_RECIPE_DEFAULT = "# machineName, inputOreDict, inputSize, extra(some don't need it) ,outputName, outputAmount, outputMetadata... #\n" + "# Types: macerator, extractor, compressor, centrifuge, metalformerExtruding, metalformerCutting, metalformerRolling, oreWashing #\n" + "# Examples: #\n" + "# Macerating 1 dust copper yields a diamond sword #\n" + "# macerator, dustCopper, 1, diamond_sword, 1, 0 #\n"
 	+ "# Thermal Centrifuge, with min heat of 1000, 1 diamond sword yields a 2 diamonds and a stick #\n" + "# centrifuge, diamond_sword,1,0, 1000, diamond,2,0, stick,1,0 #";
-	private static final String GT_RECIPE_DEFAULT = "# #";
+	private static String GT_RECIPE_DEFAULT = "# GregTech's several machines work in mysterious ways for me, I've added support for them but I'm not quite sure how any of the machines work. Please report any unintended behaviour # \n# inputs and outputs are ItemStacks (represented thus: itemName, size, meta), anything else is a value (integer only, no commas allowed!) #";
+
+	static {
+		GT_RECIPE_DEFAULT += "\n#\n";
+		GT_RECIPE_DEFAULT += "# Guide: #";
+		for (GTRecipes.Recipe recipe : GTRecipes.Recipe.values()) {
+			GT_RECIPE_DEFAULT += "\n# ";
+			GT_RECIPE_DEFAULT += recipe.name() + " = " + recipe.text();
+			GT_RECIPE_DEFAULT += " #";
+		}
+		GT_RECIPE_DEFAULT += "\n#\n";
+		GT_RECIPE_DEFAULT += "# Say we want to add a recipe to the canner. It would look like this: #\n";
+		GT_RECIPE_DEFAULT += "# canner=potato,1,0, 300, carrot,1,0, 20, apple,1,0, bread,1,0 #\n";
+		GT_RECIPE_DEFAULT += "# If we compare that to the guide above we'll see that we've just created a recipe for the canner with 1 potato and 1 carrot as inputs, 300 as the EU input, 20 duration and 1 apple and 1 bread as outputs #\n";
+		GT_RECIPE_DEFAULT += "# I'm terrible at explaining so please feel free to post any questions you (probably) have on the forums #";
+	}
 
 	public static void setPath(String path) {
 		Files.path = path + File.separator + Reference.MOD_ID + File.separator;

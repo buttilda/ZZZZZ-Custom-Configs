@@ -10,27 +10,35 @@ import net.minecraft.item.ItemStack;
 
 public class GTRecipes {
 
-	enum Recipe {
-		// @formatter:off
-		fusion,
-		centrifuge,
-		electrolyzer,
-		lathe,
-		cutter,
-		sawmill,
-		grinder,
-		distillation,
-		blast,
-		implosion,
-		wiremill,
-		bender,
-		extruder,
-		assembler,
-		alloySmelter,
-		canner,
-		vacuum,
-		chemical;
-		// @formatter:on
+	public static enum Recipe {
+		fusion("aInput1, aInput2, aOutput1, aDuration, aEUt, aSpecialValue"),
+		centrifuge("aInput1, aInput2, aOutput1, aOutput2, aOutput3, aOutput4, aDuration"),
+		electrolyzer("aInput1, aInput2, aOutput1, aOutput2, aOutput3, aOutput4, aDuration, aEUt"),
+		lathe("aInput1, aOutput1, aOutput2, aDuration, aEUt"),
+		cutter("aInput1, aDuration, aOutput1, aEUt"),
+		sawmill("aInput1, aInput2, aOutput1, aOutput2, aOutput3"),
+		grinder("aInput1, aInput2, aOutput1, aOutput2, aOutput3, aOutput4"),
+		distillation("aInput1, aCellAmount, aOutput1, aOutput2, aOutput3, aOutput4, aDuration, aEUt"),
+		blast("aInput1, aInput2, aOutput1, aOutput2, aDuration, aEUt, aLevel"),
+		implosion("aInput1, aInput2, aOutput1, aOutput2"),
+		wiremill("aInput1, aEUt, aDuration, aOutput1"),
+		bender("aEUt, aDuration, aInput1, aOutput1"),
+		extruder("aEUt, aDuration, aInput1, aShape, aOutput1"),
+		assembler("aInput1, aEUt, aInput2, aDuration, aOutput1"),
+		alloySmelter("aInput1, aInput2, aEUt, aDuration, aOutput1"),
+		canner("aInput1, aEUt, aInput2, aDuration, aOutput1, aOutput2"),
+		vacuum("aInput1, aOutput1, aDuration"),
+		chemical("aInput1, aInput2, aOutput1, aDuration");
+
+		final String text;
+
+		Recipe(String text) {
+			this.text = text;
+		}
+
+		public String text() {
+			return text;
+		}
 	}
 
 	public static void registerRecipes(Logger logger, String line) {
