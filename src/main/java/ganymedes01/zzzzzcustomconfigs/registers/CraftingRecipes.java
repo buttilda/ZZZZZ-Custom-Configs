@@ -35,9 +35,9 @@ public class CraftingRecipes {
 			outputSize = Integer.parseInt(data[1].trim());
 			outputMeta = Integer.parseInt(data[2].trim());
 
-			topRow = data[3].startsWith(" ") ? data[3].substring(1) : data[3];
-			middleRow = data[4].startsWith(" ") ? data[4].substring(1) : data[4];
-			bottomRow = data[5].startsWith(" ") ? data[5].substring(1) : data[5];
+			topRow = data[3];
+			middleRow = data[4];
+			bottomRow = data[5];
 
 			map = new HashMap<Character, ItemStack>();
 			int remaining = data.length - 6;
@@ -70,7 +70,7 @@ public class CraftingRecipes {
 			list.add(entry.getKey());
 			list.add(entry.getValue());
 		}
-		GameRegistry.addRecipe(new ItemStack(output, outputSize, outputMeta), list.toArray(new Object[0]));
+		GameRegistry.addShapedRecipe(new ItemStack(output, outputSize, outputMeta), list.toArray(new Object[0]));
 		logger.log(Level.INFO, "\tRegistered shaped recipe for " + output.getUnlocalizedName(new ItemStack(output, 1, outputMeta)));
 	}
 
