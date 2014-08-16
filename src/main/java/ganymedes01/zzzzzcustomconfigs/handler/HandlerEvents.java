@@ -5,18 +5,19 @@ import ganymedes01.zzzzzcustomconfigs.registers.BlacklistedEntities;
 import net.minecraft.entity.EntityList;
 import net.minecraft.item.Item;
 import net.minecraft.util.EnumChatFormatting;
-import net.minecraftforge.event.entity.living.LivingSpawnEvent.CheckSpawn;
+import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
-import cpw.mods.fml.common.eventhandler.Event.Result;
 import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public class HandlerEvents {
 
-	@SubscribeEvent(priority = EventPriority.HIGHEST)
-	public void entitySpawnEvent(CheckSpawn event) {
-		if (BlacklistedEntities.entityBlacklist.contains(EntityList.getEntityString(event.entityLiving).toLowerCase()))
-			event.setResult(Result.DENY);
+	@SubscribeEvent(priority = EventPriority.LOWEST)
+	public void spawnEvent(EntityJoinWorldEvent event) {
+		String name = EntityList.getEntityString(event.entity);
+		if (name != null)
+			if (BlacklistedEntities.entityBlacklist.contains(name.toLowerCase()))
+				event.setCanceled(true);
 	}
 
 	@SubscribeEvent(priority = EventPriority.LOWEST)

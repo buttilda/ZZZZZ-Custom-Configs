@@ -23,6 +23,11 @@ public class CVSStreamer {
 	}
 
 	public ItemStack getItemStack() {
+		if ("null".equalsIgnoreCase(data[index])) {
+			index++;
+			return null;
+		}
+
 		Item item = (Item) Item.itemRegistry.getObject(data[index]);
 		index++;
 		int size = Integer.parseInt(data[index]);
