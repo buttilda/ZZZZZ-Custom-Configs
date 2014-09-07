@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import net.minecraft.util.StringUtils;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 
@@ -90,7 +91,9 @@ public class ConfigurationHandler {
 			return;
 
 		logger.log(Level.INFO, String.format(LOG, configFile.getName(), data.length));
-		for (String line : data)
+		for (String line : data) {
+			if (StringUtils.isNullOrEmpty(line))
+				continue;
 			switch (id) {
 				case ORE_DICT:
 					OreDictionaryRegister.registerOreFromString(logger, line);
@@ -125,6 +128,7 @@ public class ConfigurationHandler {
 				default:
 					break;
 			}
+		}
 	}
 
 	private static String[] getArrayFromFile(File configFile) throws IOException {
