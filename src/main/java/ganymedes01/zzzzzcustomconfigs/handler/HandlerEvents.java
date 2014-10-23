@@ -1,7 +1,7 @@
 package ganymedes01.zzzzzcustomconfigs.handler;
 
 import ganymedes01.zzzzzcustomconfigs.ZZZZZCustomConfigs;
-import ganymedes01.zzzzzcustomconfigs.registers.BlacklistedEntities;
+import ganymedes01.zzzzzcustomconfigs.files.EntityBlacklist;
 import net.minecraft.entity.EntityList;
 import net.minecraft.item.Item;
 import net.minecraft.util.EnumChatFormatting;
@@ -16,7 +16,7 @@ public class HandlerEvents {
 	public void spawnEvent(EntityJoinWorldEvent event) {
 		String name = EntityList.getEntityString(event.entity);
 		if (name != null)
-			if (BlacklistedEntities.entityBlacklist.contains(name.toLowerCase()))
+			if (EntityBlacklist.entityBlacklist.contains(name.toLowerCase()))
 				event.setCanceled(true);
 	}
 

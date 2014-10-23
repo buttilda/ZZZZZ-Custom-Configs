@@ -2,7 +2,7 @@ package ganymedes01.zzzzzcustomconfigs;
 
 import ganymedes01.zzzzzcustomconfigs.handler.ConfigurationHandler;
 import ganymedes01.zzzzzcustomconfigs.handler.HandlerEvents;
-import ganymedes01.zzzzzcustomconfigs.lib.Files;
+import ganymedes01.zzzzzcustomconfigs.lib.ConfigFile;
 import ganymedes01.zzzzzcustomconfigs.lib.Reference;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
@@ -24,11 +24,6 @@ public class ZZZZZCustomConfigs {
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
-		Files.setPath(event.getModConfigurationDirectory().getAbsolutePath());
-
-		MinecraftForge.EVENT_BUS.register(new HandlerEvents());
-		ConfigurationHandler.preInit(event);
-
 		Configuration config = new Configuration(event.getSuggestedConfigurationFile());
 		try {
 			config.load();
@@ -40,6 +35,10 @@ public class ZZZZZCustomConfigs {
 		} finally {
 			config.save();
 		}
+
+		ConfigFile.setPath(event.getModConfigurationDirectory().getAbsolutePath());
+		MinecraftForge.EVENT_BUS.register(new HandlerEvents());
+		ConfigurationHandler.preInit();
 	}
 
 	@EventHandler

@@ -1,14 +1,35 @@
-package ganymedes01.zzzzzcustomconfigs.registers;
+package ganymedes01.zzzzzcustomconfigs.files;
 
-import ganymedes01.zzzzzcustomconfigs.lib.CVSStreamer;
+import ganymedes01.zzzzzcustomconfigs.lib.ConfigFile;
 
 import java.lang.reflect.Constructor;
-import java.lang.reflect.Method;
 import java.util.logging.Logger;
 
 import net.minecraft.item.ItemStack;
+import cpw.mods.fml.common.Loader;
 
-public class GTRecipes {
+public class GregTech extends ConfigFile {
+
+	public GregTech() {
+		super("GregTech", "");
+	}
+
+	@Override
+	public void preInit() {
+	}
+
+	@Override
+	public void init() {
+	}
+
+	@Override
+	public void postInit() {
+	}
+
+	@Override
+	public boolean isEnabled() {
+		return Loader.isModLoaded("gregtech");
+	}
 
 	public static enum Recipe {
 		fusion("aInput1, aInput2, aOutput1, aDuration, aEUt, aSpecialValue"),
@@ -42,24 +63,24 @@ public class GTRecipes {
 	}
 
 	public static void registerRecipes(Logger logger, String line) {
-		String[] data = line.split("=");
-		CVSStreamer stream = new CVSStreamer(data[1]);
-
-		for (Method method : GTRecipes.class.getMethods())
-			if (method.getName().equalsIgnoreCase(data[0].trim() + "Recipe")) {
-				Class<?>[] types = method.getParameterTypes();
-				Object[] pars = new Object[types.length];
-				for (int i = 0; i < pars.length; i++)
-					pars[i] = stream.getObject(types[i]);
-
-				try {
-					method.invoke(null, pars);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-				return;
-			}
-		throw new RuntimeException("Recipe type not found: " + data[0]);
+		//		String[] data = line.split("=");
+		//		CVSStreamer stream = new CVSStreamer(data[1]);
+		//
+		//		for (Method method : GregTech.class.getMethods())
+		//			if (method.getName().equalsIgnoreCase(data[0].trim() + "Recipe")) {
+		//				Class<?>[] types = method.getParameterTypes();
+		//				Object[] pars = new Object[types.length];
+		//				for (int i = 0; i < pars.length; i++)
+		//					pars[i] = stream.getObject(types[i]);
+		//
+		//				try {
+		//					method.invoke(null, pars);
+		//				} catch (Exception e) {
+		//					e.printStackTrace();
+		//				}
+		//				return;
+		//			}
+		//		throw new RuntimeException("Recipe type not found: " + data[0]);
 	}
 
 	public static void fusionRecipe(ItemStack aInput1, ItemStack aInput2, ItemStack aOutput1, int aDuration, int aEUt, int aSpecialValue) {
