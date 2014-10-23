@@ -3,11 +3,16 @@ package ganymedes01.zzzzzcustomconfigs.files;
 import ganymedes01.zzzzzcustomconfigs.lib.ConfigFile;
 import ganymedes01.zzzzzcustomconfigs.xml.XMLHelper;
 import ganymedes01.zzzzzcustomconfigs.xml.XMLNode;
+
+import java.util.LinkedList;
+import java.util.List;
+
 import net.minecraft.item.ItemStack;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 public class Smelting extends ConfigFile {
 
+	public static List<ItemStack> addedInputs = new LinkedList<ItemStack>();
 	private static String header = "Examples:\n\n";
 	static {
 		header += "<recipe>\n";
@@ -30,6 +35,7 @@ public class Smelting extends ConfigFile {
 				float xp = Float.parseFloat(node.getNode("xp").getValue());
 
 				GameRegistry.addSmelting(input, output, xp);
+				addedInputs.add(input);
 			}
 	}
 

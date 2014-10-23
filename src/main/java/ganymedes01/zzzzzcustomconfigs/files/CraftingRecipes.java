@@ -5,14 +5,18 @@ import ganymedes01.zzzzzcustomconfigs.xml.XMLHelper;
 import ganymedes01.zzzzzcustomconfigs.xml.XMLNode;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipe;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 public class CraftingRecipes extends ConfigFile {
+
+	public static final List<IRecipe> addedRecipes = new LinkedList<IRecipe>();
 
 	private static String header = "Examples:\n\n";
 	static {
@@ -58,7 +62,7 @@ public class CraftingRecipes extends ConfigFile {
 					data.add(c);
 					data.add(XMLHelper.processEntry(node.getNode(Character.toString(c)), String.class));
 				}
-				GameRegistry.addRecipe(new ShapedOreRecipe(output, data.toArray()));
+				addRecipe(new ShapedOreRecipe(output, data.toArray()));
 			} else if (node.getName().equals("shapeless")) {
 				List<Object> data = new ArrayList<Object>();
 				for (int i = 0; i < 9; i++) {
@@ -68,10 +72,15 @@ public class CraftingRecipes extends ConfigFile {
 					else
 						break;
 				}
-				GameRegistry.addRecipe(new ShapelessOreRecipe(output, data.toArray()));
+				addRecipe(new ShapelessOreRecipe(output, data.toArray()));
 			} else
 				throw new RuntimeException("Invalid recipe name: " + node.getName());
 		}
+	}
+
+	private void addRecipe(IRecipe recipe) {
+		addedRecipes.add(recipe);
+		GameRegistry.addRecipe(recipe);
 	}
 
 	@Override
