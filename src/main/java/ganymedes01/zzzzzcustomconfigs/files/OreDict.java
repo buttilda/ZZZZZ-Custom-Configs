@@ -1,8 +1,8 @@
 package ganymedes01.zzzzzcustomconfigs.files;
 
 import ganymedes01.zzzzzcustomconfigs.lib.ConfigFile;
-import ganymedes01.zzzzzcustomconfigs.xml.XMLHelper;
 import ganymedes01.zzzzzcustomconfigs.xml.XMLNode;
+import ganymedes01.zzzzzcustomconfigs.xml.XMLParser;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 
@@ -30,10 +30,10 @@ public class OreDict extends ConfigFile {
 	public void preInit() {
 		for (XMLNode node : xmlNode.getNodes())
 			if (node.getName().equals("ore")) {
-				String name = (String) XMLHelper.processEntry(node.getNode("name"), String.class);
+				String name = XMLParser.parseStringNode(node.getNode("name"));
 				for (XMLNode n : node.getNodes())
 					if (n.getName().startsWith("stack")) {
-						ItemStack stack = (ItemStack) XMLHelper.processEntry(n, ItemStack.class);
+						ItemStack stack = XMLParser.parseItemStackNode(n);
 						OreDictionary.registerOre(name, stack);
 					}
 			}

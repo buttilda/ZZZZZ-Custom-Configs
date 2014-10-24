@@ -1,8 +1,8 @@
 package ganymedes01.zzzzzcustomconfigs.files;
 
 import ganymedes01.zzzzzcustomconfigs.lib.ConfigFile;
-import ganymedes01.zzzzzcustomconfigs.xml.XMLHelper;
 import ganymedes01.zzzzzcustomconfigs.xml.XMLNode;
+import ganymedes01.zzzzzcustomconfigs.xml.XMLParser;
 import ic2.api.recipe.IMachineRecipeManager;
 import ic2.api.recipe.IRecipeInput;
 import ic2.api.recipe.RecipeInputItemStack;
@@ -44,18 +44,18 @@ public class IndustrialCraft2 extends ConfigFile {
 				for (int i = 0; i < 3; i++) {
 					XMLNode n = node.getNode("output" + (i + 1));
 					if (n != null)
-						outputs.add((ItemStack) XMLHelper.processEntry(n, ItemStack.class));
+						outputs.add(XMLParser.parseItemStackNode(n));
 				}
 				addThermalCentrifugeRecipe(input, minHeat, outputs.toArray(new ItemStack[0]));
 			} else if (name.equals("blockcutter"))
-				addCutterRecipe(getInput(node), Integer.parseInt(node.getNode("cutterLevel").getValue()), (ItemStack) XMLHelper.processEntry(node.getNode("output"), ItemStack.class));
+				addCutterRecipe(getInput(node), Integer.parseInt(node.getNode("cutterLevel").getValue()), XMLParser.parseItemStackNode(node.getNode("output")));
 			else if (name.equals("blastfurance")) {
 				IRecipeInput input = getInput(node);
 				List<ItemStack> outputs = new LinkedList<ItemStack>();
 				for (int i = 0; i < 2; i++) {
 					XMLNode n = node.getNode("output" + (i + 1));
 					if (n != null)
-						outputs.add((ItemStack) XMLHelper.processEntry(n, ItemStack.class));
+						outputs.add(XMLParser.parseItemStackNode(n));
 				}
 				Recipes.blastfurance.addRecipe(input, null, outputs.toArray(new ItemStack[0]));
 			} else if (name.equals("metalformerExtruding"))
@@ -70,17 +70,17 @@ public class IndustrialCraft2 extends ConfigFile {
 				for (int i = 0; i < 3; i++) {
 					XMLNode n = node.getNode("output" + (i + 1));
 					if (n != null)
-						outputs.add((ItemStack) XMLHelper.processEntry(n, ItemStack.class));
+						outputs.add((ItemStack) XMLParser.parseNode(n));
 				}
 				addOreWashingRecipe(input, outputs.toArray(new ItemStack[0]));
 			} else if (name.equals("cannerBottle")) {
-				IRecipeInput input1 = this.getInput(XMLHelper.processEntry(node.getNode("input1"), ItemStack.class));
-				IRecipeInput input2 = this.getInput(XMLHelper.processEntry(node.getNode("input2"), ItemStack.class));
-				Recipes.cannerBottle.addRecipe(input1, input2, (ItemStack) XMLHelper.processEntry(node.getNode("output"), ItemStack.class));
+				IRecipeInput input1 = getInput(XMLParser.parseNode(node.getNode("input1")));
+				IRecipeInput input2 = getInput(XMLParser.parseNode(node.getNode("input2")));
+				Recipes.cannerBottle.addRecipe(input1, input2, XMLParser.parseItemStackNode(node.getNode("output")));
 			} else if (name.equals("cannerEnrich")) {
-				FluidStack input = (FluidStack) XMLHelper.processEntry(node.getNode("input"), ItemStack.class);
-				FluidStack output = (FluidStack) XMLHelper.processEntry(node.getNode("output"), ItemStack.class);
-				IRecipeInput additive = this.getInput(XMLHelper.processEntry(node.getNode("additive"), ItemStack.class));
+				FluidStack input = XMLParser.parseFluidStackNode(node.getNode("input"));
+				FluidStack output = XMLParser.parseFluidStackNode(node.getNode("output"));
+				IRecipeInput additive = getInput(XMLParser.parseNode(node.getNode("additive")));
 				Recipes.cannerEnrich.addRecipe(input, additive, output);
 			}
 		}
@@ -96,7 +96,7 @@ public class IndustrialCraft2 extends ConfigFile {
 	}
 
 	private void addBasic(IMachineRecipeManager machine, XMLNode node) {
-		machine.addRecipe(getInput(node), null, (ItemStack) XMLHelper.processEntry(node.getNode("output"), ItemStack.class));
+		machine.addRecipe(getInput(node), null, XMLParser.parseItemStackNode(node.getNode("output")));
 	}
 
 	private void addThermalCentrifugeRecipe(IRecipeInput input, int minHeat, ItemStack... output) {
@@ -121,7 +121,7 @@ public class IndustrialCraft2 extends ConfigFile {
 	}
 
 	private IRecipeInput getInput(XMLNode node) {
-		return getInput(XMLHelper.processEntry(node.getNode("input"), ItemStack.class));
+		return getInput(XMLParser.parseNode(node.getNode("input")));
 	}
 
 	private IRecipeInput getInput(Object obj) {

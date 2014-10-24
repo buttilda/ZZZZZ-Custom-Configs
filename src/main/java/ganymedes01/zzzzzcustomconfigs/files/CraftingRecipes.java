@@ -1,8 +1,8 @@
 package ganymedes01.zzzzzcustomconfigs.files;
 
 import ganymedes01.zzzzzcustomconfigs.lib.ConfigFile;
-import ganymedes01.zzzzzcustomconfigs.xml.XMLHelper;
 import ganymedes01.zzzzzcustomconfigs.xml.XMLNode;
+import ganymedes01.zzzzzcustomconfigs.xml.XMLParser;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -45,14 +45,14 @@ public class CraftingRecipes extends ConfigFile {
 	@Override
 	public void preInit() {
 		for (XMLNode node : xmlNode.getNodes()) {
-			ItemStack output = (ItemStack) XMLHelper.processEntry(node.getNode("output"), ItemStack.class);
+			ItemStack output = XMLParser.parseItemStackNode(node.getNode("output"));
 			if (node.getName().equals("shaped")) {
 				List<Object> data = new ArrayList<Object>();
 				String types = "";
 				for (int i = 0; i < 3; i++) {
 					XMLNode n = node.getNode("row" + (i + 1));
 					if (n != null) {
-						Object obj = XMLHelper.processEntry(n, String.class);
+						Object obj = XMLParser.parseNode(n);
 						types += obj.toString().replace(" ", "");
 						data.add(obj);
 					}
@@ -60,7 +60,7 @@ public class CraftingRecipes extends ConfigFile {
 
 				for (char c : types.toCharArray()) {
 					data.add(c);
-					data.add(XMLHelper.processEntry(node.getNode(Character.toString(c)), String.class));
+					data.add(XMLParser.parseNode(node.getNode(Character.toString(c))));
 				}
 				addRecipe(new ShapedOreRecipe(output, data.toArray()));
 			} else if (node.getName().equals("shapeless")) {
@@ -68,7 +68,7 @@ public class CraftingRecipes extends ConfigFile {
 				for (int i = 0; i < 9; i++) {
 					XMLNode n = node.getNode("input" + (i + 1));
 					if (n != null)
-						data.add(XMLHelper.processEntry(n, ItemStack.class));
+						data.add(XMLParser.parseNode(n));
 					else
 						break;
 				}

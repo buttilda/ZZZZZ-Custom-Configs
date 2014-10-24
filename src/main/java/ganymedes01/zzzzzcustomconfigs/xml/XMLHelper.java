@@ -6,16 +6,11 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.lang.reflect.Type;
 import java.util.List;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.JsonToNBT;
-import net.minecraft.nbt.NBTBase;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 
@@ -126,48 +121,6 @@ public class XMLHelper {
 			value = value.substring(0, value.length() - 1);
 
 		return value;
-	}
-
-	public static Object processEntry(XMLNode node, Type type) {
-		if (!node.hasValue())
-			return null;
-
-		String value = node.value;
-		if (value.startsWith("\"") && value.endsWith("\""))
-			return value.replace("\"", "");
-
-		String[] data = value.split(" ");
-		if (type.equals(FluidStack.class)) {
-			Fluid fluid = FluidRegistry.getFluid(data[0]);
-			int amount = Integer.parseInt(data[1]);
-			FluidStack stack = new FluidStack(fluid, amount);
-			if (data.length >= 3)
-				try {
-					NBTBase nbtbase = JsonToNBT.func_150315_a(data[2]);
-					stack.tag = (NBTTagCompound) nbtbase;
-				} catch (Exception e) {
-					throw new RuntimeException(e);
-				}
-			return stack;
-		} else
-			try {
-				Item item = (Item) Item.itemRegistry.getObject(data[0]);
-				int size = Integer.parseInt(data[1]);
-				int meta = Integer.parseInt(data[2]);
-				ItemStack stack = new ItemStack(item, size, meta);
-				if (data.length >= 4)
-					try {
-						NBTBase nbtbase = JsonToNBT.func_150315_a(data[3]);
-						stack.setTagCompound((NBTTagCompound) nbtbase);
-					} catch (Exception e) {
-						throw new RuntimeException(e);
-					}
-				return stack;
-			} catch (NumberFormatException e) {
-				throw new RuntimeException("Error when parsing entry: <" + value + ">", e);
-			} catch (ArrayIndexOutOfBoundsException e) {
-				throw new RuntimeException("Error when parsing entry: <" + value + ">", e);
-			}
 	}
 
 	public static String toNodeValue(Object obj) {
