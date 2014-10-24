@@ -19,27 +19,27 @@ public class XMLParser {
 		try {
 			if (isStringValue(value))
 				return parseStringNode(node);
-			else if (isItemStackValue(value))
-				return parseItemStackNode(node);
 			else if (isFluidStackValue(value))
 				return parseFluidStackNode(node);
+			else if (isItemStackValue(value))
+				return parseItemStackNode(node);
+			else
+				return null;
 		} catch (Exception e) {
-			throw new RuntimeException("Error when parsing entry: <" + value + ">", e);
+			e.printStackTrace();
+			throw new RuntimeException("Error parsing node: " + node, e);
 		}
-
-		return null;
 	}
 
 	public static String parseStringNode(XMLNode node) {
 		return node.value.replace("\"", "");
 	}
 
-	static boolean isStringValue(String nodeValue) {
-		String[] array = nodeValue.split(" ");
-		return array[0].startsWith("\"") && array[0].endsWith("\"");
+	public static boolean isStringValue(String nodeValue) {
+		return nodeValue.startsWith("\"") && nodeValue.endsWith("\"");
 	}
 
-	static boolean isItemStackValue(String nodeValue) {
+	public static boolean isItemStackValue(String nodeValue) {
 		String[] array = nodeValue.split(" ");
 		return array.length == 3 || array.length == 4 && array[3].startsWith("{");
 	}
@@ -60,7 +60,7 @@ public class XMLParser {
 		return stack;
 	}
 
-	static boolean isFluidStackValue(String nodeValue) {
+	public static boolean isFluidStackValue(String nodeValue) {
 		String[] array = nodeValue.split(" ");
 		return array.length == 2 || array.length == 3 && array[2].startsWith("{");
 	}

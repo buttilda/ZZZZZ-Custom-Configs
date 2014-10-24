@@ -38,7 +38,7 @@ public class IndustrialCraft2 extends ConfigFile {
 			else if (name.equals("compressor"))
 				addBasic(Recipes.compressor, node);
 			else if (name.equals("centrifuge")) {
-				IRecipeInput input = getInput(node);
+				IRecipeInput input = getInput(node.getNode("input"));
 				int minHeat = Integer.parseInt(node.getNode("minHeat").getValue());
 				List<ItemStack> outputs = new LinkedList<ItemStack>();
 				for (int i = 0; i < 3; i++) {
@@ -48,9 +48,9 @@ public class IndustrialCraft2 extends ConfigFile {
 				}
 				addThermalCentrifugeRecipe(input, minHeat, outputs.toArray(new ItemStack[0]));
 			} else if (name.equals("blockcutter"))
-				addCutterRecipe(getInput(node), Integer.parseInt(node.getNode("cutterLevel").getValue()), XMLParser.parseItemStackNode(node.getNode("output")));
+				addCutterRecipe(getInput(node.getNode("input")), Integer.parseInt(node.getNode("cutterLevel").getValue()), XMLParser.parseItemStackNode(node.getNode("output")));
 			else if (name.equals("blastfurance")) {
-				IRecipeInput input = getInput(node);
+				IRecipeInput input = getInput(node.getNode("input"));
 				List<ItemStack> outputs = new LinkedList<ItemStack>();
 				for (int i = 0; i < 2; i++) {
 					XMLNode n = node.getNode("output" + (i + 1));
@@ -65,7 +65,7 @@ public class IndustrialCraft2 extends ConfigFile {
 			else if (name.equals("metalformerRolling"))
 				addBasic(Recipes.metalformerRolling, node);
 			else if (name.equals("oreWashing")) {
-				IRecipeInput input = getInput(node);
+				IRecipeInput input = getInput(node.getNode("input"));
 				List<ItemStack> outputs = new LinkedList<ItemStack>();
 				for (int i = 0; i < 3; i++) {
 					XMLNode n = node.getNode("output" + (i + 1));
@@ -74,13 +74,13 @@ public class IndustrialCraft2 extends ConfigFile {
 				}
 				addOreWashingRecipe(input, outputs.toArray(new ItemStack[0]));
 			} else if (name.equals("cannerBottle")) {
-				IRecipeInput input1 = getInput(XMLParser.parseNode(node.getNode("input1")));
-				IRecipeInput input2 = getInput(XMLParser.parseNode(node.getNode("input2")));
+				IRecipeInput input1 = getInput(node.getNode("input1"));
+				IRecipeInput input2 = getInput(node.getNode("input2"));
 				Recipes.cannerBottle.addRecipe(input1, input2, XMLParser.parseItemStackNode(node.getNode("output")));
 			} else if (name.equals("cannerEnrich")) {
 				FluidStack input = XMLParser.parseFluidStackNode(node.getNode("input"));
 				FluidStack output = XMLParser.parseFluidStackNode(node.getNode("output"));
-				IRecipeInput additive = getInput(XMLParser.parseNode(node.getNode("additive")));
+				IRecipeInput additive = getInput(node.getNode("additive"));
 				Recipes.cannerEnrich.addRecipe(input, additive, output);
 			}
 		}
@@ -96,7 +96,7 @@ public class IndustrialCraft2 extends ConfigFile {
 	}
 
 	private void addBasic(IMachineRecipeManager machine, XMLNode node) {
-		machine.addRecipe(getInput(node), null, XMLParser.parseItemStackNode(node.getNode("output")));
+		machine.addRecipe(getInput(node.getNode("input")), null, XMLParser.parseItemStackNode(node.getNode("output")));
 	}
 
 	private void addThermalCentrifugeRecipe(IRecipeInput input, int minHeat, ItemStack... output) {
@@ -121,20 +121,15 @@ public class IndustrialCraft2 extends ConfigFile {
 	}
 
 	private IRecipeInput getInput(XMLNode node) {
-		return getInput(XMLParser.parseNode(node.getNode("input")));
-	}
-
-	private IRecipeInput getInput(Object obj) {
-		if (obj instanceof ItemStack)
-			return new RecipeInputItemStack((ItemStack) obj);
-		else if (obj instanceof String) {
-			String str = (String) obj;
-			String[] split = str.split(" ");
-			if (split.length > 1)
-				return new RecipeInputOreDict(split[0], Integer.parseInt(split[1]));
+		if (XMLParser.isItemStackValue(node.getValue()))
+			return new RecipeInputItemStack(XMLParser.parseItemStackNode(node));
+		else {
+			String value = node.getValue().replace("\"", "");
+			String[] array = value.split(" ");
+			if (array.length > 1)
+				return new RecipeInputOreDict(array[0], Integer.parseInt(array[1]));
 			else
-				return new RecipeInputOreDict(str);
-		} else
-			throw new RuntimeException("Invali type, must be a ItemStack or a String");
+				return new RecipeInputOreDict(value);
+		}
 	}
 }
