@@ -5,6 +5,7 @@ import ganymedes01.zzzzzcustomconfigs.files.EntityBlacklist;
 import ganymedes01.zzzzzcustomconfigs.files.GregTech;
 import ganymedes01.zzzzzcustomconfigs.files.IndustrialCraft2;
 import ganymedes01.zzzzzcustomconfigs.files.OreDict;
+import ganymedes01.zzzzzcustomconfigs.files.RefineryRecipes;
 import ganymedes01.zzzzzcustomconfigs.files.RemoveRecipes;
 import ganymedes01.zzzzzcustomconfigs.files.Smelting;
 import ganymedes01.zzzzzcustomconfigs.files.Thaumcraft4;
@@ -13,6 +14,8 @@ import ganymedes01.zzzzzcustomconfigs.lib.ConfigFile;
 import java.util.LinkedList;
 import java.util.List;
 
+import cpw.mods.fml.common.Loader;
+
 public class ConfigurationHandler {
 
 	private static final List<ConfigFile> files = new LinkedList<ConfigFile>();
@@ -20,12 +23,18 @@ public class ConfigurationHandler {
 	public static void preInit() {
 		files.add(new CraftingRecipes());
 		files.add(new EntityBlacklist());
-		files.add(new GregTech());
-		files.add(new IndustrialCraft2());
 		files.add(new OreDict());
 		files.add(new RemoveRecipes());
 		files.add(new Smelting());
-		files.add(new Thaumcraft4());
+
+		if (Loader.isModLoaded("gregtech"))
+			files.add(new GregTech());
+		if (Loader.isModLoaded("IC2"))
+			files.add(new IndustrialCraft2());
+		if (Loader.isModLoaded("Thaumcraft"))
+			files.add(new Thaumcraft4());
+		if (Loader.isModLoaded("BuildCraft|Energy"))
+			files.add(new RefineryRecipes());
 
 		for (ConfigFile file : files) {
 			file.initFile();

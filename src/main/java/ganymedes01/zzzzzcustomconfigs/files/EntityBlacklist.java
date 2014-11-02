@@ -21,17 +21,14 @@ public class EntityBlacklist extends ConfigFile {
 
 	@Override
 	public void preInit() {
-
 	}
 
 	@Override
 	public void init() {
-
 	}
 
 	@Override
 	public void postInit() {
-
 	}
 
 	@Override

@@ -1,6 +1,7 @@
 package ganymedes01.zzzzzcustomconfigs.files;
 
 import ganymedes01.zzzzzcustomconfigs.lib.ConfigFile;
+import ganymedes01.zzzzzcustomconfigs.xml.XMLHelper;
 import ganymedes01.zzzzzcustomconfigs.xml.XMLNode;
 import ganymedes01.zzzzzcustomconfigs.xml.XMLParser;
 
@@ -9,6 +10,7 @@ import java.util.List;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.FurnaceRecipes;
@@ -17,8 +19,25 @@ import net.minecraftforge.oredict.OreDictionary;
 
 public class RemoveRecipes extends ConfigFile {
 
+	private static String header = "Examples:\n\n";
+	static {
+		header += "The following shows how to recipe recipes for the diamond sword, iron sword and gold sword.\n";
+		header += "Smelting recipes will also be removed!\n";
+		header += "Recipes added via this mod will NOT be removed!\n";
+
+		XMLNode node = new XMLNode("output1");
+		node.setValue(XMLHelper.toNodeValue(new ItemStack(Items.diamond_sword)));
+		header += node.toString() + "\n";
+		node = new XMLNode("output2");
+		node.setValue(XMLHelper.toNodeValue(new ItemStack(Items.golden_sword)));
+		header += node.toString() + "\n";
+		node = new XMLNode("output3");
+		node.setValue(XMLHelper.toNodeValue(new ItemStack(Items.iron_sword)));
+		header += node.toString() + "\n";
+	}
+
 	public RemoveRecipes() {
-		super("RemoveRecipes", "");
+		super("RemoveRecipes", header);
 	}
 
 	@Override

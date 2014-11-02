@@ -1,8 +1,10 @@
 package ganymedes01.zzzzzcustomconfigs.files;
 
 import ganymedes01.zzzzzcustomconfigs.lib.ConfigFile;
+import ganymedes01.zzzzzcustomconfigs.xml.XMLBuilder;
 import ganymedes01.zzzzzcustomconfigs.xml.XMLNode;
 import ganymedes01.zzzzzcustomconfigs.xml.XMLParser;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 
@@ -10,16 +12,21 @@ public class OreDict extends ConfigFile {
 
 	private static String header = "Examples:\n\n";
 	static {
-		header += "<ore>\n";
-		header += "\t<name>\"ingots\"</name>\n";
-		header += "\t<stack>minecraft:iron_ingot 1 0</stack>\n";
-		header += "\t<stack1>minecraft:gold_ingot 1 0</stack1>\n";
-		header += "</ore>\n";
-		header += "\n";
-		header += "<ore>\n";
-		header += "\t<name>\"ingotGold\"</name>\n";
-		header += "\t<stack>minecraft:gold_ingot 1 0</stack>\n";
-		header += "</ore>";
+		header += "THE ORE DICTIONARY DOES NOT SUPPORT NBT! THIS IS NOT THIS MOD'S FAULT BUT THE WAY THE ORE DICTIONARY ITSELF WAS CODED!\n";
+		header += "There is no limit to how many stack parameters you have, just make sure you number them (stack1, stack2, stack3...)\n";
+		header += "The following registers the vanilla iron and gold ingots with the name \"ingots\"\n";
+
+		XMLBuilder builder = new XMLBuilder("ore");
+		builder.makeEntry("name", "ingots");
+		builder.makeEntries("stack", new Object[] { new ItemStack(Items.iron_ingot), new ItemStack(Items.gold_ingot) });
+		header += builder.toString();
+
+		header += "\n\nThe following registers the vanilla gold ingot as \"ingotGold\"\n";
+
+		builder = new XMLBuilder("ore");
+		builder.makeEntry("name", "ingotGold");
+		builder.makeEntry("stack", new ItemStack(Items.gold_ingot));
+		header += builder.toString();
 	}
 
 	public OreDict() {

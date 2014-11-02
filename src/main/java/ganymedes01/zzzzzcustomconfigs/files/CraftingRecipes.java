@@ -1,6 +1,7 @@
 package ganymedes01.zzzzzcustomconfigs.files;
 
 import ganymedes01.zzzzzcustomconfigs.lib.ConfigFile;
+import ganymedes01.zzzzzcustomconfigs.xml.XMLBuilder;
 import ganymedes01.zzzzzcustomconfigs.xml.XMLNode;
 import ganymedes01.zzzzzcustomconfigs.xml.XMLParser;
 
@@ -8,8 +9,11 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -20,22 +24,28 @@ public class CraftingRecipes extends ConfigFile {
 
 	private static String header = "Examples:\n\n";
 	static {
-		header += "<shapeless>\n";
-		header += "\t<output>minecraft:iron_ingot 3 0</output>\n";
-		header += "\t<input1>minecraft:iron_bars 1 0</input1>\n";
-		header += "\t<input2>\"gemDiamond\"</input2>\n";
-		header += "\t<input3>minecraft:skull 1 3 {SkullOwner:\"Notch\"}</input3>\n";
-		header += "</shapeless>\n";
-		header += "\n";
-		header += "<shaped>\n";
-		header += "\t<output>minecraft:diamond_sword 1 0</output>\n";
-		header += "\t<row1>\"x z\"</row1>\n";
-		header += "\t<row2>\" x \"</row2>\n";
-		header += "\t<row3>\" y \"</row3>\n";
-		header += "\t<x>\"stickWood\"</x>\n";
-		header += "\t<y>minecraft:paper 1 0</y>\n";
-		header += "\t<z>minecraft:skull 1 3 {SkullOwner:\"Notch\"}</z>\n";
-		header += "</shaped>";
+		header += "The following is an example of a shapeless recipe. The number of inputs must not exceed 9 and you must number them (input1, input2, input3...)\n";
+		XMLBuilder builder = new XMLBuilder("shapeless");
+		builder.makeEntry("output", new ItemStack(Items.iron_ingot, 3));
+		builder.makeEntries("input", new Object[] { new ItemStack(Blocks.iron_bars), "gemDiamond", new ItemStack(Blocks.bedrock) });
+		header += builder.toString();
+
+		header += "\n\n";
+		header += "The following is an example of a shaped recipe. The row paremters determine where the inputs will have to be placed in the grid.\n";
+		header += "ALL OF THE ROWs MUST BE OF THE SAME LENGH AND THAT LENGHT MUST BE SMALLER OR EQUAL TO 3! Use spaces where you don't want empty spaces to be!\n";
+		header += "You don't necessarily need 3 rows. If your recipe fits in just 1 or 2, use just 1 or 2.\n";
+
+		builder = new XMLBuilder("shaped");
+		builder.makeEntry("output", new ItemStack(Items.diamond_sword));
+		builder.makeEntries("row", new Object[] { "x z", " x ", " y " });
+		builder.makeEntry("x", "stickWood");
+		builder.makeEntry("y", new ItemStack(Items.paper));
+		ItemStack stack = new ItemStack(Items.skull);
+		stack.setTagCompound(new NBTTagCompound());
+		stack.getTagCompound().setString("SkullOwner", "Notch");
+		builder.makeEntry("z", stack);
+
+		header += builder.toString();
 	}
 
 	public CraftingRecipes() {
