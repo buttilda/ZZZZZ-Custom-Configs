@@ -1,6 +1,7 @@
 package ganymedes01.zzzzzcustomconfigs.files;
 
 import ganymedes01.zzzzzcustomconfigs.lib.ConfigFile;
+import ganymedes01.zzzzzcustomconfigs.xml.XMLBuilder;
 import ganymedes01.zzzzzcustomconfigs.xml.XMLNode;
 import ganymedes01.zzzzzcustomconfigs.xml.XMLParser;
 
@@ -8,6 +9,7 @@ import java.util.Map.Entry;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import thaumcraft.api.ThaumcraftApi;
@@ -19,16 +21,26 @@ public class Thaumcraft4 extends ConfigFile {
 
 	private static String header = "Examples:\n";
 	static {
-		header += "<aspects>\n";
-		header += "\t<stack>minecraft:diamond 1 0</stack>\n";
-		header += "\t<aspect1>terra 1</aspect1>\n";
-		header += "\t<aspect2>aer 5</aspect2>\n";
-		header += "</aspects>\n";
-		header += "\n";
 		header += "Aspects: ";
 		for (Entry<String, Aspect> entry : Aspect.aspects.entrySet())
 			header += entry.getKey() + ", ";
 		header = header.substring(0, header.length() - 2);
+
+		header += "\n\nThere is not limit to the number of aspects you add to an item (unless Thaumcraft has one...)\n\n";
+
+		XMLBuilder builder = new XMLBuilder("aspects");
+		builder.makeEntry("stack", new ItemStack(Items.diamond));
+		XMLNode node = builder.toNode();
+		node.addNode(new XMLNode("aspect1").setValue("terra 1"));
+		node.addNode(new XMLNode("aspect2").setValue("aer 5"));
+		header += builder.toString() + "\n\n";
+
+		builder = new XMLBuilder("aspects");
+		builder.makeEntry("stack", "gemDiamond");
+		node = builder.toNode();
+		node.addNode(new XMLNode("aspect1").setValue("terra 1"));
+		node.addNode(new XMLNode("aspect2").setValue("aer 5"));
+		header += builder.toString() + "\n\n";
 	}
 
 	public Thaumcraft4() {
