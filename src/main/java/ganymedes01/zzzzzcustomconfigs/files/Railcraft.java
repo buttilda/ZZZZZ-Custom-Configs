@@ -47,7 +47,8 @@ public class Railcraft extends ConfigFile {
 		node.addNode(new XMLNode("output3").setValue(XMLHelper.toNodeValue(new ItemStack(Blocks.stone))).addProperty("chance", "0.4"));
 		header += builder.toString() + "\n\n";
 
-		header += "Rolling Machine (can be shaped or shapeless, for more information check the CraftingRecipes file):\n";
+		header += "Rolling Machine (has to be shaped or shapeless. for more information look in the CraftingRecipes file):\n";
+		header += "It's also worth noting that the rolling machine DOES NOT support ore dictionary recipes.\n";
 		builder = new XMLBuilder("rollingmachine");
 		builder.makeEntry("output", new ItemStack(Items.golden_sword));
 		builder.makeEntries("row", new Object[] { "x", "x", "y" });

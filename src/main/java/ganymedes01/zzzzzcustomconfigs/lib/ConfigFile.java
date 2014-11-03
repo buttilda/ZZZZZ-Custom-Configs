@@ -3,6 +3,7 @@ package ganymedes01.zzzzzcustomconfigs.lib;
 import ganymedes01.zzzzzcustomconfigs.xml.XMLHelper;
 import ganymedes01.zzzzzcustomconfigs.xml.XMLNode;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -47,13 +48,19 @@ public abstract class ConfigFile {
 	public final void initFile() {
 		try {
 			if (!configFile.exists()) {
-				XMLHelper.getWriter(configFile, name, baseHeader + header).close();
-
+				BufferedWriter bw = XMLHelper.getWriter(configFile, name, baseHeader + header);
+				bw.write("\t<!--Add your recipes here!-->");
+				bw.newLine();
+				bw.close();
 				xmlNode = new XMLNode(name);
 			} else {
 				String file = XMLHelper.readFile(configFile);
 				List<XMLNode> nodes = new ArrayList<XMLNode>();
-				XMLHelper.getNodes(file, nodes);
+				try {
+					XMLHelper.getNodes(file, nodes);
+				} catch (Exception e) {
+					throw new RuntimeException("Error thrown when reading the file " + configFile);
+				}
 
 				xmlNode = nodes.get(0);
 			}
