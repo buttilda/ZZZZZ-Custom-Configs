@@ -10,8 +10,13 @@ import cpw.mods.fml.common.Loader;
 
 public class GregTech extends ConfigFile {
 
+	private static String header = "Examples:\n\n";
+	static {
+
+	}
+
 	public GregTech() {
-		super("GregTech", "");
+		super("GregTech", header);
 	}
 
 	@Override

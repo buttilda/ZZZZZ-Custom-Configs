@@ -9,12 +9,12 @@ import net.minecraftforge.fluids.FluidStack;
 import buildcraft.api.recipes.BuildcraftRecipeRegistry;
 import cpw.mods.fml.common.Loader;
 
-public class RefineryRecipes extends ConfigFile {
+public class Buildcraft extends ConfigFile {
 
 	private static String header = "Examples:\n\n";
 	static {
 		header += "The following recipe takes lava and water as inputs and creates milk (Obs: Milk isn't a real liquid, unlessyou have a mod that adds it you can't use it)\n";
-		XMLBuilder builder = new XMLBuilder("recipe");
+		XMLBuilder builder = new XMLBuilder("refinery");
 		builder.makeEntry("input1", new FluidStack(FluidRegistry.WATER, 1000));
 		builder.makeEntry("input2", new FluidStack(FluidRegistry.LAVA, 1000));
 		XMLNode node = builder.toNode().addProperty("name", "ExampleRecipe");
@@ -27,7 +27,7 @@ public class RefineryRecipes extends ConfigFile {
 		header += "\n";
 		header += "Obs: The parameter \"input2\" is optional. The following recipe takes water and creates lava.\n";
 
-		builder = new XMLBuilder("recipe");
+		builder = new XMLBuilder("refinery");
 		builder.makeEntry("input1", new FluidStack(FluidRegistry.WATER, 1000));
 		builder.makeEntry("output", new FluidStack(FluidRegistry.LAVA, 1000));
 		builder.makeEntry("energy", 120);
@@ -35,14 +35,14 @@ public class RefineryRecipes extends ConfigFile {
 		header += builder.toNode().addProperty("name", "AnotherExample").toString();
 	}
 
-	public RefineryRecipes() {
-		super("RefineryRecipes", header);
+	public Buildcraft() {
+		super("Buildcraft", header);
 	}
 
 	@Override
 	public void preInit() {
 		for (XMLNode node : xmlNode.getNodes())
-			if (node.getName().equals("recipe")) {
+			if (node.getName().equals("refinery")) {
 				String id = node.getProperty("name");
 				FluidStack input1 = XMLParser.parseFluidStackNode(node.getNode("input1"));
 				FluidStack input2 = null;

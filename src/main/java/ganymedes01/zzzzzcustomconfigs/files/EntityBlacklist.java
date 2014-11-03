@@ -8,8 +8,13 @@ import java.util.logging.Logger;
 
 public class EntityBlacklist extends ConfigFile {
 
+	private static String header = "Examples:\n\n";
+	static {
+
+	}
+
 	public EntityBlacklist() {
-		super("EntityBlacklist", "");
+		super("EntityBlacklist", header);
 	}
 
 	public static final ArrayList<String> entityBlacklist = new ArrayList<String>();
