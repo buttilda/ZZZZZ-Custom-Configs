@@ -35,3 +35,14 @@ processResources {
         exclude 'mcmod.info'
     }
 }
+
+repositories {
+    maven {
+        name = "MM repo"
+        url = "http://maven.k-4u.nl/"
+    }
+}
+
+dependencies{
+    compile "pneumaticCraft:PneumaticCraft-1.7.10:1.2.6-6:api"
+}

@@ -1,12 +1,13 @@
 package ganymedes01.zzzzzcustomconfigs.handler;
 
+import ganymedes01.zzzzzcustomconfigs.files.Buildcraft;
 import ganymedes01.zzzzzcustomconfigs.files.CraftingRecipes;
 import ganymedes01.zzzzzcustomconfigs.files.EntityBlacklist;
 import ganymedes01.zzzzzcustomconfigs.files.GregTech;
 import ganymedes01.zzzzzcustomconfigs.files.IndustrialCraft2;
 import ganymedes01.zzzzzcustomconfigs.files.OreDict;
+import ganymedes01.zzzzzcustomconfigs.files.PneumaticCraft;
 import ganymedes01.zzzzzcustomconfigs.files.Railcraft;
-import ganymedes01.zzzzzcustomconfigs.files.Buildcraft;
 import ganymedes01.zzzzzcustomconfigs.files.RemoveRecipes;
 import ganymedes01.zzzzzcustomconfigs.files.Smelting;
 import ganymedes01.zzzzzcustomconfigs.files.Thaumcraft4;
@@ -38,6 +39,8 @@ public class ConfigurationHandler {
 			files.add(new Buildcraft());
 		if (Loader.isModLoaded("Railcraft"))
 			files.add(new Railcraft());
+		if (Loader.isModLoaded("PneumaticCraft"))
+			files.add(new PneumaticCraft());
 
 		for (ConfigFile file : files) {
 			file.initFile();
