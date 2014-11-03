@@ -13,6 +13,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.oredict.OreDictionary;
 import buildcraft.api.recipes.BuildcraftRecipeRegistry;
 import cpw.mods.fml.common.Loader;
 
@@ -28,18 +29,15 @@ public class Buildcraft extends ConfigFile {
 		node.addNode(new XMLNode("output").setValue("milk 1000"));
 		builder.makeEntry("energy", 120);
 		builder.makeEntry("delay", 1);
-		header += node.toString();
+		header += node.toString() + "\n\n";
 
-		header += "\n";
-		header += "\n";
 		header += "Obs: The parameter \"input2\" is optional. The following recipe takes water and creates lava.\n";
-
 		builder = new XMLBuilder("refinery");
 		builder.makeEntry("input1", new FluidStack(FluidRegistry.WATER, 1000));
 		builder.makeEntry("output", new FluidStack(FluidRegistry.LAVA, 1000));
 		builder.makeEntry("energy", 120);
 		builder.makeEntry("delay", 1);
-		header += builder.toNode().addProperty("name", "AnotherExample").toString();
+		header += builder.toNode().addProperty("name", "AnotherExample").toString() + "\n\n";
 
 		builder = new XMLBuilder("assemblytable");
 		builder.makeEntry("energyCost", 10000);
@@ -76,8 +74,13 @@ public class Buildcraft extends ConfigFile {
 				ItemStack output = XMLParser.parseItemStackNode(node.getNode("output"));
 				List<Object> inputs = new ArrayList<Object>();
 				for (XMLNode n : node.getNodes())
-					if (n.getName().startsWith("input"))
-						inputs.add(XMLParser.parseNode(n));
+					if (n.getName().startsWith("input")) {
+						Object obj = XMLParser.parseNode(n);
+						if (obj instanceof String)
+							inputs.add(OreDictionary.getOres((String) obj));
+						else
+							inputs.add(obj);
+					}
 				BuildcraftRecipeRegistry.assemblyTable.addRecipe(id, energyCost, output, inputs.toArray());
 			}
 	}
