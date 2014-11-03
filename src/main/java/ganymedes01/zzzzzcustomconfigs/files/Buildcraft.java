@@ -4,6 +4,13 @@ import ganymedes01.zzzzzcustomconfigs.lib.ConfigFile;
 import ganymedes01.zzzzzcustomconfigs.xml.XMLBuilder;
 import ganymedes01.zzzzzcustomconfigs.xml.XMLNode;
 import ganymedes01.zzzzzcustomconfigs.xml.XMLParser;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import buildcraft.api.recipes.BuildcraftRecipeRegistry;
@@ -33,6 +40,12 @@ public class Buildcraft extends ConfigFile {
 		builder.makeEntry("energy", 120);
 		builder.makeEntry("delay", 1);
 		header += builder.toNode().addProperty("name", "AnotherExample").toString();
+
+		builder = new XMLBuilder("assemblytable");
+		builder.makeEntry("energyCost", 10000);
+		builder.makeEntry("output", new ItemStack(Blocks.bedrock));
+		builder.makeEntries("input", new Object[] { new ItemStack(Blocks.stone), "gemEmerald", new ItemStack(Items.golden_apple) });
+		header += builder.toNode().addProperty("name", "AssemblyExample").toString();
 	}
 
 	public Buildcraft() {
@@ -57,6 +70,15 @@ public class Buildcraft extends ConfigFile {
 					BuildcraftRecipeRegistry.refinery.addRecipe(id, input1, input2, output, energy, delay);
 				else
 					BuildcraftRecipeRegistry.refinery.addRecipe(id, input1, output, energy, delay);
+			} else if (node.getName().equals("assemblytable")) {
+				String id = node.getProperty("name");
+				int energyCost = Integer.parseInt(node.getNode("energyCost").getValue());
+				ItemStack output = XMLParser.parseItemStackNode(node.getNode("output"));
+				List<Object> inputs = new ArrayList<Object>();
+				for (XMLNode n : node.getNodes())
+					if (n.getName().startsWith("input"))
+						inputs.add(XMLParser.parseNode(n));
+				BuildcraftRecipeRegistry.assemblyTable.addRecipe(id, energyCost, output, inputs.toArray());
 			}
 	}
 
