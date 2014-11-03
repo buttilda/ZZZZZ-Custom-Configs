@@ -29,7 +29,7 @@ public class Botania extends ConfigFile {
 		builder.makeEntry("mana", 1000);
 		builder.makeEntries("input", new Object[] { new ItemStack(Items.coal), new ItemStack(Items.coal, 1, 1), "gemEmerald" });
 		header += "The number of inputs should not be larger than 16!\n";
-		header += "The amount of mana should be lower than 100,000!\n";
+		header += "The amount of mana should be smaller than 100,000!\n";
 		header += builder.toString() + "\n\n";
 
 		builder = new XMLBuilder("elventrade");
@@ -53,7 +53,7 @@ public class Botania extends ConfigFile {
 		builder.makeEntry("output", new ItemStack(Blocks.bedrock));
 		builder.makeEntry("input", new ItemStack(Blocks.obsidian));
 		builder.makeEntry("mana", 90000);
-		header += builder.toNode().addProperty("type", "alchemy").toString() + "\n\n";
+		header += builder.toNode().addProperty("type", "alchemy").toString();
 	}
 
 	public Botania() {
@@ -106,8 +106,11 @@ public class Botania extends ConfigFile {
 
 	private Object[] getArray(XMLNode node, String name) {
 		List<Object> inputs = new ArrayList<Object>();
-		for (int i = 0; i < 16; i++)
-			inputs.add(XMLParser.parseNode(node.getNode(name + (i + 1))));
+		for (int i = 0; i < 16; i++) {
+			XMLNode n = node.getNode(name + (i + 1));
+			if (n != null)
+				inputs.add(XMLParser.parseNode(n));
+		}
 
 		return inputs.toArray();
 	}
