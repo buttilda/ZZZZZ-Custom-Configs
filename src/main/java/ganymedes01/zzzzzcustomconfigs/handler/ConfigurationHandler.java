@@ -1,5 +1,6 @@
 package ganymedes01.zzzzzcustomconfigs.handler;
 
+import ganymedes01.zzzzzcustomconfigs.files.Botania;
 import ganymedes01.zzzzzcustomconfigs.files.Buildcraft;
 import ganymedes01.zzzzzcustomconfigs.files.CraftingRecipes;
 import ganymedes01.zzzzzcustomconfigs.files.EntityBlacklist;
@@ -41,6 +42,8 @@ public class ConfigurationHandler {
 			files.add(new Railcraft());
 		if (Loader.isModLoaded("PneumaticCraft"))
 			files.add(new PneumaticCraft());
+		if (Loader.isModLoaded("Botania"))
+			files.add(new Botania());
 
 		for (ConfigFile file : files) {
 			file.initFile();

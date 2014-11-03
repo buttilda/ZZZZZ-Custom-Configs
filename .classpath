@@ -9,5 +9,6 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/BuildCraft"/>
 	<classpathentry kind="lib" path="libs/Railcraft_1.7.10-9.3.3.0.jar"/>
 	<classpathentry kind="lib" path="libs/PneumaticCraft-1.7.10-1.2.14-29-universal.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/Botania"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
