@@ -4,6 +4,7 @@ import ganymedes01.zzzzzcustomconfigs.files.Botania;
 import ganymedes01.zzzzzcustomconfigs.files.Buildcraft;
 import ganymedes01.zzzzzcustomconfigs.files.CraftingRecipes;
 import ganymedes01.zzzzzcustomconfigs.files.EntityBlacklist;
+import ganymedes01.zzzzzcustomconfigs.files.Forestry;
 import ganymedes01.zzzzzcustomconfigs.files.GregTech;
 import ganymedes01.zzzzzcustomconfigs.files.IndustrialCraft2;
 import ganymedes01.zzzzzcustomconfigs.files.OreDict;
@@ -11,7 +12,7 @@ import ganymedes01.zzzzzcustomconfigs.files.PneumaticCraft;
 import ganymedes01.zzzzzcustomconfigs.files.Railcraft;
 import ganymedes01.zzzzzcustomconfigs.files.RemoveRecipes;
 import ganymedes01.zzzzzcustomconfigs.files.Smelting;
-import ganymedes01.zzzzzcustomconfigs.files.Thaumcraft4;
+import ganymedes01.zzzzzcustomconfigs.files.Thaumcraft;
 import ganymedes01.zzzzzcustomconfigs.lib.ConfigFile;
 
 import java.util.LinkedList;
@@ -35,7 +36,7 @@ public class ConfigurationHandler {
 		if (Loader.isModLoaded("IC2"))
 			files.add(new IndustrialCraft2());
 		if (Loader.isModLoaded("Thaumcraft"))
-			files.add(new Thaumcraft4());
+			files.add(new Thaumcraft());
 		if (Loader.isModLoaded("BuildCraft|Energy"))
 			files.add(new Buildcraft());
 		if (Loader.isModLoaded("Railcraft"))
@@ -44,6 +45,8 @@ public class ConfigurationHandler {
 			files.add(new PneumaticCraft());
 		if (Loader.isModLoaded("Botania"))
 			files.add(new Botania());
+		if (Loader.isModLoaded("Forestry"))
+			files.add(new Forestry());
 
 		for (ConfigFile file : files) {
 			file.initFile();

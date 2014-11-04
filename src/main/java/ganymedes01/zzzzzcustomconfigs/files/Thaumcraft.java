@@ -17,7 +17,7 @@ import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 import cpw.mods.fml.common.Loader;
 
-public class Thaumcraft4 extends ConfigFile {
+public class Thaumcraft extends ConfigFile {
 
 	private static String header = "Examples:\n";
 	static {
@@ -43,8 +43,8 @@ public class Thaumcraft4 extends ConfigFile {
 		header += builder.toString() + "\n\n";
 	}
 
-	public Thaumcraft4() {
-		super("Thaumcraft4", header);
+	public Thaumcraft() {
+		super("Thaumcraft", header);
 	}
 
 	@Override
@@ -68,7 +68,7 @@ public class Thaumcraft4 extends ConfigFile {
 				else if (input instanceof String)
 					ThaumcraftApi.registerObjectTag((String) input, aspects);
 				else
-					throw new RuntimeException("Invalid object type. Must be ItemStack or String");
+					throw new IllegalArgumentException("Invalid object type. Must be ItemStack or String");
 			}
 	}
 
