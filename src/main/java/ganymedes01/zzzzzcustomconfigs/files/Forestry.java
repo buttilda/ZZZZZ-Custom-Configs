@@ -42,14 +42,13 @@ public class Forestry extends ConfigFile {
 		header += builder.toString() + "\n\n";
 
 		builder = new XMLBuilder("fabricator");
-		builder.makeEntry("input", new ItemStack(Blocks.ice));
-		builder.makeEntry("output", new FluidStack(FluidRegistry.WATER, 1000));
-		builder.makeEntry("meltingPoint", 100);
+		builder.makeEntry("input", new ItemStack(Blocks.stained_glass));
+		builder.makeEntry("outputAmount", 500);
+		builder.makeEntry("meltingPoint", 2000);
 		header += builder.toNode().addProperty("type", "smelting").toString() + "\n\n";
 
 		builder = new XMLBuilder("fabricator");
 		builder.makeEntry("cast", new ItemStack(Items.boat));
-		builder.makeEntry("fluid", new FluidStack(FluidRegistry.LAVA, 250));
 		builder.makeEntry("output", new ItemStack(Items.diamond_sword));
 		builder.makeEntries("row", new Object[] { "x", "x", "y" });
 		builder.makeEntry("x", new ItemStack(Items.diamond));
@@ -90,6 +89,10 @@ public class Forestry extends ConfigFile {
 
 	@Override
 	public void preInit() {
+	}
+
+	@Override
+	public void init() {
 		for (XMLNode node : xmlNode.getNodes())
 			if (node.getName().equals("carpenter")) {
 				ItemStack box = getItemStack(node, "box");
@@ -115,16 +118,15 @@ public class Forestry extends ConfigFile {
 			} else if (node.getName().equals("fabricator")) {
 				if (node.getProperty("type").equals("smelting")) {
 					ItemStack input = XMLParser.parseItemStackNode(node.getNode("input"));
-					FluidStack output = XMLParser.parseFluidStackNode(node.getNode("output"));
+					int outputAmount = Integer.parseInt(node.getNode("outputAmount").getValue());
 					int meltingPoint = Integer.parseInt(node.getNode("meltingPoint").getValue());
 
-					RecipeManagers.fabricatorManager.addSmelting(input, output, meltingPoint);
+					RecipeManagers.fabricatorManager.addSmelting(input, makeFluid("glass", outputAmount), meltingPoint);
 				} else if (node.getProperty("type").equals("recipe")) {
 					ItemStack cast = getItemStack(node, "cast");
-					FluidStack fluid = XMLParser.parseFluidStackNode(node.getNode("fluid"));
 					ItemStack output = XMLParser.parseItemStackNode(node.getNode("output"));
 
-					RecipeManagers.fabricatorManager.addRecipe(cast, fluid, output, getArray(node));
+					RecipeManagers.fabricatorManager.addRecipe(cast, makeFluid("glass", 500), output, getArray(node));
 				}
 			} else if (node.getName().equals("fermenter")) {
 				ItemStack input = XMLParser.parseItemStackNode(node.getNode("input"));
@@ -156,10 +158,6 @@ public class Forestry extends ConfigFile {
 
 				RecipeManagers.stillManager.addRecipe(time, input, output);
 			}
-	}
-
-	@Override
-	public void init() {
 	}
 
 	@Override
@@ -201,14 +199,14 @@ public class Forestry extends ConfigFile {
 	}
 
 	private void addFermenterRecipe(ItemStack resource, int fermentationValue, FluidStack output) {
-		RecipeManagers.fermenterManager.addRecipe(resource, fermentationValue, 1.0F, output, makeFluid("water"));
+		RecipeManagers.fermenterManager.addRecipe(resource, fermentationValue, 1.0F, output, makeFluid("water", 1));
 		if (FluidRegistry.isFluidRegistered("juice"))
-			RecipeManagers.fermenterManager.addRecipe(resource, fermentationValue, 1.5F, output, makeFluid("juice"));
+			RecipeManagers.fermenterManager.addRecipe(resource, fermentationValue, 1.5F, output, makeFluid("juice", 1));
 		if (FluidRegistry.isFluidRegistered("honey"))
-			RecipeManagers.fermenterManager.addRecipe(resource, fermentationValue, 1.5F, output, makeFluid("honey"));
+			RecipeManagers.fermenterManager.addRecipe(resource, fermentationValue, 1.5F, output, makeFluid("honey", 1));
 	}
 
-	private FluidStack makeFluid(String name) {
-		return new FluidStack(FluidRegistry.getFluid(name), 1);
+	private FluidStack makeFluid(String name, int amount) {
+		return new FluidStack(FluidRegistry.getFluid(name), amount);
 	}
 }
