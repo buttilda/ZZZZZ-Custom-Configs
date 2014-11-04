@@ -1,5 +1,8 @@
 package ganymedes01.zzzzzcustomconfigs.files;
 
+import forestry.api.fuels.EngineBronzeFuel;
+import forestry.api.fuels.EngineCopperFuel;
+import forestry.api.fuels.FuelManager;
 import forestry.api.recipes.RecipeManagers;
 import ganymedes01.zzzzzcustomconfigs.lib.ConfigFile;
 import ganymedes01.zzzzzcustomconfigs.xml.XMLBuilder;
@@ -14,6 +17,7 @@ import java.util.List;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import cpw.mods.fml.common.Loader;
@@ -80,6 +84,19 @@ public class Forestry extends ConfigFile {
 		builder.makeEntry("time", 100);
 		builder.makeEntry("input", new FluidStack(FluidRegistry.LAVA, 1));
 		builder.makeEntry("output", new FluidStack(FluidRegistry.WATER, 1));
+		header += builder.toString() + "\n\n";
+
+		builder = new XMLBuilder("biogasengine");
+		builder.makeEntry("fluid", new FluidStack(FluidRegistry.WATER, 0));
+		builder.makeEntry("powerPerCycle", 20);
+		builder.makeEntry("burnDuration", 1000);
+		builder.makeEntry("dissipationMultiplier", 1);
+		header += builder.toString() + "\n\n";
+
+		builder = new XMLBuilder("peatengine");
+		builder.makeEntry("fuel", new ItemStack(Items.coal));
+		builder.makeEntry("powerPerCycle", 20);
+		builder.makeEntry("burnDuration", 400);
 		header += builder.toString();
 	}
 
@@ -157,6 +174,19 @@ public class Forestry extends ConfigFile {
 				int time = Integer.parseInt(node.getNode("time").getValue());
 
 				RecipeManagers.stillManager.addRecipe(time, input, output);
+			} else if (node.getName().equals("biogasengine")) {
+				Fluid fluid = XMLParser.parseFluidStackNode(node.getNode("fluid")).getFluid();
+				int powerPerCycle = Integer.parseInt(node.getNode("powerPerCycle").getValue());
+				int burnDuration = Integer.parseInt(node.getNode("burnDuration").getValue());
+				int dissipationMultiplier = Integer.parseInt(node.getNode("dissipationMultiplier").getValue());
+
+				FuelManager.bronzeEngineFuel.put(fluid, new EngineBronzeFuel(fluid, powerPerCycle, burnDuration, dissipationMultiplier));
+			} else if (node.getName().equals("peatengine")) {
+				ItemStack fuel = XMLParser.parseItemStackNode(node.getNode("fuel"));
+				int powerPerCycle = Integer.parseInt(node.getNode("powerPerCycle").getValue());
+				int burnDuration = Integer.parseInt(node.getNode("burnDuration").getValue());
+
+				FuelManager.copperEngineFuel.put(fuel, new EngineCopperFuel(fuel, powerPerCycle, burnDuration));
 			}
 	}
 
