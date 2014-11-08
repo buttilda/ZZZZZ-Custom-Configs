@@ -5,7 +5,6 @@ import ganymedes01.zzzzzcustomconfigs.files.Buildcraft;
 import ganymedes01.zzzzzcustomconfigs.files.CraftingRecipes;
 import ganymedes01.zzzzzcustomconfigs.files.EntityBlacklist;
 import ganymedes01.zzzzzcustomconfigs.files.Forestry;
-import ganymedes01.zzzzzcustomconfigs.files.GregTech;
 import ganymedes01.zzzzzcustomconfigs.files.IndustrialCraft2;
 import ganymedes01.zzzzzcustomconfigs.files.OreDict;
 import ganymedes01.zzzzzcustomconfigs.files.PneumaticCraft;
@@ -31,8 +30,6 @@ public class ConfigurationHandler {
 		files.add(new RemoveRecipes());
 		files.add(new Smelting());
 
-		if (Loader.isModLoaded("gregtech"))
-			files.add(new GregTech());
 		if (Loader.isModLoaded("IC2"))
 			files.add(new IndustrialCraft2());
 		if (Loader.isModLoaded("Thaumcraft"))
@@ -53,10 +50,6 @@ public class ConfigurationHandler {
 			if (file.isEnabled())
 				file.preInit();
 		}
-
-		/*
-		registerFile(Files.getBlacklistEntityFile(), Types.BLACKLIST_ENTITY);
-		 */
 	}
 
 	public static void init() {
@@ -69,10 +62,5 @@ public class ConfigurationHandler {
 		for (ConfigFile file : files)
 			if (file.isEnabled())
 				file.postInit();
-
-		/*
-		registerFile(Files.getRemoveRecipeFile(), Types.REMOVE_RECIPE);
-		registerFile(Files.getGTRecipeFile(), Types.GT_RECIPE);
-		 */
 	}
 }
