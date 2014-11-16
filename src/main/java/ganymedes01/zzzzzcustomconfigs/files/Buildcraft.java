@@ -13,7 +13,6 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.oredict.OreDictionary;
 import buildcraft.api.recipes.BuildcraftRecipeRegistry;
 import cpw.mods.fml.common.Loader;
 
@@ -74,13 +73,8 @@ public class Buildcraft extends ConfigFile {
 				ItemStack output = XMLParser.parseItemStackNode(node.getNode("output"));
 				List<Object> inputs = new ArrayList<Object>();
 				for (XMLNode n : node.getNodes())
-					if (n.getName().startsWith("input")) {
-						Object obj = XMLParser.parseNode(n);
-						if (obj instanceof String)
-							inputs.add(OreDictionary.getOres((String) obj));
-						else
-							inputs.add(obj);
-					}
+					if (n.getName().startsWith("input"))
+						inputs.add(XMLParser.parseNode(n));
 				BuildcraftRecipeRegistry.assemblyTable.addRecipe(id, energyCost, output, inputs.toArray());
 			}
 	}

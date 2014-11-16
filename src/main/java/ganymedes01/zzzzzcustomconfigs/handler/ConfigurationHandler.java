@@ -3,7 +3,6 @@ package ganymedes01.zzzzzcustomconfigs.handler;
 import ganymedes01.zzzzzcustomconfigs.files.Botania;
 import ganymedes01.zzzzzcustomconfigs.files.Buildcraft;
 import ganymedes01.zzzzzcustomconfigs.files.CraftingRecipes;
-import ganymedes01.zzzzzcustomconfigs.files.EntityBlacklist;
 import ganymedes01.zzzzzcustomconfigs.files.Forestry;
 import ganymedes01.zzzzzcustomconfigs.files.IndustrialCraft2;
 import ganymedes01.zzzzzcustomconfigs.files.OreDict;
@@ -25,7 +24,6 @@ public class ConfigurationHandler {
 
 	public static void preInit() {
 		files.add(new CraftingRecipes());
-		files.add(new EntityBlacklist());
 		files.add(new OreDict());
 		files.add(new RemoveRecipes());
 		files.add(new Smelting());

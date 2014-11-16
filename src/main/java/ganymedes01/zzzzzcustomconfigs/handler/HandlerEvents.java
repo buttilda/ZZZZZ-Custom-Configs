@@ -1,24 +1,13 @@
 package ganymedes01.zzzzzcustomconfigs.handler;
 
 import ganymedes01.zzzzzcustomconfigs.ZZZZZCustomConfigs;
-import ganymedes01.zzzzzcustomconfigs.files.EntityBlacklist;
-import net.minecraft.entity.EntityList;
 import net.minecraft.item.Item;
 import net.minecraft.util.EnumChatFormatting;
-import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public class HandlerEvents {
-
-	@SubscribeEvent(priority = EventPriority.LOWEST)
-	public void spawnEvent(EntityJoinWorldEvent event) {
-		String name = EntityList.getEntityString(event.entity);
-		if (name != null)
-			if (EntityBlacklist.entityBlacklist.contains(name.toLowerCase()))
-				event.setCanceled(true);
-	}
 
 	@SubscribeEvent(priority = EventPriority.LOWEST)
 	public void tooltip(ItemTooltipEvent event) {
