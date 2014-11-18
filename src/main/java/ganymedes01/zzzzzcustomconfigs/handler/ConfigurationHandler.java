@@ -1,5 +1,6 @@
 package ganymedes01.zzzzzcustomconfigs.handler;
 
+import ganymedes01.zzzzzcustomconfigs.files.BloodMagic;
 import ganymedes01.zzzzzcustomconfigs.files.Botania;
 import ganymedes01.zzzzzcustomconfigs.files.Buildcraft;
 import ganymedes01.zzzzzcustomconfigs.files.CraftingRecipes;
@@ -42,6 +43,8 @@ public class ConfigurationHandler {
 			files.add(new Botania());
 		if (Loader.isModLoaded("Forestry"))
 			files.add(new Forestry());
+		if (Loader.isModLoaded("AWWayofTime"))
+			files.add(new BloodMagic());
 
 		for (ConfigFile file : files) {
 			file.initFile();
