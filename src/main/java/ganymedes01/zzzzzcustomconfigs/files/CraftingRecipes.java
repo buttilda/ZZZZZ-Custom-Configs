@@ -54,6 +54,15 @@ public class CraftingRecipes extends ConfigFile {
 
 	@Override
 	public void preInit() {
+	}
+
+	private void addRecipe(IRecipe recipe) {
+		addedRecipes.add(recipe);
+		GameRegistry.addRecipe(recipe);
+	}
+
+	@Override
+	public void init() {
 		for (XMLNode node : xmlNode.getNodes()) {
 			ItemStack output = XMLParser.parseItemStackNode(node.getNode("output"));
 			if (node.getName().equals("shaped")) {
@@ -86,15 +95,6 @@ public class CraftingRecipes extends ConfigFile {
 			} else
 				throw new RuntimeException("Invalid recipe name: " + node.getName());
 		}
-	}
-
-	private void addRecipe(IRecipe recipe) {
-		addedRecipes.add(recipe);
-		GameRegistry.addRecipe(recipe);
-	}
-
-	@Override
-	public void init() {
 	}
 
 	@Override
