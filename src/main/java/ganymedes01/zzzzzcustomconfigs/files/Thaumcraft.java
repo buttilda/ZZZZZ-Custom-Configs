@@ -48,10 +48,6 @@ public class Thaumcraft extends ConfigFile {
 	}
 
 	@Override
-	public void preInit() {
-	}
-
-	@Override
 	public void init() {
 		for (XMLNode node : xmlNode.getNodes())
 			if (node.getName().equals("aspects")) {
@@ -70,6 +66,10 @@ public class Thaumcraft extends ConfigFile {
 				else
 					throw new IllegalArgumentException("Invalid object type. Must be ItemStack or String");
 			}
+	}
+
+	@Override
+	public void preInit() {
 	}
 
 	@Override

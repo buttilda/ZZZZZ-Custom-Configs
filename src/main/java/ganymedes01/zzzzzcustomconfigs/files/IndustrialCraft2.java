@@ -84,10 +84,6 @@ public class IndustrialCraft2 extends ConfigFile {
 	}
 
 	@Override
-	public void preInit() {
-	}
-
-	@Override
 	public void init() {
 		for (XMLNode node : xmlNode.getNodes()) {
 			String name = node.getName();
@@ -130,6 +126,10 @@ public class IndustrialCraft2 extends ConfigFile {
 				Recipes.cannerEnrich.addRecipe(input, additive, output);
 			}
 		}
+	}
+
+	@Override
+	public void preInit() {
 	}
 
 	@Override

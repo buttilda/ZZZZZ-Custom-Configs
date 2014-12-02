@@ -61,7 +61,7 @@ public class Botania extends ConfigFile {
 	}
 
 	@Override
-	public void preInit() {
+	public void init() {
 		for (XMLNode node : xmlNode.getNodes())
 			if (node.getName().equals("petals")) {
 				ItemStack output = XMLParser.parseItemStackNode(node.getNode("output"));
@@ -92,7 +92,7 @@ public class Botania extends ConfigFile {
 	}
 
 	@Override
-	public void init() {
+	public void preInit() {
 	}
 
 	@Override
