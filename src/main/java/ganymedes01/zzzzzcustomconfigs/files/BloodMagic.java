@@ -73,7 +73,7 @@ public class BloodMagic extends ConfigFile {
 	}
 
 	@Override
-	public void preInit() {
+	public void init() {
 		for (XMLNode node : xmlNode.getNodes())
 			if (node.getName().equals("altar")) {
 				ItemStack input = XMLParser.parseItemStackNode(node.getNode("input"));
@@ -143,7 +143,7 @@ public class BloodMagic extends ConfigFile {
 	}
 
 	@Override
-	public void init() {
+	public void preInit() {
 	}
 
 	@Override
