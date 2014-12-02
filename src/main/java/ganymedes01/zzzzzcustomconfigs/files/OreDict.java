@@ -34,7 +34,7 @@ public class OreDict extends ConfigFile {
 	}
 
 	@Override
-	public void preInit() {
+	public void init() {
 		for (XMLNode node : xmlNode.getNodes())
 			if (node.getName().equals("ore")) {
 				String name = XMLParser.parseStringNode(node.getNode("name"));
@@ -47,7 +47,7 @@ public class OreDict extends ConfigFile {
 	}
 
 	@Override
-	public void init() {
+	public void preInit() {
 	}
 
 	@Override

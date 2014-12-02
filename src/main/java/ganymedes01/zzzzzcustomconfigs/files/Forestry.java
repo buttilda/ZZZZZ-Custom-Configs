@@ -105,10 +105,6 @@ public class Forestry extends ConfigFile {
 	}
 
 	@Override
-	public void preInit() {
-	}
-
-	@Override
 	public void init() {
 		for (XMLNode node : xmlNode.getNodes())
 			if (node.getName().equals("carpenter")) {
@@ -188,6 +184,10 @@ public class Forestry extends ConfigFile {
 
 				FuelManager.copperEngineFuel.put(fuel, new EngineCopperFuel(fuel, powerPerCycle, burnDuration));
 			}
+	}
+
+	@Override
+	public void preInit() {
 	}
 
 	@Override

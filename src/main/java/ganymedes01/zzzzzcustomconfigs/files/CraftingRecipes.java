@@ -52,10 +52,6 @@ public class CraftingRecipes extends ConfigFile {
 		super("CraftingRecipes", header);
 	}
 
-	@Override
-	public void preInit() {
-	}
-
 	private void addRecipe(IRecipe recipe) {
 		addedRecipes.add(recipe);
 		GameRegistry.addRecipe(recipe);
@@ -95,6 +91,10 @@ public class CraftingRecipes extends ConfigFile {
 			} else
 				throw new RuntimeException("Invalid recipe name: " + node.getName());
 		}
+	}
+
+	@Override
+	public void preInit() {
 	}
 
 	@Override
