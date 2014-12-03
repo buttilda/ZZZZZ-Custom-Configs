@@ -4,6 +4,7 @@ import ganymedes01.zzzzzcustomconfigs.files.BloodMagic;
 import ganymedes01.zzzzzcustomconfigs.files.Botania;
 import ganymedes01.zzzzzcustomconfigs.files.Buildcraft;
 import ganymedes01.zzzzzcustomconfigs.files.CraftingRecipes;
+import ganymedes01.zzzzzcustomconfigs.files.Fishing;
 import ganymedes01.zzzzzcustomconfigs.files.Forestry;
 import ganymedes01.zzzzzcustomconfigs.files.IndustrialCraft2;
 import ganymedes01.zzzzzcustomconfigs.files.OreDict;
@@ -28,6 +29,7 @@ public class ConfigurationHandler {
 		files.add(new OreDict());
 		files.add(new RemoveRecipes());
 		files.add(new Smelting());
+		files.add(new Fishing());
 
 		if (Loader.isModLoaded("IC2"))
 			files.add(new IndustrialCraft2());
