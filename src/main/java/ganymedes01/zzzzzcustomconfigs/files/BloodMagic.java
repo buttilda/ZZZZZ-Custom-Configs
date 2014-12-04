@@ -134,7 +134,8 @@ public class BloodMagic extends ConfigFile {
 				}
 
 				AlchemyRecipeRegistry.registerRecipe(output, time, recipe.toArray(new ItemStack[0]), bloodOrbLevel);
-			}
+			} else
+				throw new RuntimeException("Invalid recipe name: " + node.getName());
 	}
 
 	private void addRecipe(IRecipe recipe) {

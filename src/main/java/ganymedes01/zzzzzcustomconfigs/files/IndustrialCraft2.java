@@ -124,7 +124,8 @@ public class IndustrialCraft2 extends ConfigFile {
 				FluidStack output = XMLParser.parseFluidStackNode(node.getNode("output"));
 				IRecipeInput additive = getInput(node.getNode("additive"));
 				Recipes.cannerEnrich.addRecipe(input, additive, output);
-			}
+			} else
+				throw new RuntimeException("Invalid recipe name: " + node.getName());
 		}
 	}
 

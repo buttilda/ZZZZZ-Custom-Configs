@@ -183,7 +183,8 @@ public class Forestry extends ConfigFile {
 				int burnDuration = Integer.parseInt(node.getNode("burnDuration").getValue());
 
 				FuelManager.copperEngineFuel.put(fuel, new EngineCopperFuel(fuel, powerPerCycle, burnDuration));
-			}
+			} else
+				throw new RuntimeException("Invalid recipe name: " + node.getName());
 	}
 
 	@Override

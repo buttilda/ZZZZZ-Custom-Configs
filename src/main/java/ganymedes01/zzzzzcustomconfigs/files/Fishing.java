@@ -90,6 +90,8 @@ public class Fishing extends ConfigFile {
 				FishingHooks.addJunk(randFish);
 			else if (node.getName().equals("treasure"))
 				FishingHooks.addTreasure(randFish);
+			else
+				throw new RuntimeException("Invalid fishable type: " + node.getName());
 		}
 	}
 

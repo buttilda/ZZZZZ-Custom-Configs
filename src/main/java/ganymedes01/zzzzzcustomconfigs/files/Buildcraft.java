@@ -76,7 +76,8 @@ public class Buildcraft extends ConfigFile {
 					if (n.getName().startsWith("input"))
 						inputs.add(XMLParser.parseNode(n));
 				BuildcraftRecipeRegistry.assemblyTable.addRecipe(id, energyCost, output, inputs.toArray());
-			}
+			} else
+				throw new RuntimeException("Invalid recipe name: " + node.getName());
 	}
 
 	@Override

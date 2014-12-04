@@ -59,7 +59,8 @@ public class PneumaticCraft extends ConfigFile {
 				float pressure = Float.parseFloat(node.getNode("pressure").getValue());
 
 				PressureChamberRecipe.chamberRecipes.add(new PressureChamberRecipe(input, pressure, output, false));
-			}
+			} else
+				throw new RuntimeException("Invalid recipe name: " + node.getName());
 	}
 
 	@Override

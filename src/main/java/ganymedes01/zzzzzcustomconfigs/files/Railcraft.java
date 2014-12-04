@@ -125,7 +125,8 @@ public class Railcraft extends ConfigFile {
 					}
 					RailcraftCraftingManager.rollingMachine.addShapelessRecipe(output, data.toArray());
 				}
-			}
+			} else
+				throw new RuntimeException("Invalid recipe name: " + node.getName());
 	}
 
 	@Override

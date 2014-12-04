@@ -88,7 +88,8 @@ public class Botania extends ConfigFile {
 					BotaniaAPI.registerManaConjurationRecipe(output, input, mana);
 				else if (type.equals("alchemy"))
 					BotaniaAPI.registerManaAlchemyRecipe(output, input, mana);
-			}
+			} else
+				throw new RuntimeException("Invalid recipe name: " + node.getName());
 	}
 
 	@Override
