@@ -3,6 +3,7 @@ package ganymedes01.zzzzzcustomconfigs.handler;
 import ganymedes01.zzzzzcustomconfigs.files.BloodMagic;
 import ganymedes01.zzzzzcustomconfigs.files.Botania;
 import ganymedes01.zzzzzcustomconfigs.files.Buildcraft;
+import ganymedes01.zzzzzcustomconfigs.files.ChestLoot;
 import ganymedes01.zzzzzcustomconfigs.files.CraftingRecipes;
 import ganymedes01.zzzzzcustomconfigs.files.Fishing;
 import ganymedes01.zzzzzcustomconfigs.files.Forestry;
@@ -30,6 +31,7 @@ public class ConfigurationHandler {
 		files.add(new RemoveRecipes());
 		files.add(new Smelting());
 		files.add(new Fishing());
+		files.add(new ChestLoot());
 
 		if (Loader.isModLoaded("IC2"))
 			files.add(new IndustrialCraft2());
