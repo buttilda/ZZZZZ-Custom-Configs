@@ -60,14 +60,14 @@ public class EntityDrops extends ConfigFile {
 		builder.makeEntry("drop2", new ItemStack(Items.cookie)).addProperty("chance", "100");
 		header += "The following makes creepers drop up to 5 bones with a 50% chance, and drop up to 1 cookie with a 100% chance\n.";
 		header += "The drop chance and amount WILL be influenced by the looting enchantment!\n";
-		header += builder.toNode().addProperty("type", "add").toString() + "\n\n";
+		header += builder.toNode().addProperty("action", "add").toString() + "\n\n";
 
 		builder = new XMLBuilder("Cow");
 		builder.makeEntry("stack1", new ItemStack(Items.beef));
 		builder.makeEntry("stack2", new ItemStack(Items.cooked_beef));
 		builder.makeEntry("stack3", new ItemStack(Items.leather));
 		header += "The following makes so that cows no longer drop beef, cooked beef or leather.\n";
-		header += builder.toNode().addProperty("type", "remove").toString() + "\n";
+		header += builder.toNode().addProperty("action", "remove").toString() + "\n";
 	}
 
 	public EntityDrops() {
@@ -77,7 +77,7 @@ public class EntityDrops extends ConfigFile {
 	@Override
 	public void init() {
 		for (XMLNode node : xmlNode.getNodes()) {
-			String type = node.getProperty("type");
+			String type = node.getProperty("action");
 
 			if (type.equals("add"))
 				for (XMLNode n : node.getNodes()) {
