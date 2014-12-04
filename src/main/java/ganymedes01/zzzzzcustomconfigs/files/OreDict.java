@@ -47,10 +47,6 @@ public class OreDict extends ConfigFile {
 	}
 
 	@Override
-	public void preInit() {
-	}
-
-	@Override
 	public void postInit() {
 	}
 

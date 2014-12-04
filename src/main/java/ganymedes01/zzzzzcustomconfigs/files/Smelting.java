@@ -45,10 +45,6 @@ public class Smelting extends ConfigFile {
 	}
 
 	@Override
-	public void preInit() {
-	}
-
-	@Override
 	public void postInit() {
 	}
 

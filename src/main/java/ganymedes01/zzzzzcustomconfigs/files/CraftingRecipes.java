@@ -89,12 +89,8 @@ public class CraftingRecipes extends ConfigFile {
 				}
 				addRecipe(new ShapelessOreRecipe(output, data.toArray()));
 			} else
-				throw new RuntimeException("Invalid recipe name: " + node.getName());
+				throw new IllegalArgumentException("Invalid recipe name: " + node.getName());
 		}
-	}
-
-	@Override
-	public void preInit() {
 	}
 
 	@Override

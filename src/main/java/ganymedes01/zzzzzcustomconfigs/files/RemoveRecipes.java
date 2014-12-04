@@ -41,10 +41,6 @@ public class RemoveRecipes extends ConfigFile {
 	}
 
 	@Override
-	public void preInit() {
-	}
-
-	@Override
 	public void init() {
 	}
 

@@ -5,6 +5,7 @@ import ganymedes01.zzzzzcustomconfigs.files.Botania;
 import ganymedes01.zzzzzcustomconfigs.files.Buildcraft;
 import ganymedes01.zzzzzcustomconfigs.files.ChestLoot;
 import ganymedes01.zzzzzcustomconfigs.files.CraftingRecipes;
+import ganymedes01.zzzzzcustomconfigs.files.EntityDrops;
 import ganymedes01.zzzzzcustomconfigs.files.Fishing;
 import ganymedes01.zzzzzcustomconfigs.files.Forestry;
 import ganymedes01.zzzzzcustomconfigs.files.IndustrialCraft2;
@@ -32,6 +33,7 @@ public class ConfigurationHandler {
 		files.add(new Smelting());
 		files.add(new Fishing());
 		files.add(new ChestLoot());
+		files.add(new EntityDrops());
 
 		if (Loader.isModLoaded("IC2"))
 			files.add(new IndustrialCraft2());
@@ -50,11 +52,8 @@ public class ConfigurationHandler {
 		if (Loader.isModLoaded("AWWayofTime"))
 			files.add(new BloodMagic());
 
-		for (ConfigFile file : files) {
+		for (ConfigFile file : files)
 			file.initFile();
-			if (file.isEnabled())
-				file.preInit();
-		}
 	}
 
 	public static void init() {

@@ -66,10 +66,6 @@ public class Thaumcraft extends ConfigFile {
 	}
 
 	@Override
-	public void preInit() {
-	}
-
-	@Override
 	public void postInit() {
 	}
 

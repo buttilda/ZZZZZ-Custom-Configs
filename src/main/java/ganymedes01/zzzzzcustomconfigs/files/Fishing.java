@@ -91,12 +91,8 @@ public class Fishing extends ConfigFile {
 			else if (node.getName().equals("treasure"))
 				FishingHooks.addTreasure(randFish);
 			else
-				throw new RuntimeException("Invalid fishable type: " + node.getName());
+				throw new IllegalArgumentException("Invalid fishable type: " + node.getName());
 		}
-	}
-
-	@Override
-	public void preInit() {
 	}
 
 	@Override

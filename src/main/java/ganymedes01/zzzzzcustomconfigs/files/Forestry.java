@@ -184,11 +184,7 @@ public class Forestry extends ConfigFile {
 
 				FuelManager.copperEngineFuel.put(fuel, new EngineCopperFuel(fuel, powerPerCycle, burnDuration));
 			} else
-				throw new RuntimeException("Invalid recipe name: " + node.getName());
-	}
-
-	@Override
-	public void preInit() {
+				throw new IllegalArgumentException("Invalid recipe name: " + node.getName());
 	}
 
 	@Override

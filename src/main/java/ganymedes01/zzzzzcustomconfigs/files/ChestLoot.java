@@ -60,10 +60,6 @@ public class ChestLoot extends ConfigFile {
 	}
 
 	@Override
-	public void preInit() {
-	}
-
-	@Override
 	public void postInit() {
 	}
 

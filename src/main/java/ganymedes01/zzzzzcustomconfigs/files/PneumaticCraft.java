@@ -60,11 +60,7 @@ public class PneumaticCraft extends ConfigFile {
 
 				PressureChamberRecipe.chamberRecipes.add(new PressureChamberRecipe(input, pressure, output, false));
 			} else
-				throw new RuntimeException("Invalid recipe name: " + node.getName());
-	}
-
-	@Override
-	public void preInit() {
+				throw new IllegalArgumentException("Invalid recipe name: " + node.getName());
 	}
 
 	@Override

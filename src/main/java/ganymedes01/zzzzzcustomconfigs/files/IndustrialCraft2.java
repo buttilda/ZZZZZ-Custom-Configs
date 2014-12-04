@@ -125,12 +125,8 @@ public class IndustrialCraft2 extends ConfigFile {
 				IRecipeInput additive = getInput(node.getNode("additive"));
 				Recipes.cannerEnrich.addRecipe(input, additive, output);
 			} else
-				throw new RuntimeException("Invalid recipe name: " + node.getName());
+				throw new IllegalArgumentException("Invalid recipe name: " + node.getName());
 		}
-	}
-
-	@Override
-	public void preInit() {
 	}
 
 	@Override
