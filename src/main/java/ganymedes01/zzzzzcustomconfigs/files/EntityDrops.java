@@ -21,9 +21,8 @@ import net.minecraftforge.oredict.OreDictionary;
 
 public class EntityDrops extends ConfigFile {
 
-	private static String header = "Examples:\n\n";
+	private static String header = "Vanilla entities names:\n\n";
 	static {
-		header += "Vanilla entities names:\n";
 		header += "Creeper\n";
 		header += "Skeleton\n";
 		header += "Spider\n";
@@ -57,10 +56,10 @@ public class EntityDrops extends ConfigFile {
 		header += "CASE DOES MATTER! \"Creeper\" IS DIFFERENT THAN \"creeper\"!!!";
 
 		XMLBuilder builder = new XMLBuilder("Creeper");
-		builder.makeEntry("drop", new ItemStack(Items.bone, 5));
-		builder.makeEntry("chance", 50);
-		header += "The following makes creepers drop up to 5 bones with a 50% chance\n";
-		header += "The drop chance and amount will be influenced by the looting enchantment!\n";
+		builder.makeEntry("drop1", new ItemStack(Items.bone, 5)).addProperty("chance", "50");
+		builder.makeEntry("drop2", new ItemStack(Items.cookie)).addProperty("chance", "100");
+		header += "The following makes creepers drop up to 5 bones with a 50% chance, and drop up to 1 cookie with a 100% chance\n.";
+		header += "The drop chance and amount WILL be influenced by the looting enchantment!\n";
 		header += builder.toNode().addProperty("type", "add").toString() + "\n\n";
 
 		builder = new XMLBuilder("Cow");
@@ -80,11 +79,13 @@ public class EntityDrops extends ConfigFile {
 		for (XMLNode node : xmlNode.getNodes()) {
 			String type = node.getProperty("type");
 
-			if (type.equals("add")) {
-				ItemStack stack = XMLParser.parseItemStackNode(node.getNode("drop"));
-				int chance = Integer.parseInt(node.getNode("chance").getValue());
-				addDrop(node.getName(), stack, chance);
-			} else if (type.equals("remove"))
+			if (type.equals("add"))
+				for (XMLNode n : node.getNodes()) {
+					ItemStack stack = XMLParser.parseItemStackNode(n);
+					int chance = Integer.parseInt(n.getProperty("chance"));
+					addDrop(node.getName(), stack, chance);
+				}
+			else if (type.equals("remove"))
 				for (XMLNode n : node.getNodes())
 					addBan(node.getName(), XMLParser.parseItemStackNode(n));
 			else
