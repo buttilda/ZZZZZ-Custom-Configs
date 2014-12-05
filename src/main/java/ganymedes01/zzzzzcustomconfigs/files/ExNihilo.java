@@ -45,6 +45,25 @@ public class ExNihilo extends ConfigFile {
 		header += "The following shows an example of how to add a cruicible recipe.\n";
 		header += "The \"input\" MUST be a block! It cannot contain an item!\n";
 		header += builder.toString() + "\n\n";
+
+		builder = new XMLBuilder("hammer");
+		builder.makeEntry("input", new ItemStack(Blocks.ice));
+		builder.makeEntry("output", new ItemStack(Items.fish));
+		builder.makeEntry("chance", 0.5F);
+		builder.makeEntry("luckMultiplier", 0.05F);
+		header += "The following shows an example of how to add a cruicible recipe.\n";
+		header += "The \"chance\" is how often the item will be dropped. 0.5 = 50%\n";
+		header += "The \"luckMultiplier\" will be mutiplied by the fortune of the hammer and then added to the chance. e.g: chance of 0.5, luckMultiplier of 0.25 and fortune 2 = 0.5 + (0.25 x 2) = 1 = 100%\n";
+		header += "The \"input\" MUST be a block! It cannot contain an item!\n";
+		header += builder.toString() + "\n\n";
+
+		builder = new XMLBuilder("heat");
+		builder.makeEntry("input", new ItemStack(Blocks.cake));
+		builder.makeEntry("value", 0.5F);
+		header += "The following shows an example of how to add a block that can be used to power a cruicible.\n";
+		header += "As a reference for the \"value\" parameter, lava has a value of 0.2, fire is 0.3, a torch is 0.1.\n";
+		header += "The \"input\" MUST be a block! It cannot contain an item!\n";
+		header += builder.toString() + "\n\n";
 	}
 
 	public ExNihilo() {
