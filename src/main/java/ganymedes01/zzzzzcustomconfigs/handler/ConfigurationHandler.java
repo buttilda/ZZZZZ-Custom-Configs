@@ -6,6 +6,7 @@ import ganymedes01.zzzzzcustomconfigs.files.Buildcraft;
 import ganymedes01.zzzzzcustomconfigs.files.ChestLoot;
 import ganymedes01.zzzzzcustomconfigs.files.CraftingRecipes;
 import ganymedes01.zzzzzcustomconfigs.files.EntityDrops;
+import ganymedes01.zzzzzcustomconfigs.files.ExNihilo;
 import ganymedes01.zzzzzcustomconfigs.files.Fishing;
 import ganymedes01.zzzzzcustomconfigs.files.Forestry;
 import ganymedes01.zzzzzcustomconfigs.files.IndustrialCraft2;
@@ -51,6 +52,8 @@ public class ConfigurationHandler {
 			files.add(new Forestry());
 		if (Loader.isModLoaded("AWWayofTime"))
 			files.add(new BloodMagic());
+		if (Loader.isModLoaded("exnihilo"))
+			files.add(new ExNihilo());
 
 		for (ConfigFile file : files)
 			file.initFile();
