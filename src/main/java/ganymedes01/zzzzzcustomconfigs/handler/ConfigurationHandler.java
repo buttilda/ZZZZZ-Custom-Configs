@@ -16,6 +16,7 @@ import ganymedes01.zzzzzcustomconfigs.files.Railcraft;
 import ganymedes01.zzzzzcustomconfigs.files.RemoveRecipes;
 import ganymedes01.zzzzzcustomconfigs.files.Smelting;
 import ganymedes01.zzzzzcustomconfigs.files.Thaumcraft;
+import ganymedes01.zzzzzcustomconfigs.files.ThermalExpansion;
 import ganymedes01.zzzzzcustomconfigs.lib.ConfigFile;
 
 import java.util.LinkedList;
@@ -54,6 +55,8 @@ public class ConfigurationHandler {
 			files.add(new BloodMagic());
 		if (Loader.isModLoaded("exnihilo"))
 			files.add(new ExNihilo());
+		if (Loader.isModLoaded("ThermalExpansion"))
+			files.add(new ThermalExpansion());
 
 		for (ConfigFile file : files)
 			file.initFile();
