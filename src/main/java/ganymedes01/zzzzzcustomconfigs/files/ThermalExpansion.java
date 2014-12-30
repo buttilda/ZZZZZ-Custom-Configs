@@ -34,6 +34,13 @@ public class ThermalExpansion extends ConfigFile {
 		builder.makeEntry("energy", 10000);
 		header += builder.toString() + "\n\n";
 
+		header += "The following shows how to add a to the Redstone Furnace\n";
+		builder = new XMLBuilder("redstonefurnace");
+		builder.makeEntry("input", new ItemStack(Blocks.cobblestone));
+		builder.makeEntry("output", new ItemStack(Blocks.stone));
+		builder.makeEntry("energy", 1000);
+		header += builder.toString() + "\n\n";
+
 		header += "The following shows how to add a to the Sawmill\n";
 		builder = new XMLBuilder("sawmill");
 		builder.makeEntry("input", new ItemStack(Blocks.planks));
@@ -41,7 +48,7 @@ public class ThermalExpansion extends ConfigFile {
 		builder.makeEntry("energy", 1000);
 		header += builder.toString() + "\n";
 		header += "You can also add recipes that have a secondary output that is yielded with a certain chance (between 1 and 100)\n";
-		builder = new XMLBuilder("pulverizer");
+		builder = new XMLBuilder("sawmill");
 		builder.makeEntry("input", new ItemStack(Blocks.planks));
 		builder.makeEntry("output1", new ItemStack(Items.stick));
 		builder.makeEntry("output2", new ItemStack(Items.stick));
@@ -74,14 +81,14 @@ public class ThermalExpansion extends ConfigFile {
 		header += builder.toString() + "\n\n";
 
 		header += "The following shows how to add recipes to the Fluid Transposer\n";
-		header += "This shows a recipe where the transposer fills an empty bucket with 1000mB of water and turns it into a water bucket";
+		header += "This shows a recipe where the transposer fills an empty bucket with 1000mB of water and turns it into a water bucket\n";
 		builder = new XMLBuilder("transposer");
 		builder.makeEntry("input", new ItemStack(Items.bucket));
 		builder.makeEntry("output", new ItemStack(Items.water_bucket));
 		builder.makeEntry("fluid", new FluidStack(FluidRegistry.WATER, 1000));
 		builder.makeEntry("energy", 200);
 		header += builder.toNode().addProperty("type", "fill").toString() + "\n\n";
-		header += "This shows a recipe where the transposer extracts 1000mB of water from a water bucket and yields an empty bucket with 100% chance";
+		header += "This shows a recipe where the transposer extracts 1000mB of water from a water bucket and yields an empty bucket with 100% chance\n";
 		builder = new XMLBuilder("transposer");
 		builder.makeEntry("input", new ItemStack(Items.water_bucket));
 		builder.makeEntry("output", new ItemStack(Items.bucket));
@@ -112,7 +119,7 @@ public class ThermalExpansion extends ConfigFile {
 		builder = new XMLBuilder("coolant");
 		builder.makeEntry("fuelName", new FluidStack(FluidRegistry.WATER, 0));
 		builder.makeEntry("energy", 10);
-		header += builder.toString() + "\n\n";
+		header += builder.toString();
 	}
 
 	public ThermalExpansion() {
