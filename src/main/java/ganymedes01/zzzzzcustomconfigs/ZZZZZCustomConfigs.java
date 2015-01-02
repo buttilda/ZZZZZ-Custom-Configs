@@ -20,7 +20,7 @@ public class ZZZZZCustomConfigs {
 	@Instance(Reference.MOD_ID)
 	public static ZZZZZCustomConfigs instance;
 
-	public static boolean showTooltips = true;
+	public static boolean showTooltips = false;
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
