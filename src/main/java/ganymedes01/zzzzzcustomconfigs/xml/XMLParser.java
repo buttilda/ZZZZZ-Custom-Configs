@@ -24,7 +24,7 @@ public class XMLParser {
 			else if (isItemStackValue(value))
 				return parseItemStackNode(node);
 			else
-				return null;
+				throw new IllegalArgumentException("Unable to parse node: " + node);
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new RuntimeException("Error parsing node: " + node, e);
