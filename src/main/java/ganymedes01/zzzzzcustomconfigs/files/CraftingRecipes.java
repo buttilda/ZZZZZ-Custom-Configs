@@ -49,10 +49,14 @@ public class CraftingRecipes extends ConfigFile {
 	}
 
 	public CraftingRecipes() {
-		super("CraftingRecipes", header);
+		this("CraftingRecipes", header);
 	}
 
-	private void addRecipe(IRecipe recipe) {
+	protected CraftingRecipes(String name, String header) {
+		super(name, header);
+	}
+
+	protected void addRecipe(IRecipe recipe) {
 		addedRecipes.add(recipe);
 		GameRegistry.addRecipe(recipe);
 	}
