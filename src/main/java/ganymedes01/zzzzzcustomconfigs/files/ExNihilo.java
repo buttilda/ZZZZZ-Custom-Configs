@@ -58,12 +58,12 @@ public class ExNihilo extends ConfigFile {
 		header += builder.toString() + "\n\n";
 
 		builder = new XMLBuilder("heat");
-		builder.makeEntry("input", new ItemStack(Blocks.cake));
+		builder.makeEntry("input", new ItemStack(Items.cake));
 		builder.makeEntry("value", 0.5F);
 		header += "The following shows an example of how to add a block that can be used to power a cruicible.\n";
 		header += "As a reference for the \"value\" parameter, lava has a value of 0.2, fire is 0.3, a torch is 0.1.\n";
 		header += "The \"input\" MUST be a block! It cannot contain an item!\n";
-		header += builder.toString() + "\n\n";
+		header += builder.toString();
 	}
 
 	public ExNihilo() {
