@@ -4,7 +4,13 @@ import ganymedes01.zzzzzcustomconfigs.lib.ConfigFile;
 import ganymedes01.zzzzzcustomconfigs.xml.XMLBuilder;
 import ganymedes01.zzzzzcustomconfigs.xml.XMLNode;
 import ganymedes01.zzzzzcustomconfigs.xml.XMLParser;
+
+import java.lang.reflect.Field;
+import java.util.List;
+import java.util.Map;
+
 import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 
@@ -47,7 +53,33 @@ public class OreDict extends ConfigFile {
 	}
 
 	@Override
+	@SuppressWarnings("unchecked")
 	public void postInit() {
+		Map<Integer, List<Integer>> stackToId = null;
+		try {
+			Field f = OreDictionary.class.getDeclaredField("stackToId");
+			f.setAccessible(true);
+			stackToId = (Map<Integer, List<Integer>>) f.get(null);
+		} catch (Exception e) {
+			throw new RuntimeException("Failed to reflect into OreDictionary. Unable to continue.", e);
+		}
+
+		for (XMLNode node : xmlNode.getNodes())
+			if (node.getName().equals("remove")) {
+				ItemStack stack = XMLParser.parseItemStackNode(node.getNode("stack"));
+				for (XMLNode n : node.getNodes())
+					if (n.getName().startsWith("name")) {
+						Integer ore = OreDictionary.getOreID(XMLParser.parseStringNode(n));
+
+						int id = Item.getIdFromItem(stack.getItem());
+						List<Integer> ids = stackToId.get(id);
+						if (ids != null)
+							ids.remove(ore);
+						ids = stackToId.get(id | stack.getItemDamage() + 1 << 16);
+						if (ids != null)
+							ids.remove(ore);
+					}
+			}
 	}
 
 	@Override
