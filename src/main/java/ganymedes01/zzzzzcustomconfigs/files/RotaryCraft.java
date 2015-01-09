@@ -1,5 +1,6 @@
 package ganymedes01.zzzzzcustomconfigs.files;
 
+import ganymedes01.zzzzzcustomconfigs.lib.Reference;
 import ganymedes01.zzzzzcustomconfigs.xml.XMLBuilder;
 
 import java.lang.reflect.Method;
@@ -51,6 +52,7 @@ public class RotaryCraft extends CraftingRecipes {
 			Method addRecipe = WorktableAPI.getMethod("addRecipe", IRecipe.class);
 			addRecipe.invoke(null, recipe);
 		} catch (Exception e) {
+			System.out.println("[" + Reference.MOD_ID + "] Error adding recipe to RotaryCraft's Worktable. Either your version of RotaryCraft is outdated, or I did something wrong.");
 		}
 	}
 
