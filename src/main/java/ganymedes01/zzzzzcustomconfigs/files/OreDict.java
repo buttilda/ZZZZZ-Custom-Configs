@@ -53,8 +53,12 @@ public class OreDict extends ConfigFile {
 	}
 
 	@Override
-	@SuppressWarnings("unchecked")
 	public void postInit() {
+	}
+
+	@Override
+	@SuppressWarnings("unchecked")
+	public void serverStarting() {
 		Map<Integer, List<Integer>> stackToId = null;
 		try {
 			Field f = OreDictionary.class.getDeclaredField("stackToId");

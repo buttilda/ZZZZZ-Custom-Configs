@@ -19,6 +19,7 @@ import ganymedes01.zzzzzcustomconfigs.files.Thaumcraft;
 import ganymedes01.zzzzzcustomconfigs.files.ThermalExpansion;
 import ganymedes01.zzzzzcustomconfigs.lib.ConfigFile;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -28,10 +29,12 @@ public class ConfigurationHandler {
 
 	private static final List<ConfigFile> files = new LinkedList<ConfigFile>();
 
+	public static final RemoveRecipes removeRecipes = new RemoveRecipes();
+
 	public static void preInit() {
 		files.add(new CraftingRecipes());
 		files.add(new OreDict());
-		files.add(new RemoveRecipes());
+		files.add(removeRecipes);
 		files.add(new Smelting());
 		files.add(new Fishing());
 		files.add(new ChestLoot());
@@ -58,6 +61,8 @@ public class ConfigurationHandler {
 		if (Loader.isModLoaded("ThermalExpansion"))
 			files.add(new ThermalExpansion());
 
+		Collections.sort(files);
+
 		for (ConfigFile file : files)
 			file.initFile();
 	}
@@ -68,9 +73,15 @@ public class ConfigurationHandler {
 				file.init();
 	}
 
-	public static void serverStarting() {
+	public static void postInit() {
 		for (ConfigFile file : files)
 			if (file.isEnabled())
 				file.postInit();
+	}
+
+	public static void serverStarting() {
+		for (ConfigFile file : files)
+			if (file.isEnabled())
+				file.serverStarting();
 	}
 }

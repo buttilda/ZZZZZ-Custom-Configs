@@ -134,6 +134,10 @@ public class Railcraft extends ConfigFile {
 	}
 
 	@Override
+	public void serverStarting() {
+	}
+
+	@Override
 	public boolean isEnabled() {
 		return Loader.isModLoaded("Railcraft");
 	}

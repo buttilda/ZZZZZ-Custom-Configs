@@ -192,6 +192,10 @@ public class Forestry extends ConfigFile {
 	}
 
 	@Override
+	public void serverStarting() {
+	}
+
+	@Override
 	public boolean isEnabled() {
 		return Loader.isModLoaded("Forestry");
 	}

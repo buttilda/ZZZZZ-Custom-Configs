@@ -49,6 +49,10 @@ public class Smelting extends ConfigFile {
 	}
 
 	@Override
+	public void serverStarting() {
+	}
+
+	@Override
 	public boolean isEnabled() {
 		return true;
 	}

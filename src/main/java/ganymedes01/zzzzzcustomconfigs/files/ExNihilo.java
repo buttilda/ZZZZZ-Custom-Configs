@@ -119,6 +119,10 @@ public class ExNihilo extends ConfigFile {
 	}
 
 	@Override
+	public void serverStarting() {
+	}
+
+	@Override
 	public boolean isEnabled() {
 		return Loader.isModLoaded("exnihilo");
 	}

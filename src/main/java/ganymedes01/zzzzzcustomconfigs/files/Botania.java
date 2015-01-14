@@ -97,6 +97,10 @@ public class Botania extends ConfigFile {
 	}
 
 	@Override
+	public void serverStarting() {
+	}
+
+	@Override
 	public boolean isEnabled() {
 		return Loader.isModLoaded("Botania");
 	}

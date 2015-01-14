@@ -1,5 +1,6 @@
 package ganymedes01.zzzzzcustomconfigs.lib;
 
+import ganymedes01.zzzzzcustomconfigs.handler.ConfigurationHandler;
 import ganymedes01.zzzzzcustomconfigs.xml.XMLHelper;
 import ganymedes01.zzzzzcustomconfigs.xml.XMLNode;
 
@@ -9,7 +10,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class ConfigFile {
+public abstract class ConfigFile implements Comparable<ConfigFile> {
 
 	private static File basePath;
 	private static String baseHeader = "";
@@ -41,6 +42,8 @@ public abstract class ConfigFile {
 
 	public abstract void postInit();
 
+	public abstract void serverStarting();
+
 	public abstract boolean isEnabled();
 
 	public final void initFile() {
@@ -65,5 +68,20 @@ public abstract class ConfigFile {
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
+	}
+
+	@Override
+	public int compareTo(ConfigFile obj) {
+		if (obj == ConfigurationHandler.removeRecipes)
+			return -1;
+		else if (this == ConfigurationHandler.removeRecipes)
+			return 1;
+		else
+			return name.compareTo(obj.name);
+	}
+
+	@Override
+	public String toString() {
+		return name;
 	}
 }
