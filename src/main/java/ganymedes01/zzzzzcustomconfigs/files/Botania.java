@@ -4,6 +4,7 @@ import ganymedes01.zzzzzcustomconfigs.lib.ConfigFile;
 import ganymedes01.zzzzzcustomconfigs.xml.XMLBuilder;
 import ganymedes01.zzzzzcustomconfigs.xml.XMLNode;
 import ganymedes01.zzzzzcustomconfigs.xml.XMLParser;
+import ganymedes01.zzzzzcustomconfigs.xml.XMLParser.NodeType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,21 +65,21 @@ public class Botania extends ConfigFile {
 	public void init() {
 		for (XMLNode node : xmlNode.getNodes())
 			if (node.getName().equals("petals")) {
-				ItemStack output = XMLParser.parseItemStackNode(node.getNode("output"));
+				ItemStack output = XMLParser.parseItemStackNode(node.getNode("output"), NodeType.OUTPUT);
 
-				BotaniaAPI.registerPetalRecipe(output, getArray(node, "input"));
+				BotaniaAPI.registerPetalRecipe(output, getArray(node, "input", NodeType.INPUT));
 			} else if (node.getName().equals("runealtar")) {
-				ItemStack output = XMLParser.parseItemStackNode(node.getNode("output"));
+				ItemStack output = XMLParser.parseItemStackNode(node.getNode("output"), NodeType.OUTPUT);
 				int mana = Integer.parseInt(node.getNode("mana").getValue());
 
-				BotaniaAPI.registerRuneAltarRecipe(output, mana, getArray(node, "input"));
+				BotaniaAPI.registerRuneAltarRecipe(output, mana, getArray(node, "input", NodeType.INPUT));
 			} else if (node.getName().equals("elventrade")) {
-				ItemStack output = XMLParser.parseItemStackNode(node.getNode("output"));
+				ItemStack output = XMLParser.parseItemStackNode(node.getNode("output"), NodeType.OUTPUT);
 
-				BotaniaAPI.registerElvenTradeRecipe(output, getArray(node, "input"));
+				BotaniaAPI.registerElvenTradeRecipe(output, getArray(node, "input", NodeType.INPUT));
 			} else if (node.getName().equals("manainfusion")) {
-				ItemStack output = XMLParser.parseItemStackNode(node.getNode("output"));
-				Object input = XMLParser.parseNode(node.getNode("input"));
+				ItemStack output = XMLParser.parseItemStackNode(node.getNode("output"), NodeType.OUTPUT);
+				Object input = XMLParser.parseNode(node.getNode("input"), NodeType.INPUT);
 				int mana = Integer.parseInt(node.getNode("mana").getValue());
 
 				String type = node.getProperty("type");
@@ -105,12 +106,12 @@ public class Botania extends ConfigFile {
 		return Loader.isModLoaded("Botania");
 	}
 
-	private Object[] getArray(XMLNode node, String name) {
+	private Object[] getArray(XMLNode node, String name, NodeType type) {
 		List<Object> inputs = new ArrayList<Object>();
 		for (int i = 0; i < 16; i++) {
 			XMLNode n = node.getNode(name + (i + 1));
 			if (n != null)
-				inputs.add(XMLParser.parseNode(n));
+				inputs.add(XMLParser.parseNode(n, type));
 		}
 
 		return inputs.toArray();

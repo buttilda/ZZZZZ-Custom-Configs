@@ -4,6 +4,7 @@ import ganymedes01.zzzzzcustomconfigs.lib.ConfigFile;
 import ganymedes01.zzzzzcustomconfigs.xml.XMLBuilder;
 import ganymedes01.zzzzzcustomconfigs.xml.XMLNode;
 import ganymedes01.zzzzzcustomconfigs.xml.XMLParser;
+import ganymedes01.zzzzzcustomconfigs.xml.XMLParser.NodeType;
 
 import java.lang.reflect.Field;
 import java.util.HashMap;
@@ -50,7 +51,7 @@ public class ChestLoot extends ConfigFile {
 	@Override
 	public void init() {
 		for (XMLNode node : xmlNode.getNodes()) {
-			ItemStack stack = XMLParser.parseItemStackNode(node.getNode("loot"));
+			ItemStack stack = XMLParser.parseItemStackNode(node.getNode("loot"), NodeType.N_A);
 			int weight = Integer.parseInt(node.getNode("weight").getValue());
 			int min = Integer.parseInt(node.getNode("minAmount").getValue());
 			int max = Integer.parseInt(node.getNode("maxAmount").getValue());

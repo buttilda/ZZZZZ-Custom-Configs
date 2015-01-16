@@ -5,6 +5,7 @@ import ganymedes01.zzzzzcustomconfigs.xml.XMLBuilder;
 import ganymedes01.zzzzzcustomconfigs.xml.XMLHelper;
 import ganymedes01.zzzzzcustomconfigs.xml.XMLNode;
 import ganymedes01.zzzzzcustomconfigs.xml.XMLParser;
+import ganymedes01.zzzzzcustomconfigs.xml.XMLParser.NodeType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,31 +71,31 @@ public class Railcraft extends ConfigFile {
 	public void init() {
 		for (XMLNode node : xmlNode.getNodes())
 			if (node.getName().equals("blastfurnace")) {
-				ItemStack input = XMLParser.parseItemStackNode(node.getNode("input"));
-				ItemStack output = XMLParser.parseItemStackNode(node.getNode("output"));
+				ItemStack input = XMLParser.parseItemStackNode(node.getNode("input"), NodeType.INPUT);
+				ItemStack output = XMLParser.parseItemStackNode(node.getNode("output"), NodeType.OUTPUT);
 				int burnTime = Integer.parseInt(node.getNode("cookTime").getValue());
 
 				RailcraftCraftingManager.blastFurnace.addRecipe(input, matchMeta(input), matchNBT(input), burnTime, output);
 			} else if (node.getName().equals("cokeoven")) {
-				ItemStack input = XMLParser.parseItemStackNode(node.getNode("input"));
-				ItemStack output = XMLParser.parseItemStackNode(node.getNode("output"));
+				ItemStack input = XMLParser.parseItemStackNode(node.getNode("input"), NodeType.INPUT);
+				ItemStack output = XMLParser.parseItemStackNode(node.getNode("output"), NodeType.OUTPUT);
 				int cookTime = Integer.parseInt(node.getNode("cookTime").getValue());
 				FluidStack fluidOutput = XMLParser.parseFluidStackNode(node.getNode("fluidOutput"));
 
 				RailcraftCraftingManager.cokeOven.addRecipe(input, matchMeta(input), matchNBT(input), output, fluidOutput, cookTime);
 			} else if (node.getName().equals("rockcrusher")) {
-				ItemStack input = XMLParser.parseItemStackNode(node.getNode("input"));
+				ItemStack input = XMLParser.parseItemStackNode(node.getNode("input"), NodeType.INPUT);
 				IRockCrusherRecipe recipe = RailcraftCraftingManager.rockCrusher.createNewRecipe(input, matchMeta(input), matchNBT(input));
 				for (int i = 0; i < 9; i++) {
 					XMLNode n = node.getNode("output" + (i + 1));
 					if (n != null) {
-						ItemStack output = XMLParser.parseItemStackNode(n);
+						ItemStack output = XMLParser.parseItemStackNode(n, NodeType.OUTPUT);
 						float chance = Float.parseFloat(n.getProperty("chance"));
 						recipe.addOutput(output, chance);
 					}
 				}
 			} else if (node.getName().equals("rollingmachine")) {
-				ItemStack output = XMLParser.parseItemStackNode(node.getNode("output"));
+				ItemStack output = XMLParser.parseItemStackNode(node.getNode("output"), NodeType.OUTPUT);
 				String type = node.getProperty("type");
 				if (type.equals("shaped")) {
 					List<Object> data = new ArrayList<Object>();
@@ -102,7 +103,7 @@ public class Railcraft extends ConfigFile {
 					for (int i = 0; i < 3; i++) {
 						XMLNode n = node.getNode("row" + (i + 1));
 						if (n != null) {
-							Object obj = XMLParser.parseNode(n);
+							Object obj = XMLParser.parseNode(n, NodeType.N_A);
 							types += obj.toString().replace(" ", "");
 							data.add(obj);
 						}
@@ -110,7 +111,7 @@ public class Railcraft extends ConfigFile {
 
 					for (char c : types.toCharArray()) {
 						data.add(c);
-						data.add(XMLParser.parseNode(node.getNode(Character.toString(c))));
+						data.add(XMLParser.parseNode(node.getNode(Character.toString(c)), NodeType.INPUT));
 					}
 
 					RailcraftCraftingManager.rollingMachine.addRecipe(output, data.toArray());
@@ -119,7 +120,7 @@ public class Railcraft extends ConfigFile {
 					for (int i = 0; i < 9; i++) {
 						XMLNode n = node.getNode("input" + (i + 1));
 						if (n != null)
-							data.add(XMLParser.parseNode(n));
+							data.add(XMLParser.parseNode(n, NodeType.INPUT));
 						else
 							break;
 					}

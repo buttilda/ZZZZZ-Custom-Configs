@@ -4,6 +4,7 @@ import ganymedes01.zzzzzcustomconfigs.lib.ConfigFile;
 import ganymedes01.zzzzzcustomconfigs.xml.XMLBuilder;
 import ganymedes01.zzzzzcustomconfigs.xml.XMLNode;
 import ganymedes01.zzzzzcustomconfigs.xml.XMLParser;
+import ganymedes01.zzzzzcustomconfigs.xml.XMLParser.NodeType;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -72,7 +73,7 @@ public class Fishing extends ConfigFile {
 	@Override
 	public void init() {
 		for (XMLNode node : xmlNode.getNodes()) {
-			ItemStack fishable = XMLParser.parseItemStackNode(node.getNode("fishable"));
+			ItemStack fishable = XMLParser.parseItemStackNode(node.getNode("fishable"), NodeType.OUTPUT);
 			int change = Integer.parseInt(node.getNode("chance").getValue());
 
 			WeightedRandomFishable randFish = new WeightedRandomFishable(fishable, change);

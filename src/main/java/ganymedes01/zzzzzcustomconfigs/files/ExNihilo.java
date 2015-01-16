@@ -10,6 +10,7 @@ import ganymedes01.zzzzzcustomconfigs.lib.ConfigFile;
 import ganymedes01.zzzzzcustomconfigs.xml.XMLBuilder;
 import ganymedes01.zzzzzcustomconfigs.xml.XMLNode;
 import ganymedes01.zzzzzcustomconfigs.xml.XMLParser;
+import ganymedes01.zzzzzcustomconfigs.xml.XMLParser.NodeType;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -74,32 +75,32 @@ public class ExNihilo extends ConfigFile {
 	public void init() {
 		for (XMLNode node : xmlNode.getNodes())
 			if (node.getName().equals("compost")) {
-				ItemStack input = XMLParser.parseItemStackNode(node.getNode("input"));
+				ItemStack input = XMLParser.parseItemStackNode(node.getNode("input"), NodeType.INPUT);
 				float value = Float.parseFloat(node.getNode("value").getValue());
 				Color colour = new Color(node.getNode("colour").getValue());
 
 				CompostRegistry.register(input.getItem(), input.getItemDamage(), value, colour);
 			} else if (node.getName().equals("sieve")) {
-				ItemStack input = XMLParser.parseItemStackNode(node.getNode("input"));
-				ItemStack output = XMLParser.parseItemStackNode(node.getNode("output"));
+				ItemStack input = XMLParser.parseItemStackNode(node.getNode("input"), NodeType.INPUT);
+				ItemStack output = XMLParser.parseItemStackNode(node.getNode("output"), NodeType.OUTPUT);
 				int rarity = Integer.parseInt(node.getNode("rarity").getValue());
 
 				SieveRegistry.register(getBlock(input), input.getItemDamage(), output.getItem(), output.getItemDamage(), rarity);
 			} else if (node.getName().equals("crucible")) {
-				ItemStack input = XMLParser.parseItemStackNode(node.getNode("input"));
+				ItemStack input = XMLParser.parseItemStackNode(node.getNode("input"), NodeType.INPUT);
 				FluidStack output = XMLParser.parseFluidStackNode(node.getNode("output"));
 				Block block = getBlock(input);
 
 				CrucibleRegistry.register(block, input.getItemDamage(), 2000, output.getFluid(), output.amount, block);
 			} else if (node.getName().equals("hammer")) {
-				ItemStack input = XMLParser.parseItemStackNode(node.getNode("input"));
-				ItemStack output = XMLParser.parseItemStackNode(node.getNode("output"));
+				ItemStack input = XMLParser.parseItemStackNode(node.getNode("input"), NodeType.INPUT);
+				ItemStack output = XMLParser.parseItemStackNode(node.getNode("output"), NodeType.OUTPUT);
 				float chance = Float.parseFloat(node.getNode("chance").getValue());
 				float luckMultiplier = Float.parseFloat(node.getNode("luckMultiplier").getValue());
 
 				HammerRegistry.register(getBlock(input), input.getItemDamage(), output.getItem(), output.getItemDamage(), chance, luckMultiplier);
 			} else if (node.getName().equals("heat")) {
-				ItemStack input = XMLParser.parseItemStackNode(node.getNode("input"));
+				ItemStack input = XMLParser.parseItemStackNode(node.getNode("input"), NodeType.OUTPUT);
 				float value = Float.parseFloat(node.getNode("value").getValue());
 
 				HeatRegistry.register(getBlock(input), input.getItemDamage(), value);

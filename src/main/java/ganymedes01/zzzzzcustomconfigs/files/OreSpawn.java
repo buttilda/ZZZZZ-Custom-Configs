@@ -4,6 +4,7 @@ import ganymedes01.zzzzzcustomconfigs.lib.ConfigFile;
 import ganymedes01.zzzzzcustomconfigs.xml.XMLBuilder;
 import ganymedes01.zzzzzcustomconfigs.xml.XMLNode;
 import ganymedes01.zzzzzcustomconfigs.xml.XMLParser;
+import ganymedes01.zzzzzcustomconfigs.xml.XMLParser.NodeType;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -50,12 +51,12 @@ public class OreSpawn extends ConfigFile {
 	public void init() {
 		for (XMLNode node : xmlNode.getNodes())
 			if (node.getName().equals("add")) {
-				ItemStack oreStack = XMLParser.parseItemStackNode(node.getNode("ore"));
+				ItemStack oreStack = XMLParser.parseItemStackNode(node.getNode("ore"), NodeType.N_A);
 				int veinSize = Integer.parseInt(XMLParser.parseStringNode(node.getNode("veinSize")));
 				int veinCount = Integer.parseInt(XMLParser.parseStringNode(node.getNode("veinCount")));
 				int minY = Integer.parseInt(XMLParser.parseStringNode(node.getNode("minY")));
 				int maxY = Integer.parseInt(XMLParser.parseStringNode(node.getNode("maxY")));
-				ItemStack targetStack = XMLParser.parseItemStackNode(node.getNode("target"));
+				ItemStack targetStack = XMLParser.parseItemStackNode(node.getNode("target"), NodeType.N_A);
 
 				Block ore = Block.getBlockFromItem(oreStack.getItem());
 				Block target = Block.getBlockFromItem(targetStack.getItem());

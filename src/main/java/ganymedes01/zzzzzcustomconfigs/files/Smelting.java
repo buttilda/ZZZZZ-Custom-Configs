@@ -4,6 +4,7 @@ import ganymedes01.zzzzzcustomconfigs.lib.ConfigFile;
 import ganymedes01.zzzzzcustomconfigs.xml.XMLBuilder;
 import ganymedes01.zzzzzcustomconfigs.xml.XMLNode;
 import ganymedes01.zzzzzcustomconfigs.xml.XMLParser;
+import ganymedes01.zzzzzcustomconfigs.xml.XMLParser.NodeType;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -35,8 +36,8 @@ public class Smelting extends ConfigFile {
 	public void init() {
 		for (XMLNode node : xmlNode.getNodes())
 			if (node.getName().equals("recipe")) {
-				ItemStack output = XMLParser.parseItemStackNode(node.getNode("output"));
-				ItemStack input = XMLParser.parseItemStackNode(node.getNode("input"));
+				ItemStack output = XMLParser.parseItemStackNode(node.getNode("output"), NodeType.OUTPUT);
+				ItemStack input = XMLParser.parseItemStackNode(node.getNode("input"), NodeType.INPUT);
 				float xp = (float) Math.min(1.0, Math.max(0, Float.parseFloat(node.getNode("xp").getValue())));
 
 				GameRegistry.addSmelting(input, output, xp);

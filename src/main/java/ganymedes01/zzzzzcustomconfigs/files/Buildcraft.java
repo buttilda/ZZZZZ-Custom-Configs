@@ -4,6 +4,7 @@ import ganymedes01.zzzzzcustomconfigs.lib.ConfigFile;
 import ganymedes01.zzzzzcustomconfigs.xml.XMLBuilder;
 import ganymedes01.zzzzzcustomconfigs.xml.XMLNode;
 import ganymedes01.zzzzzcustomconfigs.xml.XMLParser;
+import ganymedes01.zzzzzcustomconfigs.xml.XMLParser.NodeType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,11 +71,11 @@ public class Buildcraft extends ConfigFile {
 			} else if (node.getName().equals("assemblytable")) {
 				String id = node.getProperty("name");
 				int energyCost = Integer.parseInt(node.getNode("energyCost").getValue());
-				ItemStack output = XMLParser.parseItemStackNode(node.getNode("output"));
+				ItemStack output = XMLParser.parseItemStackNode(node.getNode("output"), NodeType.OUTPUT);
 				List<Object> inputs = new ArrayList<Object>();
 				for (XMLNode n : node.getNodes())
 					if (n.getName().startsWith("input"))
-						inputs.add(XMLParser.parseNode(n));
+						inputs.add(XMLParser.parseNode(n, NodeType.INPUT));
 				BuildcraftRecipeRegistry.assemblyTable.addRecipe(id, energyCost, output, inputs.toArray());
 			} else
 				throw new IllegalArgumentException("Invalid recipe name: " + node.getName());

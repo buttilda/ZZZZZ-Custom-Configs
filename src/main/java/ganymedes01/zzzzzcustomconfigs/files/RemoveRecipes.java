@@ -4,6 +4,7 @@ import ganymedes01.zzzzzcustomconfigs.lib.ConfigFile;
 import ganymedes01.zzzzzcustomconfigs.xml.XMLHelper;
 import ganymedes01.zzzzzcustomconfigs.xml.XMLNode;
 import ganymedes01.zzzzzcustomconfigs.xml.XMLParser;
+import ganymedes01.zzzzzcustomconfigs.xml.XMLParser.NodeType;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -55,7 +56,7 @@ public class RemoveRecipes extends ConfigFile {
 		List<ItemStack> smelting = new LinkedList<ItemStack>();
 
 		for (XMLNode node : xmlNode.getNodes()) {
-			ItemStack stack = XMLParser.parseItemStackNode(node);
+			ItemStack stack = XMLParser.parseItemStackNode(node, NodeType.N_A);
 			for (IRecipe recipe : (List<IRecipe>) CraftingManager.getInstance().getRecipeList())
 				if (recipe != null && areStacksTheSame(stack, recipe.getRecipeOutput()) && !CraftingRecipes.addedRecipes.contains(recipe))
 					crafting.add(recipe);

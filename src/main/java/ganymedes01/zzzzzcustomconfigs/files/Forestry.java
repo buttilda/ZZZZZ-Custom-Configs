@@ -9,6 +9,7 @@ import ganymedes01.zzzzzcustomconfigs.xml.XMLBuilder;
 import ganymedes01.zzzzzcustomconfigs.xml.XMLHelper;
 import ganymedes01.zzzzzcustomconfigs.xml.XMLNode;
 import ganymedes01.zzzzzcustomconfigs.xml.XMLParser;
+import ganymedes01.zzzzzcustomconfigs.xml.XMLParser.NodeType;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -108,56 +109,56 @@ public class Forestry extends ConfigFile {
 	public void init() {
 		for (XMLNode node : xmlNode.getNodes())
 			if (node.getName().equals("carpenter")) {
-				ItemStack box = getItemStack(node, "box");
+				ItemStack box = getItemStack(node, "box", NodeType.INPUT);
 				int time = Integer.parseInt(node.getNode("time").getValue());
-				ItemStack output = XMLParser.parseItemStackNode(node.getNode("output"));
+				ItemStack output = XMLParser.parseItemStackNode(node.getNode("output"), NodeType.OUTPUT);
 				FluidStack fluid = getFluidStack(node, "fluid");
 
 				if (fluid != null)
-					RecipeManagers.carpenterManager.addRecipe(time, fluid, box, output, getArray(node));
+					RecipeManagers.carpenterManager.addRecipe(time, fluid, box, output, getArray(node, NodeType.INPUT));
 				else
-					RecipeManagers.carpenterManager.addRecipe(time, box, output, getArray(node));
+					RecipeManagers.carpenterManager.addRecipe(time, box, output, getArray(node, NodeType.INPUT));
 			} else if (node.getName().equals("centrifuge")) {
 				int time = Integer.parseInt(node.getNode("time").getValue());
-				ItemStack input = XMLParser.parseItemStackNode(node.getNode("input"));
+				ItemStack input = XMLParser.parseItemStackNode(node.getNode("input"), NodeType.INPUT);
 				HashMap<ItemStack, Integer> outputs = new HashMap<ItemStack, Integer>();
 				for (int i = 0; i < 9; i++) {
 					XMLNode n = node.getNode("output" + (i + 1));
 					if (n != null)
-						outputs.put(XMLParser.parseItemStackNode(n), Integer.parseInt(n.getProperty("chance")));
+						outputs.put(XMLParser.parseItemStackNode(n, NodeType.OUTPUT), Integer.parseInt(n.getProperty("chance")));
 				}
 
 				RecipeManagers.centrifugeManager.addRecipe(time, input, outputs);
 			} else if (node.getName().equals("fabricator")) {
 				if (node.getProperty("type").equals("smelting")) {
-					ItemStack input = XMLParser.parseItemStackNode(node.getNode("input"));
+					ItemStack input = XMLParser.parseItemStackNode(node.getNode("input"), NodeType.INPUT);
 					int outputAmount = Integer.parseInt(node.getNode("outputAmount").getValue());
 					int meltingPoint = Integer.parseInt(node.getNode("meltingPoint").getValue());
 
 					RecipeManagers.fabricatorManager.addSmelting(input, makeFluid("glass", outputAmount), meltingPoint);
 				} else if (node.getProperty("type").equals("recipe")) {
-					ItemStack cast = getItemStack(node, "cast");
-					ItemStack output = XMLParser.parseItemStackNode(node.getNode("output"));
+					ItemStack cast = getItemStack(node, "cast", NodeType.INPUT);
+					ItemStack output = XMLParser.parseItemStackNode(node.getNode("output"), NodeType.OUTPUT);
 
-					RecipeManagers.fabricatorManager.addRecipe(cast, makeFluid("glass", 500), output, getArray(node));
+					RecipeManagers.fabricatorManager.addRecipe(cast, makeFluid("glass", 500), output, getArray(node, NodeType.INPUT));
 				}
 			} else if (node.getName().equals("fermenter")) {
-				ItemStack input = XMLParser.parseItemStackNode(node.getNode("input"));
+				ItemStack input = XMLParser.parseItemStackNode(node.getNode("input"), NodeType.INPUT);
 				int fermentationValue = Integer.parseInt(node.getNode("fermentationValue").getValue());
 				FluidStack output = XMLParser.parseFluidStackNode(node.getNode("output"));
 
 				addFermenterRecipe(input, fermentationValue, output);
 			} else if (node.getName().equals("moistener")) {
-				ItemStack input = XMLParser.parseItemStackNode(node.getNode("input"));
-				ItemStack output = XMLParser.parseItemStackNode(node.getNode("output"));
+				ItemStack input = XMLParser.parseItemStackNode(node.getNode("input"), NodeType.INPUT);
+				ItemStack output = XMLParser.parseItemStackNode(node.getNode("output"), NodeType.OUTPUT);
 				int time = Integer.parseInt(node.getNode("time").getValue());
 
 				RecipeManagers.moistenerManager.addRecipe(input, output, time);
 			} else if (node.getName().equals("squeezer")) {
 				int time = Integer.parseInt(node.getNode("time").getValue());
-				ItemStack input = XMLParser.parseItemStackNode(node.getNode("input"));
+				ItemStack input = XMLParser.parseItemStackNode(node.getNode("input"), NodeType.INPUT);
 				FluidStack output = XMLParser.parseFluidStackNode(node.getNode("output"));
-				ItemStack remnant = XMLParser.parseItemStackNode(node.getNode("remnant"));
+				ItemStack remnant = XMLParser.parseItemStackNode(node.getNode("remnant"), NodeType.OUTPUT);
 				int chance = Integer.parseInt(node.getNode("remnant").getProperty("chance"));
 
 				if (remnant != null)
@@ -178,7 +179,7 @@ public class Forestry extends ConfigFile {
 
 				FuelManager.bronzeEngineFuel.put(fluid, new EngineBronzeFuel(fluid, powerPerCycle, burnDuration, dissipationMultiplier));
 			} else if (node.getName().equals("peatengine")) {
-				ItemStack fuel = XMLParser.parseItemStackNode(node.getNode("fuel"));
+				ItemStack fuel = XMLParser.parseItemStackNode(node.getNode("fuel"), NodeType.INPUT);
 				int powerPerCycle = Integer.parseInt(node.getNode("powerPerCycle").getValue());
 				int burnDuration = Integer.parseInt(node.getNode("burnDuration").getValue());
 
@@ -200,9 +201,9 @@ public class Forestry extends ConfigFile {
 		return Loader.isModLoaded("Forestry");
 	}
 
-	private ItemStack getItemStack(XMLNode node, String name) {
+	private ItemStack getItemStack(XMLNode node, String name, NodeType type) {
 		XMLNode n = node.getNode(name);
-		return n == null ? null : XMLParser.parseItemStackNode(n);
+		return n == null ? null : XMLParser.parseItemStackNode(n, type);
 	}
 
 	private FluidStack getFluidStack(XMLNode node, String name) {
@@ -210,20 +211,20 @@ public class Forestry extends ConfigFile {
 		return n == null ? null : XMLParser.parseFluidStackNode(n);
 	}
 
-	private Object[] getArray(XMLNode node) {
+	private Object[] getArray(XMLNode node, NodeType type) {
 		List<Object> data = new ArrayList<Object>();
 		String types = "";
 		for (int i = 0; i < 3; i++) {
 			XMLNode n = node.getNode("row" + (i + 1));
 			if (n != null) {
-				Object obj = XMLParser.parseNode(n);
+				Object obj = XMLParser.parseNode(n, type);
 				types += obj.toString().replace(" ", "");
 				data.add(obj);
 			}
 		}
 		for (char c : types.toCharArray()) {
 			data.add(c);
-			data.add(XMLParser.parseNode(node.getNode(Character.toString(c))));
+			data.add(XMLParser.parseNode(node.getNode(Character.toString(c)), type));
 		}
 
 		return data.toArray();

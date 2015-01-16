@@ -4,6 +4,7 @@ import ganymedes01.zzzzzcustomconfigs.lib.ConfigFile;
 import ganymedes01.zzzzzcustomconfigs.xml.XMLBuilder;
 import ganymedes01.zzzzzcustomconfigs.xml.XMLNode;
 import ganymedes01.zzzzzcustomconfigs.xml.XMLParser;
+import ganymedes01.zzzzzcustomconfigs.xml.XMLParser.NodeType;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -81,13 +82,13 @@ public class EntityDrops extends ConfigFile {
 
 			if (type.equals("add"))
 				for (XMLNode n : node.getNodes()) {
-					ItemStack stack = XMLParser.parseItemStackNode(n);
+					ItemStack stack = XMLParser.parseItemStackNode(n, NodeType.OUTPUT);
 					int chance = Integer.parseInt(n.getProperty("chance"));
 					addDrop(node.getName(), stack, chance);
 				}
 			else if (type.equals("remove"))
 				for (XMLNode n : node.getNodes())
-					addBan(node.getName(), XMLParser.parseItemStackNode(n));
+					addBan(node.getName(), XMLParser.parseItemStackNode(n, NodeType.N_A));
 			else
 				throw new IllegalArgumentException("Invalid operation: " + node.getName());
 		}

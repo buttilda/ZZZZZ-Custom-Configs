@@ -4,6 +4,7 @@ import ganymedes01.zzzzzcustomconfigs.lib.ConfigFile;
 import ganymedes01.zzzzzcustomconfigs.xml.XMLBuilder;
 import ganymedes01.zzzzzcustomconfigs.xml.XMLNode;
 import ganymedes01.zzzzzcustomconfigs.xml.XMLParser;
+import ganymedes01.zzzzzcustomconfigs.xml.XMLParser.NodeType;
 
 import java.lang.reflect.Field;
 import java.util.List;
@@ -46,7 +47,7 @@ public class OreDict extends ConfigFile {
 				String name = XMLParser.parseStringNode(node.getNode("name"));
 				for (XMLNode n : node.getNodes())
 					if (n.getName().startsWith("stack")) {
-						ItemStack stack = XMLParser.parseItemStackNode(n);
+						ItemStack stack = XMLParser.parseItemStackNode(n, NodeType.OUTPUT);
 						OreDictionary.registerOre(name, stack);
 					}
 			}
@@ -70,7 +71,7 @@ public class OreDict extends ConfigFile {
 
 		for (XMLNode node : xmlNode.getNodes())
 			if (node.getName().equals("remove")) {
-				ItemStack stack = XMLParser.parseItemStackNode(node.getNode("stack"));
+				ItemStack stack = XMLParser.parseItemStackNode(node.getNode("stack"), NodeType.OUTPUT);
 				for (XMLNode n : node.getNodes())
 					if (n.getName().startsWith("name")) {
 						Integer ore = OreDictionary.getOreID(XMLParser.parseStringNode(n));

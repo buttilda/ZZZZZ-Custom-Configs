@@ -11,7 +11,13 @@ import net.minecraftforge.fluids.FluidStack;
 
 public class XMLParser {
 
-	public static Object parseNode(XMLNode node) {
+	public enum NodeType {
+		INPUT,
+		OUTPUT,
+		N_A;
+	}
+
+	public static Object parseNode(XMLNode node, NodeType type) {
 		if (!node.hasValue())
 			return null;
 		String value = node.value;
@@ -22,7 +28,7 @@ public class XMLParser {
 			else if (isFluidStackValue(value))
 				return parseFluidStackNode(node);
 			else if (isItemStackValue(value))
-				return parseItemStackNode(node);
+				return parseItemStackNode(node, type);
 			else
 				throw new IllegalArgumentException("Unable to parse node: " + node);
 		} catch (Exception e) {
@@ -44,7 +50,7 @@ public class XMLParser {
 		return array.length == 3 || array.length >= 4 && array[3].startsWith("{");
 	}
 
-	public static ItemStack parseItemStackNode(XMLNode node) {
+	public static ItemStack parseItemStackNode(XMLNode node, NodeType type) {
 		String[] data = node.value.split(" ");
 		Item item = (Item) Item.itemRegistry.getObject(data[0]);
 		int size = Integer.parseInt(data[1]);

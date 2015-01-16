@@ -4,6 +4,7 @@ import ganymedes01.zzzzzcustomconfigs.lib.ConfigFile;
 import ganymedes01.zzzzzcustomconfigs.xml.XMLBuilder;
 import ganymedes01.zzzzzcustomconfigs.xml.XMLNode;
 import ganymedes01.zzzzzcustomconfigs.xml.XMLParser;
+import ganymedes01.zzzzzcustomconfigs.xml.XMLParser.NodeType;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -76,8 +77,8 @@ public class BloodMagic extends ConfigFile {
 	public void init() {
 		for (XMLNode node : xmlNode.getNodes())
 			if (node.getName().equals("altar")) {
-				ItemStack input = XMLParser.parseItemStackNode(node.getNode("input"));
-				ItemStack output = XMLParser.parseItemStackNode(node.getNode("output"));
+				ItemStack input = XMLParser.parseItemStackNode(node.getNode("input"), NodeType.INPUT);
+				ItemStack output = XMLParser.parseItemStackNode(node.getNode("output"), NodeType.OUTPUT);
 				int tier = Integer.parseInt(node.getNode("tier").getValue());
 				int bloodAmount = Integer.parseInt(node.getNode("bloodAmount").getValue());
 				int consumptionRate = Integer.parseInt(node.getNode("consumptionRate").getValue());
@@ -86,14 +87,14 @@ public class BloodMagic extends ConfigFile {
 				AltarRecipeRegistry.registerAltarRecipe(output, input, tier, bloodAmount, consumptionRate, drainRate, false);
 			} else if (node.getName().equals("bloodorb")) {
 				String prop = node.getProperty("type");
-				ItemStack output = XMLParser.parseItemStackNode(node.getNode("output"));
+				ItemStack output = XMLParser.parseItemStackNode(node.getNode("output"), NodeType.OUTPUT);
 				if (prop.equals("shaped")) {
 					List<Object> data = new ArrayList<Object>();
 					String types = "";
 					for (int i = 0; i < 3; i++) {
 						XMLNode n = node.getNode("row" + (i + 1));
 						if (n != null) {
-							Object obj = XMLParser.parseNode(n);
+							Object obj = XMLParser.parseNode(n, NodeType.N_A);
 							types += obj.toString().replace(" ", "");
 							data.add(obj);
 						}
@@ -101,7 +102,7 @@ public class BloodMagic extends ConfigFile {
 
 					for (char c : types.toCharArray()) {
 						data.add(c);
-						data.add(XMLParser.parseNode(node.getNode(Character.toString(c))));
+						data.add(XMLParser.parseNode(node.getNode(Character.toString(c)), NodeType.INPUT));
 					}
 
 					addRecipe(new ShapedBloodOrbRecipe(output, data.toArray()));
@@ -110,7 +111,7 @@ public class BloodMagic extends ConfigFile {
 					for (int i = 0; i < 9; i++) {
 						XMLNode n = node.getNode("input" + (i + 1));
 						if (n != null)
-							data.add(XMLParser.parseNode(n));
+							data.add(XMLParser.parseNode(n, NodeType.INPUT));
 						else
 							break;
 					}
@@ -118,19 +119,19 @@ public class BloodMagic extends ConfigFile {
 					addRecipe(new ShapelessBloodOrbRecipe(output, data.toArray()));
 				}
 			} else if (node.getName().equals("binding")) {
-				ItemStack input = XMLParser.parseItemStackNode(node.getNode("input"));
-				ItemStack output = XMLParser.parseItemStackNode(node.getNode("output"));
+				ItemStack input = XMLParser.parseItemStackNode(node.getNode("input"), NodeType.INPUT);
+				ItemStack output = XMLParser.parseItemStackNode(node.getNode("output"), NodeType.OUTPUT);
 
 				BindingRegistry.registerRecipe(output, input);
 			} else if (node.getName().equals("alchemy")) {
-				ItemStack output = XMLParser.parseItemStackNode(node.getNode("output"));
+				ItemStack output = XMLParser.parseItemStackNode(node.getNode("output"), NodeType.OUTPUT);
 				int time = Integer.parseInt(node.getNode("lp").getValue());
 				List<ItemStack> recipe = new LinkedList<ItemStack>();
 				int bloodOrbLevel = Integer.parseInt(node.getNode("bloodOrbLevel").getValue());
 				for (int i = 0; i < 5; i++) {
 					XMLNode n = node.getNode("input" + (i + 1));
 					if (n != null)
-						recipe.add(XMLParser.parseItemStackNode(n));
+						recipe.add(XMLParser.parseItemStackNode(n, NodeType.INPUT));
 				}
 
 				AlchemyRecipeRegistry.registerRecipe(output, time, recipe.toArray(new ItemStack[0]), bloodOrbLevel);

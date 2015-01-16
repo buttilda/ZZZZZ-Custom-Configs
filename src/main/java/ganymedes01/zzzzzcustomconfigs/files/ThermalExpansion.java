@@ -4,6 +4,7 @@ import ganymedes01.zzzzzcustomconfigs.lib.ConfigFile;
 import ganymedes01.zzzzzcustomconfigs.xml.XMLBuilder;
 import ganymedes01.zzzzzcustomconfigs.xml.XMLNode;
 import ganymedes01.zzzzzcustomconfigs.xml.XMLParser;
+import ganymedes01.zzzzzcustomconfigs.xml.XMLParser.NodeType;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -131,52 +132,52 @@ public class ThermalExpansion extends ConfigFile {
 		for (XMLNode node : xmlNode.getNodes())
 			if (node.getName().equals("pulverizer")) {
 				int energy = Integer.parseInt(node.getNode("energy").getValue());
-				ItemStack input = XMLParser.parseItemStackNode(node.getNode("input"));
-				ItemStack output = XMLParser.parseItemStackNode(node.getNode("output"));
+				ItemStack input = XMLParser.parseItemStackNode(node.getNode("input"), NodeType.INPUT);
+				ItemStack output = XMLParser.parseItemStackNode(node.getNode("output"), NodeType.INPUT);
 				XMLNode n = node.getNode("bonus");
 				if (n != null) {
-					ItemStack bonus = XMLParser.parseItemStackNode(n);
+					ItemStack bonus = XMLParser.parseItemStackNode(n, NodeType.OUTPUT);
 					int chance = Integer.parseInt(node.getNode("chance").getValue());
 					addPulveriserRecipe(energy, input, output, bonus, chance);
 				} else
 					addPulveriserRecipe(energy, input, output, null, 0);
 			} else if (node.getName().equals("inductionsmelter")) {
 				int energy = Integer.parseInt(node.getNode("energy").getValue());
-				ItemStack input1 = XMLParser.parseItemStackNode(node.getNode("input1"));
-				ItemStack input2 = XMLParser.parseItemStackNode(node.getNode("input2"));
-				ItemStack output1 = XMLParser.parseItemStackNode(node.getNode("output1"));
+				ItemStack input1 = XMLParser.parseItemStackNode(node.getNode("input1"), NodeType.INPUT);
+				ItemStack input2 = XMLParser.parseItemStackNode(node.getNode("input2"), NodeType.INPUT);
+				ItemStack output1 = XMLParser.parseItemStackNode(node.getNode("output1"), NodeType.OUTPUT);
 				XMLNode n = node.getNode("output2");
 				if (n != null) {
-					ItemStack output2 = XMLParser.parseItemStackNode(n);
+					ItemStack output2 = XMLParser.parseItemStackNode(n, NodeType.OUTPUT);
 					int chance = Integer.parseInt(node.getNode("chance").getValue());
 					addInductionSmelterRecipe(energy, input1, input2, output1, output2, chance);
 				} else
 					addInductionSmelterRecipe(energy, input1, input2, output1, null, 0);
 			} else if (node.getName().equals("magmacrucible")) {
 				int energy = Integer.parseInt(node.getNode("energy").getValue());
-				ItemStack input = XMLParser.parseItemStackNode(node.getNode("input"));
+				ItemStack input = XMLParser.parseItemStackNode(node.getNode("input"), NodeType.INPUT);
 				FluidStack output = XMLParser.parseFluidStackNode(node.getNode("output"));
 				addMagmaCrucibleRecipe(energy, input, output);
 			} else if (node.getName().equals("redstonefurnace")) {
 				int energy = Integer.parseInt(node.getNode("energy").getValue());
-				ItemStack input = XMLParser.parseItemStackNode(node.getNode("input"));
-				ItemStack output = XMLParser.parseItemStackNode(node.getNode("output"));
+				ItemStack input = XMLParser.parseItemStackNode(node.getNode("input"), NodeType.INPUT);
+				ItemStack output = XMLParser.parseItemStackNode(node.getNode("output"), NodeType.INPUT);
 				addRedstoneFurnaceRecipe(energy, input, output);
 			} else if (node.getName().equals("sawmill")) {
 				int energy = Integer.parseInt(node.getNode("energy").getValue());
-				ItemStack input = XMLParser.parseItemStackNode(node.getNode("input"));
-				ItemStack output = XMLParser.parseItemStackNode(node.getNode("output1"));
+				ItemStack input = XMLParser.parseItemStackNode(node.getNode("input"), NodeType.INPUT);
+				ItemStack output = XMLParser.parseItemStackNode(node.getNode("output1"), NodeType.OUTPUT);
 				XMLNode n = node.getNode("output2");
 				if (n != null) {
-					ItemStack bonus = XMLParser.parseItemStackNode(n);
+					ItemStack bonus = XMLParser.parseItemStackNode(n, NodeType.OUTPUT);
 					int chance = Integer.parseInt(node.getNode("chance").getValue());
 					addSawmillRecipe(energy, input, output, bonus, chance);
 				} else
 					addSawmillRecipe(energy, input, output, null, 0);
 			} else if (node.getName().equals("transposer")) {
 				int energy = Integer.parseInt(node.getNode("energy").getValue());
-				ItemStack input = XMLParser.parseItemStackNode(node.getNode("input"));
-				ItemStack output = XMLParser.parseItemStackNode(node.getNode("output"));
+				ItemStack input = XMLParser.parseItemStackNode(node.getNode("input"), NodeType.INPUT);
+				ItemStack output = XMLParser.parseItemStackNode(node.getNode("output"), NodeType.INPUT);
 				FluidStack fluid = XMLParser.parseFluidStackNode(node.getNode("fluid"));
 				String type = node.getProperty("type");
 				if (type.equals("fill"))

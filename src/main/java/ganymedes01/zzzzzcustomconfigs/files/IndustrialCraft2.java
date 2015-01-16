@@ -4,6 +4,7 @@ import ganymedes01.zzzzzcustomconfigs.lib.ConfigFile;
 import ganymedes01.zzzzzcustomconfigs.xml.XMLBuilder;
 import ganymedes01.zzzzzcustomconfigs.xml.XMLNode;
 import ganymedes01.zzzzzcustomconfigs.xml.XMLParser;
+import ganymedes01.zzzzzcustomconfigs.xml.XMLParser.NodeType;
 import ic2.api.recipe.IMachineRecipeManager;
 import ic2.api.recipe.IRecipeInput;
 import ic2.api.recipe.RecipeInputItemStack;
@@ -100,13 +101,13 @@ public class IndustrialCraft2 extends ConfigFile {
 				for (int i = 0; i < 3; i++) {
 					XMLNode n = node.getNode("output" + (i + 1));
 					if (n != null)
-						outputs.add(XMLParser.parseItemStackNode(n));
+						outputs.add(XMLParser.parseItemStackNode(n, NodeType.OUTPUT));
 				}
 				addThermalCentrifugeRecipe(input, minHeat, outputs.toArray(new ItemStack[0]));
 			} else if (name.equals("blockcutter"))
-				addCutterRecipe(getInput(node.getNode("input")), Integer.parseInt(node.getNode("cutterLevel").getValue()), XMLParser.parseItemStackNode(node.getNode("output")));
+				addCutterRecipe(getInput(node.getNode("input")), Integer.parseInt(node.getNode("cutterLevel").getValue()), XMLParser.parseItemStackNode(node.getNode("output"), NodeType.OUTPUT));
 			else if (name.equals("blastfurance"))
-				Recipes.blastfurance.addRecipe(getInput(node.getNode("input")), null, getArray(node, "output", 2));
+				Recipes.blastfurance.addRecipe(getInput(node.getNode("input")), null, getArray(node, "output", 2, NodeType.OUTPUT));
 			else if (name.equals("metalformerExtruding"))
 				addBasic(Recipes.metalformerExtruding, node);
 			else if (name.equals("metalformerCutting"))
@@ -114,11 +115,11 @@ public class IndustrialCraft2 extends ConfigFile {
 			else if (name.equals("metalformerRolling"))
 				addBasic(Recipes.metalformerRolling, node);
 			else if (name.equals("oreWashing"))
-				addOreWashingRecipe(getInput(node.getNode("input")), getArray(node, "output", 3));
+				addOreWashingRecipe(getInput(node.getNode("input")), getArray(node, "output", 3, NodeType.OUTPUT));
 			else if (name.equals("cannerBottle")) {
 				IRecipeInput input1 = getInput(node.getNode("input1"));
 				IRecipeInput input2 = getInput(node.getNode("input2"));
-				Recipes.cannerBottle.addRecipe(input1, input2, XMLParser.parseItemStackNode(node.getNode("output")));
+				Recipes.cannerBottle.addRecipe(input1, input2, XMLParser.parseItemStackNode(node.getNode("output"), NodeType.OUTPUT));
 			} else if (name.equals("cannerEnrich")) {
 				FluidStack input = XMLParser.parseFluidStackNode(node.getNode("input"));
 				FluidStack output = XMLParser.parseFluidStackNode(node.getNode("output"));
@@ -143,7 +144,7 @@ public class IndustrialCraft2 extends ConfigFile {
 	}
 
 	private void addBasic(IMachineRecipeManager machine, XMLNode node) {
-		machine.addRecipe(getInput(node.getNode("input")), null, XMLParser.parseItemStackNode(node.getNode("output")));
+		machine.addRecipe(getInput(node.getNode("input")), null, XMLParser.parseItemStackNode(node.getNode("output"), NodeType.OUTPUT));
 	}
 
 	private void addThermalCentrifugeRecipe(IRecipeInput input, int minHeat, ItemStack... output) {
@@ -169,7 +170,7 @@ public class IndustrialCraft2 extends ConfigFile {
 
 	private IRecipeInput getInput(XMLNode node) {
 		if (XMLParser.isItemStackValue(node.getValue()))
-			return new RecipeInputItemStack(XMLParser.parseItemStackNode(node));
+			return new RecipeInputItemStack(XMLParser.parseItemStackNode(node, NodeType.INPUT));
 		else {
 			String value = node.getValue().replace("\"", "");
 			String[] array = value.split(" ");
@@ -180,12 +181,12 @@ public class IndustrialCraft2 extends ConfigFile {
 		}
 	}
 
-	private ItemStack[] getArray(XMLNode node, String name, int max) {
+	private ItemStack[] getArray(XMLNode node, String name, int max, NodeType type) {
 		List<ItemStack> list = new LinkedList<ItemStack>();
 		for (int i = 0; i < max; i++) {
 			XMLNode n = node.getNode(name + (i + 1));
 			if (n != null)
-				list.add(XMLParser.parseItemStackNode(n));
+				list.add(XMLParser.parseItemStackNode(n, type));
 		}
 
 		return list.toArray(new ItemStack[0]);

@@ -4,6 +4,7 @@ import ganymedes01.zzzzzcustomconfigs.lib.ConfigFile;
 import ganymedes01.zzzzzcustomconfigs.xml.XMLBuilder;
 import ganymedes01.zzzzzcustomconfigs.xml.XMLNode;
 import ganymedes01.zzzzzcustomconfigs.xml.XMLParser;
+import ganymedes01.zzzzzcustomconfigs.xml.XMLParser.NodeType;
 
 import java.util.Map.Entry;
 
@@ -48,7 +49,7 @@ public class Thaumcraft extends ConfigFile {
 	public void init() {
 		for (XMLNode node : xmlNode.getNodes())
 			if (node.getName().equals("aspects")) {
-				Object input = XMLParser.parseNode(node.getNode("stack"));
+				Object input = XMLParser.parseNode(node.getNode("stack"), NodeType.N_A);
 				AspectList aspects = new AspectList();
 				for (XMLNode n : node.getNodes())
 					if (n.getName().startsWith("aspect")) {
