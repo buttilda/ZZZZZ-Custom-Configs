@@ -58,13 +58,18 @@ public class OreSpawn extends ConfigFile {
 				int maxY = Integer.parseInt(XMLParser.parseStringNode(node.getNode("maxY")));
 				ItemStack targetStack = XMLParser.parseItemStackNode(node.getNode("target"), NodeType.N_A);
 
+				XMLNode dimsNode = node.getNode("dimensions");
+				List<Integer> dimensions = new LinkedList<Integer>();
+				for (String d : dimsNode.getValue().split(","))
+					dimensions.add(Integer.parseInt(d));
+
 				Block ore = Block.getBlockFromItem(oreStack.getItem());
 				Block target = Block.getBlockFromItem(targetStack.getItem());
 				if (ore == Blocks.air || target == Blocks.air)
 					throw new IllegalArgumentException("Argument passed must be a block, not an item: " + oreStack);
 
 				WorldGenMinable generator = new WorldGenMinable(ore, oreStack.getItemDamage(), veinSize, target);
-				MineableOre.makeMineable(generator, veinCount, minY, maxY);
+				MineableOre.makeMineable(generator, veinCount, minY, maxY, dimensions, DimensionsType.valueOf(dimsNode.getProperty("type").toLowerCase()));
 			} else if (node.getName().equals("remove")) {
 				for (XMLNode n : node.getNodes())
 					if (n.getName().startsWith("type")) {
@@ -95,7 +100,7 @@ public class OreSpawn extends ConfigFile {
 
 	public static void onPostOreGen(World world, Random rand, int chunkX, int chunkZ) {
 		for (MineableOre ore : MineableOre.ores)
-			if (world.provider.dimensionId == 0) {
+			if (ore.canGenerateHere(world.provider.dimensionId)) {
 				WorldGenMinable generator = ore.generator;
 
 				if (TerrainGen.generateOre(world, rand, generator, chunkX, chunkZ, GenerateMinable.EventType.CUSTOM))
@@ -120,16 +125,35 @@ public class OreSpawn extends ConfigFile {
 
 		final WorldGenMinable generator;
 		final int veinCount, minY, maxY;
+		final List<Integer> dimensions;
+		final DimensionsType dimsType;
 
-		static void makeMineable(WorldGenMinable generator, int veinCount, int minY, int maxY) {
-			ores.add(new MineableOre(generator, veinCount, minY, maxY));
+		static void makeMineable(WorldGenMinable generator, int veinCount, int minY, int maxY, List<Integer> dimensions, DimensionsType dimsType) {
+			ores.add(new MineableOre(generator, veinCount, minY, maxY, dimensions, dimsType));
 		}
 
-		MineableOre(WorldGenMinable generator, int veinCount, int minY, int maxY) {
+		MineableOre(WorldGenMinable generator, int veinCount, int minY, int maxY, List<Integer> dimensions, DimensionsType dimsType) {
 			this.generator = generator;
 			this.veinCount = veinCount;
 			this.minY = minY;
 			this.maxY = maxY;
+			this.dimensions = dimensions;
+			this.dimsType = dimsType;
 		}
+
+		boolean canGenerateHere(int dimension) {
+			switch (dimsType) {
+				case blacklist:
+					return !dimensions.contains(dimension);
+				case whitelist:
+					return dimensions.contains(dimension);
+			}
+			return false;
+		}
+	}
+
+	private static enum DimensionsType {
+		blacklist,
+		whitelist
 	}
 }
