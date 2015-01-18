@@ -31,7 +31,19 @@ public class OreSpawn extends ConfigFile {
 		builder.makeEntry("veinCount", 10);
 		builder.makeEntry("minY", 0);
 		builder.makeEntry("maxY", 256);
-		header += "The following adds SPONGES to generate on smooth stone, in veins with 5 blocks at most, up to 10 veins in one chunk, with a minimum Y level of 0, and a maximum Y level of 256";
+		builder.toNode().addNode(new XMLNode("dimensions").setValue("-1,1").addProperty("type", "blacklist"));
+		header += "The following adds SPONGES to generate on smooth stone in veins with 5 blocks at most, up to 10 veins in one chunk, with a minimum Y level of 0, a maximum Y level of 256, and in any dimension but the nether and the end (-1 and 1)";
+		header += builder.toString() + "\n\n";
+
+		builder = new XMLBuilder("add");
+		builder.makeEntry("ore", new ItemStack(Blocks.glowstone));
+		builder.makeEntry("target", new ItemStack(Blocks.netherrack));
+		builder.makeEntry("veinSize", 10);
+		builder.makeEntry("veinCount", 3);
+		builder.makeEntry("minY", 20);
+		builder.makeEntry("maxY", 40);
+		builder.toNode().addNode(new XMLNode("dimensions").setValue("-1").addProperty("type", "whitelist"));
+		header += "The following adds GLOWSTONE to generate on netherrack in veins with 10 blocks at most, up to 3 veins in one chunk, with a minimum Y level of 20, a maximum Y level of 40, and in only the dimension of id -1 (a.k.a. The Nether)";
 		header += builder.toString() + "\n\n";
 
 		builder = new XMLBuilder("remove");
@@ -61,7 +73,7 @@ public class OreSpawn extends ConfigFile {
 				XMLNode dimsNode = node.getNode("dimensions");
 				List<Integer> dimensions = new LinkedList<Integer>();
 				for (String d : dimsNode.getValue().split(","))
-					dimensions.add(Integer.parseInt(d));
+					dimensions.add(Integer.parseInt(d.trim()));
 
 				Block ore = Block.getBlockFromItem(oreStack.getItem());
 				Block target = Block.getBlockFromItem(targetStack.getItem());
