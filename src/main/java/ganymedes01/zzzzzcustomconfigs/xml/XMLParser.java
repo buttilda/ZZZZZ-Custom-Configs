@@ -1,5 +1,6 @@
 package ganymedes01.zzzzzcustomconfigs.xml;
 
+import ganymedes01.zzzzzcustomconfigs.imc.IMCHandler;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.JsonToNBT;
@@ -30,10 +31,9 @@ public class XMLParser {
 			else if (isItemStackValue(value))
 				return parseItemStackNode(node, type);
 			else
-				throw new IllegalArgumentException("Unable to parse node: " + node);
+				throw new IllegalArgumentException("Node doesn't seem to be of a valid type: " + node);
 		} catch (Exception e) {
-			e.printStackTrace();
-			throw new RuntimeException("Error parsing node: " + node, e);
+			throw new RuntimeException("Error parsing node " + node + ": " + e.getMessage(), e);
 		}
 	}
 
@@ -66,7 +66,14 @@ public class XMLParser {
 			} catch (Exception e) {
 				throw new RuntimeException(e);
 			}
+
+		IMCHandler.checkIfAllowed(stack, getModID(data[0]), type);
 		return stack;
+	}
+
+	private static String getModID(String itemName) {
+		int colon = itemName.indexOf(58);
+		return colon == -1 ? "minecraft" : itemName.substring(0, colon);
 	}
 
 	public static boolean isFluidStackValue(String nodeValue) {
