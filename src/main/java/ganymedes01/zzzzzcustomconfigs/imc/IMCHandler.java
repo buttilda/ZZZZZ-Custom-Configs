@@ -12,8 +12,8 @@ import cpw.mods.fml.common.event.FMLInterModComms.IMCMessage;
 
 public class IMCHandler {
 
-	public static final List<String> blacklistedModIDs = new LinkedList<String>();
-	public static final HashMapListed<TYPE, ItemStack> blacklist = new HashMapListed<TYPE, ItemStack>();
+	public static final HashMapListed<TYPE, ItemStack> blacklistStacks = new HashMapListed<TYPE, ItemStack>();
+	public static final HashMapListed<TYPE, String> blacklistMods = new HashMapListed<TYPE, String>();
 
 	public static void handleEvent(IMCEvent event) {
 		int outputs = 0;
@@ -21,16 +21,20 @@ public class IMCHandler {
 		for (IMCMessage message : event.getMessages())
 			if ("blacklist-stack-as-output".equals(message.key)) {
 				ItemStack stack = message.getItemStackValue();
-				blacklist.add(TYPE.OUTPUT, stack);
+				blacklistStacks.add(TYPE.OUTPUT, stack);
 				outputs++;
 			} else if ("blacklist-stack-as-input".equals(message.key)) {
 				ItemStack stack = message.getItemStackValue();
-				blacklist.add(TYPE.INPUT, stack);
+				blacklistStacks.add(TYPE.INPUT, stack);
 				inputs++;
-			} else if ("blacklist-mod-items".equals(message.key)) {
+			} else if ("blacklist-mod-as-input".equals(message.key)) {
 				String modid = message.getStringValue();
-				blacklistedModIDs.add(modid);
-				ZZZZZCustomConfigs.logger.info("The mod " + modid + "has blacklisted itself, so none of its items will be allowed in recipes (for neither inputs or outputs).");
+				blacklistMods.add(TYPE.INPUT, modid);
+				ZZZZZCustomConfigs.logger.info("The mod " + modid + "has blacklisted itself, so none of its items will be allowed as input.");
+			} else if ("blacklist-mod-as-output".equals(message.key)) {
+				String modid = message.getStringValue();
+				blacklistMods.add(TYPE.OUTPUT, modid);
+				ZZZZZCustomConfigs.logger.info("The mod " + modid + "has blacklisted itself, so none of its items will be allowed as output.");
 			} else
 				ZZZZZCustomConfigs.logger.error("Unknown message key (" + message.key + ") sent by " + message.getSender());
 
