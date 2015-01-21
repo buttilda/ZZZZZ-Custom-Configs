@@ -15,6 +15,7 @@ public class EndermanBlocks extends ConfigFile {
 		builder.makeEntry("entry1", Blocks.crafting_table).addProperty("canCarry", "true");
 		builder.makeEntry("entry2", Blocks.grass).addProperty("canCarry", "false");
 		builder.makeEntry("entry3", Blocks.bedrock).addProperty("canCarry", "true");
+		builder.makeEntry("entry4", Blocks.planks).addProperty("canCarry", "true");
 		header += builder.toString();
 	}
 
