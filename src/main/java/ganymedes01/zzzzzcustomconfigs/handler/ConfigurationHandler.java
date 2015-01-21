@@ -5,6 +5,7 @@ import ganymedes01.zzzzzcustomconfigs.files.Botania;
 import ganymedes01.zzzzzcustomconfigs.files.Buildcraft;
 import ganymedes01.zzzzzcustomconfigs.files.ChestLoot;
 import ganymedes01.zzzzzcustomconfigs.files.CraftingRecipes;
+import ganymedes01.zzzzzcustomconfigs.files.EndermanBlocks;
 import ganymedes01.zzzzzcustomconfigs.files.EntityDrops;
 import ganymedes01.zzzzzcustomconfigs.files.ExNihilo;
 import ganymedes01.zzzzzcustomconfigs.files.Fishing;
@@ -39,6 +40,7 @@ public class ConfigurationHandler {
 		files.add(new Fishing());
 		files.add(new ChestLoot());
 		files.add(new EntityDrops());
+		files.add(new EndermanBlocks());
 
 		if (Loader.isModLoaded("IC2"))
 			files.add(new IndustrialCraft2());

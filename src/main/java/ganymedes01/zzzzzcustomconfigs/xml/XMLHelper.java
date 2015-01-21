@@ -130,7 +130,10 @@ public class XMLHelper {
 		else if (obj instanceof FluidStack) {
 			FluidStack stack = (FluidStack) obj;
 			return FluidRegistry.getFluidName(stack.fluidID) + " " + stack.amount + (stack.tag != null ? " " + stack.tag : "");
-		}
+		} else if (obj instanceof Item)
+			return Item.itemRegistry.getNameForObject(obj);
+		else if (obj instanceof Block)
+			return Block.blockRegistry.getNameForObject(obj);
 
 		return obj.toString();
 	}
