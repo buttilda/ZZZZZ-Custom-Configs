@@ -46,7 +46,8 @@ public class ZZZZZCustomConfigs {
 		}
 
 		ConfigFile.setPath(event.getModConfigurationDirectory().getAbsolutePath());
-		MinecraftForge.EVENT_BUS.register(new HandlerEvents());
+		MinecraftForge.EVENT_BUS.register(HandlerEvents.INSTANCE);
+		MinecraftForge.ORE_GEN_BUS.register(HandlerEvents.INSTANCE);
 		ConfigurationHandler.preInit();
 	}
 

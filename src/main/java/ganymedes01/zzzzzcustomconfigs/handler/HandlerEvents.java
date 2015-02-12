@@ -13,6 +13,8 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public class HandlerEvents {
 
+	public static final HandlerEvents INSTANCE = new HandlerEvents();
+
 	@SubscribeEvent(priority = EventPriority.LOWEST)
 	public void tooltip(ItemTooltipEvent event) {
 		if (ZZZZZCustomConfigs.showTooltips) {
