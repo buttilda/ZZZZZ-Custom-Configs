@@ -12,7 +12,7 @@ import ganymedes01.zzzzzcustomconfigs.files.Fishing;
 import ganymedes01.zzzzzcustomconfigs.files.Forestry;
 import ganymedes01.zzzzzcustomconfigs.files.IndustrialCraft2;
 import ganymedes01.zzzzzcustomconfigs.files.OreDict;
-import ganymedes01.zzzzzcustomconfigs.files.OreSpawn;
+import ganymedes01.zzzzzcustomconfigs.files.OreGen;
 import ganymedes01.zzzzzcustomconfigs.files.PneumaticCraft;
 import ganymedes01.zzzzzcustomconfigs.files.Railcraft;
 import ganymedes01.zzzzzcustomconfigs.files.RemoveRecipes;
@@ -42,7 +42,7 @@ public class ConfigurationHandler {
 		files.add(new Fishing());
 		files.add(new ChestLoot());
 		files.add(new EntityDrops());
-		files.add(new OreSpawn());
+		files.add(new OreGen());
 		files.add(new EndermanBlocks());
 
 		if (Loader.isModLoaded("IC2"))

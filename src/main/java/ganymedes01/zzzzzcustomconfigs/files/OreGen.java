@@ -20,7 +20,7 @@ import net.minecraftforge.event.terraingen.OreGenEvent.GenerateMinable;
 import net.minecraftforge.event.terraingen.TerrainGen;
 import cpw.mods.fml.common.eventhandler.Event.Result;
 
-public class OreSpawn extends ConfigFile {
+public class OreGen extends ConfigFile {
 
 	private static String header = "Examples:\n\n";
 	static {
@@ -55,8 +55,8 @@ public class OreSpawn extends ConfigFile {
 
 	private static final List<GenerateMinable.EventType> removedOres = new LinkedList<GenerateMinable.EventType>();
 
-	public OreSpawn() {
-		super("OreSpawn", header);
+	public OreGen() {
+		super("OreGen", header);
 	}
 
 	@Override

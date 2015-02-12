@@ -2,7 +2,7 @@ package ganymedes01.zzzzzcustomconfigs.handler;
 
 import ganymedes01.zzzzzcustomconfigs.ZZZZZCustomConfigs;
 import ganymedes01.zzzzzcustomconfigs.files.EntityDrops;
-import ganymedes01.zzzzzcustomconfigs.files.OreSpawn;
+import ganymedes01.zzzzzcustomconfigs.files.OreGen;
 import net.minecraft.item.Item;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
@@ -33,12 +33,12 @@ public class HandlerEvents {
 	@SubscribeEvent(priority = EventPriority.LOWEST)
 	public void onPostOreGen(OreGenEvent.Post event) {
 		if (!event.isCanceled())
-			OreSpawn.onPostOreGen(event.world, event.rand, event.worldX, event.worldZ);
+			OreGen.onPostOreGen(event.world, event.rand, event.worldX, event.worldZ);
 	}
 
 	@SubscribeEvent(priority = EventPriority.LOWEST)
 	public void onOreGen(OreGenEvent.GenerateMinable event) {
 		if (!event.isCanceled())
-			OreSpawn.onOreGen(event);
+			OreGen.onOreGen(event);
 	}
 }
