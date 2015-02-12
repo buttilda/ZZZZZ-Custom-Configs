@@ -12,9 +12,11 @@ import ganymedes01.zzzzzcustomconfigs.files.Fishing;
 import ganymedes01.zzzzzcustomconfigs.files.Forestry;
 import ganymedes01.zzzzzcustomconfigs.files.IndustrialCraft2;
 import ganymedes01.zzzzzcustomconfigs.files.OreDict;
+import ganymedes01.zzzzzcustomconfigs.files.OreSpawn;
 import ganymedes01.zzzzzcustomconfigs.files.PneumaticCraft;
 import ganymedes01.zzzzzcustomconfigs.files.Railcraft;
 import ganymedes01.zzzzzcustomconfigs.files.RemoveRecipes;
+import ganymedes01.zzzzzcustomconfigs.files.RotaryCraft;
 import ganymedes01.zzzzzcustomconfigs.files.Smelting;
 import ganymedes01.zzzzzcustomconfigs.files.Thaumcraft;
 import ganymedes01.zzzzzcustomconfigs.files.ThermalExpansion;
@@ -40,6 +42,7 @@ public class ConfigurationHandler {
 		files.add(new Fishing());
 		files.add(new ChestLoot());
 		files.add(new EntityDrops());
+		files.add(new OreSpawn());
 		files.add(new EndermanBlocks());
 
 		if (Loader.isModLoaded("IC2"))
@@ -62,6 +65,8 @@ public class ConfigurationHandler {
 			files.add(new ExNihilo());
 		if (Loader.isModLoaded("ThermalExpansion"))
 			files.add(new ThermalExpansion());
+		if (Loader.isModLoaded("RotaryCraft"))
+			files.add(new RotaryCraft());
 
 		Collections.sort(files);
 
