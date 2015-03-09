@@ -100,25 +100,25 @@ public class ThermalExpansion extends ConfigFile {
 
 		header += "The following shows how to add a fuel to the Magmatic Dynamo\n";
 		builder = new XMLBuilder("magmaticfuel");
-		builder.makeEntry("fuelName", new FluidStack(FluidRegistry.WATER, 0));
+		builder.makeEntry("fuelName", "lava");
 		builder.makeEntry("energy", 10);
 		header += builder.toString() + "\n\n";
 
 		header += "The following shows how to add a fuel to the Compression Dynamo\n";
 		builder = new XMLBuilder("compressionfuel");
-		builder.makeEntry("fuelName", new FluidStack(FluidRegistry.WATER, 0));
+		builder.makeEntry("fuelName", "lava");
 		builder.makeEntry("energy", 10);
 		header += builder.toString() + "\n\n";
 
 		header += "The following shows how to add a fuel to the Reactant Dynamo\n";
 		builder = new XMLBuilder("reactantfuel");
-		builder.makeEntry("fuelName", new FluidStack(FluidRegistry.WATER, 0));
+		builder.makeEntry("fuelName", "lava");
 		builder.makeEntry("energy", 10);
 		header += builder.toString() + "\n\n";
 
 		header += "The following shows how to add a coolant\n";
 		builder = new XMLBuilder("coolant");
-		builder.makeEntry("fuelName", new FluidStack(FluidRegistry.WATER, 0));
+		builder.makeEntry("fuelName", "water");
 		builder.makeEntry("energy", 10);
 		header += builder.toString();
 	}
