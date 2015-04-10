@@ -22,7 +22,7 @@ group = "ganymedes01.zzzzzcustomconfigs"
 archivesBaseName = "ZZZZZ Custom Configs"
 
 minecraft {
-    version = "1.7.10-10.13.2.1230"
+    version = "1.7.10-10.13.3.1360"
     assetDir = "eclipse/assets"
 }
 
