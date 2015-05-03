@@ -1,5 +1,6 @@
 package ganymedes01.zzzzzcustomconfigs.handler;
 
+import ganymedes01.zzzzzcustomconfigs.files.BlockDrop;
 import ganymedes01.zzzzzcustomconfigs.files.BloodMagic;
 import ganymedes01.zzzzzcustomconfigs.files.Botania;
 import ganymedes01.zzzzzcustomconfigs.files.Buildcraft;
@@ -44,6 +45,7 @@ public class ConfigurationHandler {
 		files.add(new EntityDrops());
 		files.add(new OreGen());
 		files.add(new EndermanBlocks());
+		files.add(new BlockDrop());
 
 		if (Loader.isModLoaded("IC2"))
 			files.add(new IndustrialCraft2());

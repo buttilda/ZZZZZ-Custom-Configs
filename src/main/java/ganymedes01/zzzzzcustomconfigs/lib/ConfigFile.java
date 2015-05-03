@@ -60,7 +60,7 @@ public abstract class ConfigFile implements Comparable<ConfigFile> {
 				try {
 					XMLHelper.getNodes(file, nodes);
 				} catch (Exception e) {
-					throw new RuntimeException("Error thrown when reading the file " + configFile);
+					throw new RuntimeException("Error thrown when reading the file " + configFile, e);
 				}
 
 				xmlNode = nodes.get(0);
