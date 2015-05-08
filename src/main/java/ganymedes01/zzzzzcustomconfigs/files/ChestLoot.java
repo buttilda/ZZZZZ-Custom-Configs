@@ -2,12 +2,15 @@ package ganymedes01.zzzzzcustomconfigs.files;
 
 import ganymedes01.zzzzzcustomconfigs.lib.ConfigFile;
 import ganymedes01.zzzzzcustomconfigs.xml.XMLBuilder;
+import ganymedes01.zzzzzcustomconfigs.xml.XMLHelper;
 import ganymedes01.zzzzzcustomconfigs.xml.XMLNode;
 import ganymedes01.zzzzzcustomconfigs.xml.XMLParser;
 import ganymedes01.zzzzzcustomconfigs.xml.XMLParser.NodeType;
 
 import java.lang.reflect.Field;
 import java.util.HashMap;
+import java.util.Map.Entry;
+import java.util.Random;
 
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -23,8 +26,12 @@ public class ChestLoot extends ConfigFile {
 			f.setAccessible(true);
 			@SuppressWarnings("unchecked")
 			HashMap<String, ChestGenHooks> chestInfo = (HashMap<String, ChestGenHooks>) f.get(null);
-			for (String str : chestInfo.keySet())
-				header += str + "\n";
+			Random rand = new Random(1);
+			for (Entry<String, ChestGenHooks> entry : chestInfo.entrySet()) {
+				header += entry.getKey() + "\n";
+				for (WeightedRandomChestContent item : entry.getValue().getItems(rand))
+					header += "\t" + XMLHelper.toNodeValue(item.theItemId) + "\n";
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -41,6 +48,12 @@ public class ChestLoot extends ConfigFile {
 		builder.makeEntry("weight", 5);
 		builder.makeEntry("minAmount", 3);
 		builder.makeEntry("maxAmount", 5);
+		header += builder.toString() + "\n\n";
+
+		header += "The following shows how to remove diamonds and apples from the village's chest loot";
+		builder = new XMLBuilder("villageBlacksmith");
+		builder.makeEntry("remove0", new ItemStack(Items.diamond));
+		builder.makeEntry("remove1", new ItemStack(Items.apple));
 		header += builder.toString() + "\n";
 	}
 
@@ -51,12 +64,15 @@ public class ChestLoot extends ConfigFile {
 	@Override
 	public void init() {
 		for (XMLNode node : xmlNode.getNodes()) {
-			ItemStack stack = XMLParser.parseItemStackNode(node.getNode("loot"), NodeType.N_A);
+			ItemStack stack = XMLParser.parseItemStackNode(node.getNode("loot"), NodeType.OUTPUT);
 			int weight = Integer.parseInt(node.getNode("weight").getValue());
 			int min = Integer.parseInt(node.getNode("minAmount").getValue());
 			int max = Integer.parseInt(node.getNode("maxAmount").getValue());
-
 			ChestGenHooks.addItem(node.getName(), new WeightedRandomChestContent(stack, min, max, weight));
+
+			for (XMLNode n : node.getNodes())
+				if (n.getName().startsWith("remove"))
+					ChestGenHooks.removeItem(node.getName(), XMLParser.parseItemStackNode(n, NodeType.N_A));
 		}
 	}
 
