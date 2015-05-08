@@ -105,12 +105,16 @@ public class XMLNode {
 	}
 
 	public String getProperty(String key) {
+		return getProperty(key, "null");
+	}
+
+	public String getProperty(String key, String def) {
 		if (hasProperties())
 			for (XMLProperty prop : properties)
 				if (prop.name.equals(key))
 					return prop.value;
 
-		return "null";
+		return def;
 	}
 
 	public boolean checkPropertyValue(String key, String... values) {

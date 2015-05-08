@@ -26,11 +26,11 @@ public class BlockDrop extends ConfigFile {
 		header += "Use this file to add/remove drops from harvestable blocks\n";
 		header += "This may not work for every block. Modded blocks depend on their owners allowing this to happen and some vanilla ones have been bugged forever.\n\n";
 
-		header += "The following shows how to make the Block of Gold drop 9 ingots instead of itself";
-		XMLBuilder builder = new XMLBuilder(Block.blockRegistry.getNameForObject(Blocks.gold_block));
+		header += "The following shows how to make the Block of Gold drop 9 ingots instead of itself\n";
+		XMLBuilder builder = new XMLBuilder("block0");
 		builder.makeEntry("drop0", new ItemStack(Items.gold_ingot, 9)).addProperty("chance", "1.0");
 		builder.makeEntry("blacklist0", new ItemStack(Blocks.gold_block));
-		header += builder.toNode().addProperty("meta", "0").toString() + "\n\n";
+		header += builder.toNode().addProperty("mod", "minecraft").addProperty("id", "gold_block").addProperty("meta", "0").toString() + "\n\n";
 	}
 
 	public BlockDrop() {
@@ -40,8 +40,8 @@ public class BlockDrop extends ConfigFile {
 	@Override
 	public void init() {
 		for (XMLNode node : xmlNode.getNodes()) {
-			Block block = Block.getBlockFromName(node.getName());
-			int meta = Integer.parseInt(node.getProperty("meta"));
+			Block block = Block.getBlockFromName(node.getProperty("mod", "minecraft") + ":" + node.getProperty("id"));
+			int meta = Integer.parseInt(node.getProperty("meta", "0"));
 			List<StackWithChance> drops = new ArrayList<StackWithChance>();
 			List<ItemStack> blacklist = new ArrayList<ItemStack>();
 
