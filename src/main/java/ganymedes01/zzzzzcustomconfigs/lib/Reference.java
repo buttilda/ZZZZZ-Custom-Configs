@@ -5,5 +5,5 @@ public class Reference {
 	public static final String MOD_ID = "zzzzzcustomconfigs";
 	public static final String MOD_NAME = "ZZZZZ Custom Configs";
 	public static final String VERSION_NUMBER = "2.2.0";
-	public static final String DEPENDENCIES = "required-after:Forge@[10.13.3.1360,);after:*";
+	public static final String DEPENDENCIES = "required-after:Forge@[10.13.4.1448,);after:*";
 }
