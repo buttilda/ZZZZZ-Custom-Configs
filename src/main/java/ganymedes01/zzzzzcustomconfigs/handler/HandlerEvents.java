@@ -11,6 +11,7 @@ import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.event.terraingen.OreGenEvent;
 import net.minecraftforge.event.world.BlockEvent.HarvestDropsEvent;
+import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.OreDictionary.OreRegisterEvent;
 import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
@@ -22,6 +23,8 @@ public class HandlerEvents {
 	@SubscribeEvent(priority = EventPriority.LOWEST)
 	public void tooltip(ItemTooltipEvent event) {
 		if (ZZZZZCustomConfigs.showTooltips) {
+			for (Integer oreID : OreDictionary.getOreIDs(event.itemStack))
+				event.toolTip.add(EnumChatFormatting.DARK_GRAY + OreDictionary.getOreName(oreID));
 			String string = EnumChatFormatting.DARK_GREEN + Item.itemRegistry.getNameForObject(event.itemStack.getItem());
 			if (!event.toolTip.contains(string))
 				event.toolTip.add(string);
