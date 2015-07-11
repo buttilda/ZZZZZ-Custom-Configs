@@ -50,7 +50,8 @@ public class OreDict extends ConfigFile {
 				for (XMLNode n : node.getNodes())
 					if (n.getName().startsWith("stack")) {
 						ItemStack stack = XMLParser.parseItemStackNode(n, NodeType.OUTPUT);
-						OreDictionary.registerOre(name, stack);
+						if (stack != null && stack.getItem() != null)
+							OreDictionary.registerOre(name, stack);
 					}
 			}
 	}
