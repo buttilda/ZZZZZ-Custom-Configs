@@ -58,6 +58,7 @@ public class OreDict extends ConfigFile {
 
 	@Override
 	public void postInit() {
+		init(); // run it twice because of mods that register their items too late >_>
 	}
 
 	@Override
