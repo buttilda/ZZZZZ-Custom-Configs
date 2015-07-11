@@ -42,8 +42,6 @@ public abstract class ConfigFile implements Comparable<ConfigFile> {
 
 	public abstract void postInit();
 
-	public abstract void serverStarting();
-
 	public abstract boolean isEnabled();
 
 	public final void initFile() {

@@ -34,10 +34,11 @@ public class ConfigurationHandler {
 	private static final List<ConfigFile> files = new LinkedList<ConfigFile>();
 
 	public static final RemoveRecipes removeRecipes = new RemoveRecipes();
+	public static final OreDict oreDict = new OreDict();
 
 	public static void preInit() {
 		files.add(new CraftingRecipes());
-		files.add(new OreDict());
+		files.add(oreDict);
 		files.add(removeRecipes);
 		files.add(new Smelting());
 		files.add(new Fishing());
@@ -88,9 +89,10 @@ public class ConfigurationHandler {
 				file.postInit();
 	}
 
-	public static void serverStarting() {
+	public static ConfigFile requestFile(String name) {
 		for (ConfigFile file : files)
-			if (file.isEnabled())
-				file.serverStarting();
+			if (file.toString().equals(name))
+				return file;
+		return null;
 	}
 }

@@ -71,10 +71,6 @@ public class Thaumcraft extends ConfigFile {
 	}
 
 	@Override
-	public void serverStarting() {
-	}
-
-	@Override
 	public boolean isEnabled() {
 		return Loader.isModLoaded("Thaumcraft");
 	}

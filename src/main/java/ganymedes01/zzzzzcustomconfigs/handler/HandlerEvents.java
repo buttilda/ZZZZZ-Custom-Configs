@@ -3,6 +3,7 @@ package ganymedes01.zzzzzcustomconfigs.handler;
 import ganymedes01.zzzzzcustomconfigs.ZZZZZCustomConfigs;
 import ganymedes01.zzzzzcustomconfigs.files.BlockDrop;
 import ganymedes01.zzzzzcustomconfigs.files.EntityDrops;
+import ganymedes01.zzzzzcustomconfigs.files.OreDict;
 import ganymedes01.zzzzzcustomconfigs.files.OreGen;
 import net.minecraft.item.Item;
 import net.minecraft.util.EnumChatFormatting;
@@ -10,6 +11,7 @@ import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.event.terraingen.OreGenEvent;
 import net.minecraftforge.event.world.BlockEvent.HarvestDropsEvent;
+import net.minecraftforge.oredict.OreDictionary.OreRegisterEvent;
 import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
@@ -48,5 +50,10 @@ public class HandlerEvents {
 	public void onBlockHarvest(HarvestDropsEvent event) {
 		if (!event.isCanceled())
 			BlockDrop.onBlockHarvest(event);
+	}
+
+	@SubscribeEvent(priority = EventPriority.LOWEST)
+	public void onOreRegister(OreRegisterEvent event) {
+		OreDict.onOreRegister(event);
 	}
 }

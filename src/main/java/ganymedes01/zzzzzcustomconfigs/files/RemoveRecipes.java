@@ -46,12 +46,8 @@ public class RemoveRecipes extends ConfigFile {
 	}
 
 	@Override
-	public void postInit() {
-	}
-
-	@Override
 	@SuppressWarnings("unchecked")
-	public void serverStarting() {
+	public void postInit() {
 		List<IRecipe> crafting = new LinkedList<IRecipe>();
 		List<ItemStack> smelting = new LinkedList<ItemStack>();
 

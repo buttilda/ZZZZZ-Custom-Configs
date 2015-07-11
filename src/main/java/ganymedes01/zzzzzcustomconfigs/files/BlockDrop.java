@@ -67,10 +67,6 @@ public class BlockDrop extends ConfigFile {
 	}
 
 	@Override
-	public void serverStarting() {
-	}
-
-	@Override
 	public boolean isEnabled() {
 		return true;
 	}

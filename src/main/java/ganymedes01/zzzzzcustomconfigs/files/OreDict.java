@@ -1,5 +1,6 @@
 package ganymedes01.zzzzzcustomconfigs.files;
 
+import ganymedes01.zzzzzcustomconfigs.handler.ConfigurationHandler;
 import ganymedes01.zzzzzcustomconfigs.lib.ConfigFile;
 import ganymedes01.zzzzzcustomconfigs.xml.XMLBuilder;
 import ganymedes01.zzzzzcustomconfigs.xml.XMLNode;
@@ -14,6 +15,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
+import net.minecraftforge.oredict.OreDictionary.OreRegisterEvent;
 
 public class OreDict extends ConfigFile {
 
@@ -58,8 +60,12 @@ public class OreDict extends ConfigFile {
 	}
 
 	@Override
+	public boolean isEnabled() {
+		return true;
+	}
+
 	@SuppressWarnings("unchecked")
-	public void serverStarting() {
+	public static void onOreRegister(OreRegisterEvent event) {
 		Map<Integer, List<Integer>> stackToId = null;
 		try {
 			Field f = OreDictionary.class.getDeclaredField("stackToId");
@@ -69,26 +75,24 @@ public class OreDict extends ConfigFile {
 			throw new RuntimeException("Failed to reflect into OreDictionary. Unable to continue.", e);
 		}
 
-		for (XMLNode node : xmlNode.getNodes())
+		for (XMLNode node : ConfigurationHandler.oreDict.xmlNode.getNodes())
 			if (node.getName().equals("remove")) {
 				ItemStack stack = XMLParser.parseItemStackNode(node.getNode("stack"), NodeType.OUTPUT);
-				for (XMLNode n : node.getNodes())
-					if (n.getName().startsWith("name")) {
-						Integer ore = OreDictionary.getOreID(XMLParser.parseStringNode(n));
+				if (OreDictionary.itemMatches(stack, event.Ore, false))
+					for (XMLNode n : node.getNodes())
+						if (n.getName().startsWith("name") && event.Name.equals(XMLParser.parseStringNode(n))) {
+							Integer ore = OreDictionary.getOreID(XMLParser.parseStringNode(n));
 
-						int id = Item.getIdFromItem(stack.getItem());
-						List<Integer> ids = stackToId.get(id);
-						if (ids != null)
-							ids.remove(ore);
-						ids = stackToId.get(id | stack.getItemDamage() + 1 << 16);
-						if (ids != null)
-							ids.remove(ore);
-					}
+							int id = Item.getIdFromItem(stack.getItem());
+							List<Integer> ids = stackToId.get(id);
+							if (ids != null)
+								ids.remove(ore);
+							if (stack.getItemDamage() != OreDictionary.WILDCARD_VALUE)
+								id |= stack.getItemDamage() + 1 << 16;
+							ids = stackToId.get(id);
+							if (ids != null)
+								ids.remove(ore);
+						}
 			}
-	}
-
-	@Override
-	public boolean isEnabled() {
-		return true;
 	}
 }

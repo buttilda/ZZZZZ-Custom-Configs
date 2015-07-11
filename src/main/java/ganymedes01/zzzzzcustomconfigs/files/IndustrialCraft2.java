@@ -135,10 +135,6 @@ public class IndustrialCraft2 extends ConfigFile {
 	}
 
 	@Override
-	public void serverStarting() {
-	}
-
-	@Override
 	public boolean isEnabled() {
 		return Loader.isModLoaded("IC2");
 	}

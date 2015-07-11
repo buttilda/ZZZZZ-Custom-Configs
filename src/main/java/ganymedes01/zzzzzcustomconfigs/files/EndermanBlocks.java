@@ -37,10 +37,6 @@ public class EndermanBlocks extends ConfigFile {
 	}
 
 	@Override
-	public void serverStarting() {
-	}
-
-	@Override
 	public boolean isEnabled() {
 		return true;
 	}

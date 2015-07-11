@@ -19,7 +19,6 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLInterModComms;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import cpw.mods.fml.common.event.FMLServerStartingEvent;
 
 @Mod(modid = Reference.MOD_ID, name = Reference.MOD_NAME, version = Reference.VERSION_NUMBER, dependencies = Reference.DEPENDENCIES)
 public class ZZZZZCustomConfigs {
@@ -61,10 +60,5 @@ public class ZZZZZCustomConfigs {
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent event) {
 		ConfigurationHandler.postInit();
-	}
-
-	@EventHandler
-	public void serverStarting(FMLServerStartingEvent event) {
-		ConfigurationHandler.serverStarting();
 	}
 }
