@@ -32,8 +32,8 @@ public class XMLNode {
 		return name;
 	}
 
-	public XMLNode addProperty(String name, String value) {
-		properties.add(new XMLProperty(name, value));
+	public XMLNode addProperty(String name, Object value) {
+		properties.add(new XMLProperty(name, value.toString()));
 		return this;
 	}
 

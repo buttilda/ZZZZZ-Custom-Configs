@@ -11,6 +11,7 @@ import ganymedes01.zzzzzcustomconfigs.files.EntityDrops;
 import ganymedes01.zzzzzcustomconfigs.files.ExNihilo;
 import ganymedes01.zzzzzcustomconfigs.files.Fishing;
 import ganymedes01.zzzzzcustomconfigs.files.Forestry;
+import ganymedes01.zzzzzcustomconfigs.files.GrassLoot;
 import ganymedes01.zzzzzcustomconfigs.files.IndustrialCraft2;
 import ganymedes01.zzzzzcustomconfigs.files.OreDict;
 import ganymedes01.zzzzzcustomconfigs.files.OreGen;
@@ -47,6 +48,7 @@ public class ConfigurationHandler {
 		files.add(new OreGen());
 		files.add(new EndermanBlocks());
 		files.add(new BlockDrop());
+		files.add(new GrassLoot());
 
 		if (Loader.isModLoaded("IC2"))
 			files.add(new IndustrialCraft2());
