@@ -31,6 +31,12 @@ public class BlockDrop extends ConfigFile {
 		builder.makeEntry("drop0", new ItemStack(Items.gold_ingot, 9)).addProperty("chance", "1.0");
 		builder.makeEntry("blacklist0", new ItemStack(Blocks.gold_block));
 		header += builder.toNode().addProperty("mod", "minecraft").addProperty("id", "gold_block").addProperty("meta", "0").toString() + "\n\n";
+
+		header += "The following shows how to make the Farmland drop itself when harvested with Silk Touch\n";
+		builder = new XMLBuilder("block1");
+		builder.makeEntry("drop0", new ItemStack(Blocks.farmland)).addProperty("chance", "1.0").addProperty("silkTouch", true);
+		builder.makeEntry("blacklist0", new ItemStack(Blocks.dirt));
+		header += builder.toNode().addProperty("mod", "minecraft").addProperty("id", "farmland").addProperty("meta", OreDictionary.WILDCARD_VALUE).toString() + "\n\n";
 	}
 
 	public BlockDrop() {
@@ -49,7 +55,8 @@ public class BlockDrop extends ConfigFile {
 				if (n.getName().startsWith("drop")) {
 					ItemStack stack = XMLParser.parseItemStackNode(n, NodeType.OUTPUT);
 					float chance = Float.parseFloat(n.getProperty("chance"));
-					drops.add(new StackWithChance(stack, chance));
+					boolean silkTouch = Boolean.parseBoolean(n.getProperty("silkTouch", "false"));
+					drops.add(new StackWithChance(stack, chance, silkTouch));
 				}
 
 			for (XMLNode n : node.getNodes())
@@ -77,7 +84,7 @@ public class BlockDrop extends ConfigFile {
 				event.dropChance = 1;
 
 				for (StackWithChance stack : bundle.drops)
-					if (event.world.rand.nextFloat() <= stack.chance)
+					if (stack.silkTouch == event.isSilkTouching && event.world.rand.nextFloat() <= stack.chance)
 						event.drops.add(stack.stack.copy());
 
 				List<ItemStack> toRemove = new ArrayList<ItemStack>();
@@ -116,10 +123,12 @@ public class BlockDrop extends ConfigFile {
 
 		final ItemStack stack;
 		final float chance;
+		final boolean silkTouch;
 
-		StackWithChance(ItemStack stack, float chance) {
+		StackWithChance(ItemStack stack, float chance, boolean silkTouch) {
 			this.stack = stack;
 			this.chance = chance;
+			this.silkTouch = silkTouch;
 		}
 	}
 }
