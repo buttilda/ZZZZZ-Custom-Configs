@@ -1,17 +1,16 @@
 package ganymedes01.zzzzzcustomconfigs.files;
 
-import ganymedes01.zzzzzcustomconfigs.lib.ConfigFile;
-import ganymedes01.zzzzzcustomconfigs.xml.XMLBuilder;
-import ganymedes01.zzzzzcustomconfigs.xml.XMLNode;
-import ganymedes01.zzzzzcustomconfigs.xml.XMLParser;
-import ganymedes01.zzzzzcustomconfigs.xml.XMLParser.NodeType;
-
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import ganymedes01.zzzzzcustomconfigs.lib.ConfigFile;
+import ganymedes01.zzzzzcustomconfigs.xml.XMLBuilder;
+import ganymedes01.zzzzzcustomconfigs.xml.XMLNode;
+import ganymedes01.zzzzzcustomconfigs.xml.XMLParser;
+import ganymedes01.zzzzzcustomconfigs.xml.XMLParser.NodeType;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLivingBase;

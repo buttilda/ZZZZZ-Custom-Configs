@@ -1,5 +1,6 @@
 package ganymedes01.zzzzzcustomconfigs.files;
 
+import cpw.mods.fml.common.Loader;
 import exnihilo.registries.CompostRegistry;
 import exnihilo.registries.CrucibleRegistry;
 import exnihilo.registries.HammerRegistry;
@@ -17,7 +18,6 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
-import cpw.mods.fml.common.Loader;
 
 public class ExNihilo extends ConfigFile {
 

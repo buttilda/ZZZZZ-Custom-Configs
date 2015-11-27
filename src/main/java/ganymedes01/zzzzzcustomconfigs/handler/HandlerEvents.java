@@ -1,5 +1,7 @@
 package ganymedes01.zzzzzcustomconfigs.handler;
 
+import cpw.mods.fml.common.eventhandler.EventPriority;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import ganymedes01.zzzzzcustomconfigs.ZZZZZCustomConfigs;
 import ganymedes01.zzzzzcustomconfigs.files.BlockDrop;
 import ganymedes01.zzzzzcustomconfigs.files.EntityDrops;
@@ -13,8 +15,6 @@ import net.minecraftforge.event.terraingen.OreGenEvent;
 import net.minecraftforge.event.world.BlockEvent.HarvestDropsEvent;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.OreDictionary.OreRegisterEvent;
-import cpw.mods.fml.common.eventhandler.EventPriority;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public class HandlerEvents {
 

@@ -1,5 +1,10 @@
 package ganymedes01.zzzzzcustomconfigs.handler;
 
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
+
+import cpw.mods.fml.common.Loader;
 import ganymedes01.zzzzzcustomconfigs.files.BlockDrop;
 import ganymedes01.zzzzzcustomconfigs.files.BloodMagic;
 import ganymedes01.zzzzzcustomconfigs.files.Botania;
@@ -23,12 +28,6 @@ import ganymedes01.zzzzzcustomconfigs.files.Smelting;
 import ganymedes01.zzzzzcustomconfigs.files.Thaumcraft;
 import ganymedes01.zzzzzcustomconfigs.files.ThermalExpansion;
 import ganymedes01.zzzzzcustomconfigs.lib.ConfigFile;
-
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
-
-import cpw.mods.fml.common.Loader;
 
 public class ConfigurationHandler {
 

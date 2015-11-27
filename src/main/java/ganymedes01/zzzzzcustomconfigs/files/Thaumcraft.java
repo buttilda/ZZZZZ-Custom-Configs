@@ -1,19 +1,18 @@
 package ganymedes01.zzzzzcustomconfigs.files;
 
+import java.util.Map.Entry;
+
+import cpw.mods.fml.common.Loader;
 import ganymedes01.zzzzzcustomconfigs.lib.ConfigFile;
 import ganymedes01.zzzzzcustomconfigs.xml.XMLBuilder;
 import ganymedes01.zzzzzcustomconfigs.xml.XMLNode;
 import ganymedes01.zzzzzcustomconfigs.xml.XMLParser;
 import ganymedes01.zzzzzcustomconfigs.xml.XMLParser.NodeType;
-
-import java.util.Map.Entry;
-
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import thaumcraft.api.ThaumcraftApi;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
-import cpw.mods.fml.common.Loader;
 
 public class Thaumcraft extends ConfigFile {
 

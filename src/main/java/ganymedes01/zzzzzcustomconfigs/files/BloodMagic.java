@@ -1,19 +1,9 @@
 package ganymedes01.zzzzzcustomconfigs.files;
 
-import ganymedes01.zzzzzcustomconfigs.lib.ConfigFile;
-import ganymedes01.zzzzzcustomconfigs.xml.XMLBuilder;
-import ganymedes01.zzzzzcustomconfigs.xml.XMLNode;
-import ganymedes01.zzzzzcustomconfigs.xml.XMLParser;
-import ganymedes01.zzzzzcustomconfigs.xml.XMLParser.NodeType;
-
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
 import WayofTime.alchemicalWizardry.ModItems;
 import WayofTime.alchemicalWizardry.api.alchemy.AlchemyRecipeRegistry;
 import WayofTime.alchemicalWizardry.api.altarRecipeRegistry.AltarRecipeRegistry;
@@ -22,6 +12,15 @@ import WayofTime.alchemicalWizardry.api.items.ShapedBloodOrbRecipe;
 import WayofTime.alchemicalWizardry.api.items.ShapelessBloodOrbRecipe;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.registry.GameRegistry;
+import ganymedes01.zzzzzcustomconfigs.lib.ConfigFile;
+import ganymedes01.zzzzzcustomconfigs.xml.XMLBuilder;
+import ganymedes01.zzzzzcustomconfigs.xml.XMLNode;
+import ganymedes01.zzzzzcustomconfigs.xml.XMLParser;
+import ganymedes01.zzzzzcustomconfigs.xml.XMLParser.NodeType;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipe;
 
 public class BloodMagic extends ConfigFile {
 

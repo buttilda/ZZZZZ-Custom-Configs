@@ -1,17 +1,16 @@
 package ganymedes01.zzzzzcustomconfigs.files;
 
+import java.lang.reflect.Field;
+import java.util.HashMap;
+import java.util.Map.Entry;
+import java.util.Random;
+
 import ganymedes01.zzzzzcustomconfigs.lib.ConfigFile;
 import ganymedes01.zzzzzcustomconfigs.xml.XMLBuilder;
 import ganymedes01.zzzzzcustomconfigs.xml.XMLHelper;
 import ganymedes01.zzzzzcustomconfigs.xml.XMLNode;
 import ganymedes01.zzzzzcustomconfigs.xml.XMLParser;
 import ganymedes01.zzzzzcustomconfigs.xml.XMLParser.NodeType;
-
-import java.lang.reflect.Field;
-import java.util.HashMap;
-import java.util.Map.Entry;
-import java.util.Random;
-
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.WeightedRandomChestContent;

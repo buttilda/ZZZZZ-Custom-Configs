@@ -1,19 +1,18 @@
 package ganymedes01.zzzzzcustomconfigs.files;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import cpw.mods.fml.common.Loader;
 import ganymedes01.zzzzzcustomconfigs.lib.ConfigFile;
 import ganymedes01.zzzzzcustomconfigs.xml.XMLBuilder;
 import ganymedes01.zzzzzcustomconfigs.xml.XMLNode;
 import ganymedes01.zzzzzcustomconfigs.xml.XMLParser;
 import ganymedes01.zzzzzcustomconfigs.xml.XMLParser.NodeType;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import vazkii.botania.api.BotaniaAPI;
-import cpw.mods.fml.common.Loader;
 
 public class Botania extends ConfigFile {
 

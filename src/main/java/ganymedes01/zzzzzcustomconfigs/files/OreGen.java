@@ -1,15 +1,15 @@
 package ganymedes01.zzzzzcustomconfigs.files;
 
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Random;
+
+import cpw.mods.fml.common.eventhandler.Event.Result;
 import ganymedes01.zzzzzcustomconfigs.lib.ConfigFile;
 import ganymedes01.zzzzzcustomconfigs.xml.XMLBuilder;
 import ganymedes01.zzzzzcustomconfigs.xml.XMLNode;
 import ganymedes01.zzzzzcustomconfigs.xml.XMLParser;
 import ganymedes01.zzzzzcustomconfigs.xml.XMLParser.NodeType;
-
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Random;
-
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
@@ -18,7 +18,6 @@ import net.minecraft.world.gen.feature.WorldGenMinable;
 import net.minecraftforge.event.terraingen.OreGenEvent;
 import net.minecraftforge.event.terraingen.OreGenEvent.GenerateMinable;
 import net.minecraftforge.event.terraingen.TerrainGen;
-import cpw.mods.fml.common.eventhandler.Event.Result;
 
 public class OreGen extends ConfigFile {
 

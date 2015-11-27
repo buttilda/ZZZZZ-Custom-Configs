@@ -1,16 +1,15 @@
 package ganymedes01.zzzzzcustomconfigs.files;
 
-import ganymedes01.zzzzzcustomconfigs.ZZZZZCustomConfigs;
-import ganymedes01.zzzzzcustomconfigs.xml.XMLBuilder;
-
 import java.lang.reflect.Method;
 
+import cpw.mods.fml.common.Loader;
+import ganymedes01.zzzzzcustomconfigs.ZZZZZCustomConfigs;
+import ganymedes01.zzzzzcustomconfigs.xml.XMLBuilder;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.nbt.NBTTagCompound;
-import cpw.mods.fml.common.Loader;
 
 public class RotaryCraft extends CraftingRecipes {
 

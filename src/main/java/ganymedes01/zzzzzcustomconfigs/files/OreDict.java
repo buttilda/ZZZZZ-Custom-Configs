@@ -1,16 +1,15 @@
 package ganymedes01.zzzzzcustomconfigs.files;
 
+import java.lang.reflect.Field;
+import java.util.List;
+import java.util.Map;
+
 import ganymedes01.zzzzzcustomconfigs.handler.ConfigurationHandler;
 import ganymedes01.zzzzzcustomconfigs.lib.ConfigFile;
 import ganymedes01.zzzzzcustomconfigs.xml.XMLBuilder;
 import ganymedes01.zzzzzcustomconfigs.xml.XMLNode;
 import ganymedes01.zzzzzcustomconfigs.xml.XMLParser;
 import ganymedes01.zzzzzcustomconfigs.xml.XMLParser.NodeType;
-
-import java.lang.reflect.Field;
-import java.util.List;
-import java.util.Map;
-
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;

@@ -1,13 +1,5 @@
 package ganymedes01.zzzzzcustomconfigs;
 
-import ganymedes01.zzzzzcustomconfigs.handler.ConfigurationHandler;
-import ganymedes01.zzzzzcustomconfigs.handler.HandlerEvents;
-import ganymedes01.zzzzzcustomconfigs.imc.IMCHandler;
-import ganymedes01.zzzzzcustomconfigs.lib.ConfigFile;
-import ganymedes01.zzzzzcustomconfigs.lib.Reference;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.config.Configuration;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -19,6 +11,13 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLInterModComms;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import ganymedes01.zzzzzcustomconfigs.handler.ConfigurationHandler;
+import ganymedes01.zzzzzcustomconfigs.handler.HandlerEvents;
+import ganymedes01.zzzzzcustomconfigs.imc.IMCHandler;
+import ganymedes01.zzzzzcustomconfigs.lib.ConfigFile;
+import ganymedes01.zzzzzcustomconfigs.lib.Reference;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.config.Configuration;
 
 @Mod(modid = Reference.MOD_ID, name = Reference.MOD_NAME, version = Reference.VERSION_NUMBER, dependencies = Reference.DEPENDENCIES)
 public class ZZZZZCustomConfigs {

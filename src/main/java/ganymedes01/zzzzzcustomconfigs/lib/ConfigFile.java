@@ -1,14 +1,14 @@
 package ganymedes01.zzzzzcustomconfigs.lib;
 
-import ganymedes01.zzzzzcustomconfigs.handler.ConfigurationHandler;
-import ganymedes01.zzzzzcustomconfigs.xml.XMLHelper;
-import ganymedes01.zzzzzcustomconfigs.xml.XMLNode;
-
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import ganymedes01.zzzzzcustomconfigs.handler.ConfigurationHandler;
+import ganymedes01.zzzzzcustomconfigs.xml.XMLHelper;
+import ganymedes01.zzzzzcustomconfigs.xml.XMLNode;
 
 public abstract class ConfigFile implements Comparable<ConfigFile> {
 

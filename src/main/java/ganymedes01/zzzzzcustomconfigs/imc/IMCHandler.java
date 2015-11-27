@@ -1,16 +1,15 @@
 package ganymedes01.zzzzzcustomconfigs.imc;
 
-import ganymedes01.zzzzzcustomconfigs.ZZZZZCustomConfigs;
-import ganymedes01.zzzzzcustomconfigs.lib.StackUtils;
-import ganymedes01.zzzzzcustomconfigs.xml.XMLHelper;
-import ganymedes01.zzzzzcustomconfigs.xml.XMLParser.NodeType;
-
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
-import net.minecraft.item.ItemStack;
 import cpw.mods.fml.common.event.FMLInterModComms.IMCMessage;
+import ganymedes01.zzzzzcustomconfigs.ZZZZZCustomConfigs;
+import ganymedes01.zzzzzcustomconfigs.lib.StackUtils;
+import ganymedes01.zzzzzcustomconfigs.xml.XMLHelper;
+import ganymedes01.zzzzzcustomconfigs.xml.XMLParser.NodeType;
+import net.minecraft.item.ItemStack;
 
 public class IMCHandler {
 
