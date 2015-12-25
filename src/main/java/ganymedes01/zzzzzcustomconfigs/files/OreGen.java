@@ -117,7 +117,6 @@ public class OreGen extends ConfigFile {
 						int y = ore.minY + rand.nextInt(ore.maxY);
 						int z = chunkZ + rand.nextInt(16);
 
-						System.out.println("generate vein at: " + x + ", " + y + ", " + z);
 						generator.generate(world, rand, x, y, z);
 					}
 			}
