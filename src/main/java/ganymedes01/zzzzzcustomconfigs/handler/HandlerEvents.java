@@ -12,6 +12,7 @@ import net.minecraft.util.EnumChatFormatting;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.event.terraingen.OreGenEvent;
+import net.minecraftforge.event.terraingen.PopulateChunkEvent;
 import net.minecraftforge.event.world.BlockEvent.HarvestDropsEvent;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.OreDictionary.OreRegisterEvent;
@@ -38,9 +39,9 @@ public class HandlerEvents {
 	}
 
 	@SubscribeEvent(priority = EventPriority.LOWEST)
-	public void onPostOreGen(OreGenEvent.Post event) {
+	public void onPostOreGen(PopulateChunkEvent.Post event) {
 		if (!event.isCanceled())
-			OreGen.onPostOreGen(event.world, event.rand, event.worldX, event.worldZ);
+			OreGen.onPostOreGen(event.world, event.rand, event.chunkX, event.chunkZ);
 	}
 
 	@SubscribeEvent(priority = EventPriority.LOWEST)
