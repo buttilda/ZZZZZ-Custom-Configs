@@ -11,11 +11,13 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLInterModComms;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.registry.GameRegistry;
 import ganymedes01.zzzzzcustomconfigs.handler.ConfigurationHandler;
 import ganymedes01.zzzzzcustomconfigs.handler.HandlerEvents;
 import ganymedes01.zzzzzcustomconfigs.imc.IMCHandler;
 import ganymedes01.zzzzzcustomconfigs.lib.ConfigFile;
 import ganymedes01.zzzzzcustomconfigs.lib.Reference;
+import ganymedes01.zzzzzcustomconfigs.recipes.ItemFluid;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
 
@@ -47,6 +49,8 @@ public class ZZZZZCustomConfigs {
 		MinecraftForge.EVENT_BUS.register(HandlerEvents.INSTANCE);
 		MinecraftForge.ORE_GEN_BUS.register(HandlerEvents.INSTANCE);
 		ConfigurationHandler.preInit();
+
+		GameRegistry.registerItem(ItemFluid.instance, "item_fluid");
 	}
 
 	@EventHandler

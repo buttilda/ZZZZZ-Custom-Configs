@@ -6,6 +6,8 @@ import java.util.List;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 import ganymedes01.zzzzzcustomconfigs.lib.ConfigFile;
+import ganymedes01.zzzzzcustomconfigs.recipes.ShapedFluidRecipe;
+import ganymedes01.zzzzzcustomconfigs.recipes.ShapelessFluidRecipe;
 import ganymedes01.zzzzzcustomconfigs.xml.XMLBuilder;
 import ganymedes01.zzzzzcustomconfigs.xml.XMLNode;
 import ganymedes01.zzzzzcustomconfigs.xml.XMLParser;
@@ -14,15 +16,14 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraftforge.oredict.ShapedOreRecipe;
-import net.minecraftforge.oredict.ShapelessOreRecipe;
+import net.minecraftforge.oredict.OreDictionary;
 
 public class CraftingRecipes extends ConfigFile {
 
 	public static final List<IRecipe> addedRecipes = new LinkedList<IRecipe>();
 
 	private static String header = "Examples:\n\n";
+
 	static {
 		header += "The following is an example of a shapeless recipe. The number of inputs must not exceed 9 and you must number them (input1, input2, input3...)\n";
 		XMLBuilder builder = new XMLBuilder("shapeless");
@@ -40,10 +41,7 @@ public class CraftingRecipes extends ConfigFile {
 		builder.makeEntries("row", new Object[] { "x z", " x ", " y " });
 		builder.makeEntry("x", "stickWood");
 		builder.makeEntry("y", new ItemStack(Items.paper));
-		ItemStack stack = new ItemStack(Items.skull);
-		stack.setTagCompound(new NBTTagCompound());
-		stack.getTagCompound().setString("SkullOwner", "Notch");
-		builder.makeEntry("z", stack);
+		builder.makeEntry("z", new ItemStack(Items.skull, 1, OreDictionary.WILDCARD_VALUE));
 
 		header += builder.toString();
 	}
@@ -81,7 +79,7 @@ public class CraftingRecipes extends ConfigFile {
 					data.add(c);
 					data.add(XMLParser.parseNode(node.getNode(Character.toString(c)), NodeType.INPUT));
 				}
-				addRecipe(new ShapedOreRecipe(output, data.toArray()));
+				addRecipe(new ShapedFluidRecipe(output, data.toArray()));
 			} else if (node.getName().equals("shapeless")) {
 				List<Object> data = new ArrayList<Object>();
 				for (int i = 0; i < 9; i++) {
@@ -91,7 +89,7 @@ public class CraftingRecipes extends ConfigFile {
 					else
 						break;
 				}
-				addRecipe(new ShapelessOreRecipe(output, data.toArray()));
+				addRecipe(new ShapelessFluidRecipe(output, data.toArray()));
 			} else
 				throw new IllegalArgumentException("Invalid recipe name: " + node.getName());
 		}
