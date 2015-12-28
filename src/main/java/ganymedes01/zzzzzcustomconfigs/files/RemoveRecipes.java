@@ -20,6 +20,7 @@ import net.minecraft.item.crafting.IRecipe;
 public class RemoveRecipes extends ConfigFile {
 
 	private static String header = "Examples:\n\n";
+
 	static {
 		header += "The following shows how to recipe recipes for the diamond sword, iron sword and gold sword.\n";
 		header += "Smelting recipes will also be removed!\n";

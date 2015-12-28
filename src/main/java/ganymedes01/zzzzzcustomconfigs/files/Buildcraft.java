@@ -19,6 +19,7 @@ import net.minecraftforge.fluids.FluidStack;
 public class Buildcraft extends ConfigFile {
 
 	private static String header = "Examples:\n\n";
+
 	static {
 		header += "The following recipe takes lava and water as inputs and creates milk (Obs: Milk isn't a real liquid, unlessyou have a mod that adds it you can't use it)\n";
 		XMLBuilder builder = new XMLBuilder("refinery");

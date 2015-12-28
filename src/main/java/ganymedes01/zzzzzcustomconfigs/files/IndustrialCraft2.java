@@ -24,6 +24,7 @@ import net.minecraftforge.fluids.FluidStack;
 public class IndustrialCraft2 extends ConfigFile {
 
 	private static String header = "Examples:\n\n";
+
 	static {
 		header += "All of the inputs that are not fluids can be either an item or a ore dictionary name!\n\n";
 		header += "The following examples are valid for: macerator, extractor, compressor, metalformerExtruding, metalformerCutting, metalformerRolling\n";

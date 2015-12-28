@@ -21,6 +21,7 @@ public class BlockDrop extends ConfigFile {
 	private static List<BlockBundle> bundles = new LinkedList<BlockBundle>();
 
 	private static String header = "Examples:\n\n";
+
 	static {
 		header += "Use this file to add/remove drops from harvestable blocks\n";
 		header += "This may not work for every block. Modded blocks depend on their owners allowing this to happen and some vanilla ones have been bugged forever.\n\n";

@@ -17,6 +17,7 @@ import net.minecraftforge.fluids.FluidStack;
 public class ThermalExpansion extends ConfigFile {
 
 	private static String header = "Examples:\n\n";
+
 	static {
 		header += "NO ORE DICTIONARY INPUTS ALLOWED!\n\n";
 

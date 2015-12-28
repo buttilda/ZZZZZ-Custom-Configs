@@ -22,6 +22,7 @@ import net.minecraftforge.fluids.FluidStack;
 public class ExNihilo extends ConfigFile {
 
 	private static String header = "Examples:\n\n";
+
 	static {
 		XMLBuilder builder = new XMLBuilder("compost");
 		builder.makeEntry("input", new ItemStack(Items.carrot));

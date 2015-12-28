@@ -13,6 +13,7 @@ import net.minecraftforge.common.MinecraftForge;
 public class GrassLoot extends ConfigFile {
 
 	private static String header = "Examples:\n\n";
+
 	static {
 		header += "The following shows how to add potatoes and carrots as loot from breaking tall grass.\n";
 		header += "The bigger the weight value the more common the loot will be. The default weight (used by the wheat seeds) is 10.\n\n";

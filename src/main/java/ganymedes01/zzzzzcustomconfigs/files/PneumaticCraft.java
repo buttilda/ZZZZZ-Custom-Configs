@@ -18,6 +18,7 @@ import pneumaticCraft.api.recipe.PressureChamberRecipe;
 public class PneumaticCraft extends ConfigFile {
 
 	private static String header = "Examples:\n\n";
+
 	static {
 		XMLBuilder builder = new XMLBuilder("assemblydrill");
 		builder.makeEntry("input", new ItemStack(Items.porkchop));

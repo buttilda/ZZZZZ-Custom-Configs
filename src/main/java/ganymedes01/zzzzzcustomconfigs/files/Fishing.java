@@ -22,6 +22,7 @@ public class Fishing extends ConfigFile {
 	public static final List<IRecipe> addedRecipes = new LinkedList<IRecipe>();
 
 	private static String header = "Examples:\n\n";
+
 	static {
 		header += "This file allows adding items that can be fished with the vanilla fishing rod (whether or not it works with modded fishing rods is up to the modder who made them)\n";
 		header += "The higher the \"chance\" is the more likely it is that the item will be fished!\n";

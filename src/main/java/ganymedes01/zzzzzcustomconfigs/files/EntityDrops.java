@@ -22,6 +22,7 @@ import net.minecraftforge.oredict.OreDictionary;
 public class EntityDrops extends ConfigFile {
 
 	private static String header = "Vanilla entities names:\n\n";
+
 	static {
 		header += "Creeper\n";
 		header += "Skeleton\n";

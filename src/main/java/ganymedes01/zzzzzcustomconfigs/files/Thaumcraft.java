@@ -17,6 +17,7 @@ import thaumcraft.api.aspects.AspectList;
 public class Thaumcraft extends ConfigFile {
 
 	private static String header = "Examples:\n";
+
 	static {
 		header += "Aspects: ";
 		for (Entry<String, Aspect> entry : Aspect.aspects.entrySet())

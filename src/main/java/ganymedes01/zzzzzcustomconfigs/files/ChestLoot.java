@@ -19,6 +19,7 @@ import net.minecraftforge.common.ChestGenHooks;
 public class ChestLoot extends ConfigFile {
 
 	private static String header = "Chest loot types:\n\n";
+
 	static {
 		try {
 			Field f = ChestGenHooks.class.getDeclaredField("chestInfo");

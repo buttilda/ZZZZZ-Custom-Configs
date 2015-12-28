@@ -17,6 +17,7 @@ import vazkii.botania.api.BotaniaAPI;
 public class Botania extends ConfigFile {
 
 	private static String header = "Examples:\n\n";
+
 	static {
 		XMLBuilder builder = new XMLBuilder("petals");
 		builder.makeEntry("output", new ItemStack(Items.poisonous_potato));

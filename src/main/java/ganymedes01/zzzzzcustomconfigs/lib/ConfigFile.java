@@ -14,6 +14,7 @@ public abstract class ConfigFile implements Comparable<ConfigFile> {
 
 	private static File basePath;
 	private static String baseHeader = "";
+
 	static {
 		baseHeader += "The syntax for an item stack is the same as you'd use in the /give command. NBT tags are supported! (e.g. minecraft:skull 1 3 {SkullOwner:\"ganymedes01\"})\n";
 		baseHeader += "The syntax for a fluid stack is simiar to the item stack, it should be the fluid name followed by the amount. NBT tags are also supported! (e.g. water 1000)\n";

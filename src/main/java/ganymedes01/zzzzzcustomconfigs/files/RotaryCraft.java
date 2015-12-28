@@ -14,6 +14,7 @@ import net.minecraft.nbt.NBTTagCompound;
 public class RotaryCraft extends CraftingRecipes {
 
 	private static String header = "Examples:\n\n";
+
 	static {
 		header += "This file allows adding recipes to the RotaryCraft Worktable. Adding recipes with RotaryCraft items as outputs is NOT ALLOWED! You will be able to add recipes that use those items as inputs.";
 		header += "The following is an example of a shapeless recipe. The number of inputs must not exceed 9 and you must number them (input1, input2, input3...)\n";

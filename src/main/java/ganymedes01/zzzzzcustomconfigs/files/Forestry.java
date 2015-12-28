@@ -25,6 +25,7 @@ import net.minecraftforge.fluids.FluidStack;
 public class Forestry extends ConfigFile {
 
 	private static String header = "Examples:\n\n";
+
 	static {
 		XMLBuilder builder = new XMLBuilder("carpenter");
 		builder.makeEntry("box", new ItemStack(Blocks.planks));

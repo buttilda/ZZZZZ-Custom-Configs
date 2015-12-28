@@ -19,6 +19,7 @@ import net.minecraftforge.oredict.OreDictionary.OreRegisterEvent;
 public class OreDict extends ConfigFile {
 
 	private static String header = "Examples:\n\n";
+
 	static {
 		header += "THE ORE DICTIONARY DOES NOT SUPPORT NBT! THIS IS NOT THIS MOD'S FAULT BUT THE WAY THE ORE DICTIONARY ITSELF WAS CODED!\n";
 		header += "There is no limit to how many stack parameters you have, just make sure you number them (stack1, stack2, stack3...)\n";

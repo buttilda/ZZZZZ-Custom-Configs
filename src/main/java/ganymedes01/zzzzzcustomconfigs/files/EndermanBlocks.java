@@ -10,6 +10,7 @@ import net.minecraft.init.Blocks;
 public class EndermanBlocks extends ConfigFile {
 
 	private static String header = "Examples:\n\n";
+
 	static {
 		XMLBuilder builder = new XMLBuilder("EndermanBlocks");
 		builder.makeEntry("entry1", Blocks.crafting_table).addProperty("canCarry", "true");

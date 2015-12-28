@@ -25,6 +25,7 @@ import net.minecraft.item.crafting.IRecipe;
 public class BloodMagic extends ConfigFile {
 
 	private static String header = "Examples:\n\n";
+
 	static {
 		XMLBuilder builder = new XMLBuilder("altar");
 		builder.makeEntry("output", new ItemStack(Items.potato));

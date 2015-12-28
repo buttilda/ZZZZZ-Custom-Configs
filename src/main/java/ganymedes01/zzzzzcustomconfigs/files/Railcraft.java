@@ -22,6 +22,7 @@ import net.minecraftforge.oredict.OreDictionary;
 public class Railcraft extends ConfigFile {
 
 	private static String header = "Examples:\n\n";
+
 	static {
 		header += "Blast Furnace:\n";
 		XMLBuilder builder = new XMLBuilder("blastfurnace");
