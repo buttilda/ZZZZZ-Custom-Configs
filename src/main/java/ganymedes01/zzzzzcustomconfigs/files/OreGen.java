@@ -113,9 +113,9 @@ public class OreGen extends ConfigFile {
 
 				if (TerrainGen.generateOre(world, rand, generator, chunkX, chunkZ, GenerateMinable.EventType.CUSTOM))
 					for (int i = 0; i < ore.veinCount; i++) {
-						int x = chunkX + rand.nextInt(16);
+						int x = chunkX * 16 + rand.nextInt(16);
 						int y = ore.minY + rand.nextInt(ore.maxY);
-						int z = chunkZ + rand.nextInt(16);
+						int z = chunkZ * 16 + rand.nextInt(16);
 
 						generator.generate(world, rand, x, y, z);
 					}
